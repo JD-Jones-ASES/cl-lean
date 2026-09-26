@@ -476,13 +476,11 @@ theorem critical_repeat_pair_classified (i j : Fin 10) (w : Fin 6 → ℤ)
     (hL : planeLoneliness (canonicalRepeatVectors i) w ≤ (1:ℝ)/6) :
     KnownCriticalPlane (canonicalRepeatVectors i) w := by sorry
 
-theorem critical_planes_classified (hLRC : LonelyRunnerConjecture 5)
-    (hfive : TightFiveClassification) (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+theorem critical_planes_classified (hfive : TightFiveClassification) (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6) : KnownCriticalPlane c d := by sorry
 
-theorem critical_plane_question66 (hLRC : LonelyRunnerConjecture 5)
-    (hfive : TightFiveClassification) (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+theorem critical_plane_question66 (hfive : TightFiveClassification) (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6)
     (hv : (fun i => (v i:ℝ)) ∈ integerPlane c d)
@@ -490,18 +488,42 @@ theorem critical_plane_question66 (hLRC : LonelyRunnerConjecture 5)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) : ∀ i, |v i|<3*(q:ℤ) := by sorry
 
-theorem large_six_question66 (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+theorem large_six_question66 (htight : TightFiveClassification)
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6)
     (hlarge : 9*boxHeightConstant 6^2 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
 
-theorem question66_violation_speed_bound (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+theorem question66_violation_speed_bound (htight : TightFiveClassification)
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :
     speedNorm v<9*boxHeightConstant 6^2 := by sorry
 
 theorem lonely_runner_four : LonelyRunnerConjecture 4 := by sorry
+
+theorem lonely_runner_five : LonelyRunnerConjecture 5 := by sorry
+
+
+/-- Question 6.7 for six speeds: the global effective bound has no unproved
+lower-speed input. The off-critical assumption is the domain of the question. -/
+theorem six_offCritical_speedNorm_bound
+    (v : Fin 6 → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (hnear : loneliness v < (1:ℝ)/6) (hoff : OffCritical v) :
+    speedNorm v < 9*boxHeightConstant 6^2 := by sorry
+
+/-- The six-speed off-critical near-tight exceptions form a finite set. -/
+theorem six_finite_offCritical_near_tight :
+    Set.Finite {v : Fin 6 → ℤ | (∀ i, 0 < v i) ∧ PrimitiveSpeeds v ∧
+      loneliness v < (1:ℝ)/6 ∧ OffCritical v} := by sorry
+
+/-- A global linear denominator bound for all positive primitive near-tight
+sextuples. This coarse constant does not assert the sharp constant three. -/
+theorem six_speedNorm_lt_constant_mul_denominator
+    (v : Fin 6 → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (p q : ℕ) (hq : 0<q) (hvalue : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v < (1:ℝ)/6) :
+    speedNorm v < (3*boxHeightConstant 6)*q := by sorry
+
 
 end LonelyRunner

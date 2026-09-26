@@ -28,3 +28,4 @@ import LonelyRunner.EffectiveGlobal
 import LonelyRunner.RepeatCatalogue
 import LonelyRunner.Question66FiniteReduction
 import LonelyRunner.PlaneCertificateControls
+import LonelyRunner.SixGlobal

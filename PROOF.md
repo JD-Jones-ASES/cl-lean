@@ -474,15 +474,15 @@ gives the independent generator and rerun commands. Python, binary files,
 JSON, and numerical libraries are outside the proof dependency graph.
 
 `critical_planes_classified` concludes the full critical-plane classification
-under the five-speed Lonely Runner assertion and `TightFiveClassification`.
+under `TightFiveClassification`; the five-speed Lonely Runner theorem is proved below.
 The three displayed integer bases are proved saturated by reading two
 coordinates, so equality of real planes yields integer parameters for every
 integer direction. `critical_plane_question66` then gives the sharp $3q$
 bound without supplied family membership.
 
 Finally, `large_six_question66` combines this classification with the global
-height theorem: under the five-speed assertion and the tight-five
-classification, every positive primitive near-tight sextuple with
+height theorem: under the tight-five
+classification hypothesis, every positive primitive near-tight sextuple with
 
 $$\|v\|_2\ge9K(6)^2=12{,}853{,}682{,}015{,}846{,}400{,}000{,}000$$
 
@@ -490,7 +490,7 @@ satisfies $\max_i v_i<3q$. Every possible violation is below that explicit
 cutoff. This is a proved finite reduction; the box below it has **not** been
 exhaustively verified.
 
-## Proved lower-speed inputs through four speeds
+## Proved lower-speed inputs through five speeds
 
 `ConstrainedMaximum.lean` formalizes the extremal-time setup from Jérôme
 Renault, [*View-obstruction: a shorter proof for 6 lonely runners*](https://doi.org/10.1016/j.disc.2004.06.008),
@@ -525,14 +525,58 @@ below its upper endpoint, permitting a forward improvement. This contradiction
 proves `lonely_runner_four` without a lower-speed hypothesis. The two
 six-speed sharp-bound reduction theorems now use this proved result.
 
+
+`FiveDivisibility.lean` proves Renault's residue restrictions: a hypothetical
+primitive bad quintuple has at least two nonmultiples of two and at least two
+nonmultiples of three. If all but one speed were divisible by either modulus,
+the proved four-speed theorem and a half- or third-period shift would give a
+good time. A bad tuple also has a multiple of six, by evaluating at time $1/6$.
+
+`FiveSpeeds.lean` maximizes the position of that multiple-of-six runner while
+keeping the other four in $[1/6,5/6]$. The distinguished position is in
+$(0,1/6)$ and another runner is at $5/6$. The finite certificate in
+`RenaultFivePatterns.lean` tests 29 actions $t\mapsto\lambda t+\mu/6$:
+24 actions with $2\le\lambda\le5$, $0\le\mu\le5$, and five shifts with
+$\lambda=1$, $1\le\mu\le5$. Dilations require closed safety; shifts require
+the other runners to remain strictly below the upper boundary. Every one of
+the 792 allowed residue patterns admits an action for every three remaining
+positions in the entire closed safe interval.
+
+`RenaultFiveCells.lean` proves the continuous interpretation of the masks.
+It uses cells $[j/360,(j+1)/360]$ for $60\le j<300$, plus a zero-width cell
+at $5/6$ for the boundary runner. Exact integer endpoint inequalities imply
+safety throughout each cell. There are respectively 10, 43, 28, 17, 28, 43
+distinct masks for residues zero through five. The 22,596,480 mask triples
+are checked in 36 bounded slices by ordinary `decide +kernel`. The generated
+masks themselves, cell coverage, common-bit extraction, and every boundary
+case are also proved. `scripts/generate_five_speed_lean.py --check` independently
+replays the integer calculations and verifies the committed generated sources.
+It is not a trusted proof oracle.
+
+A dilation strictly improves the distinguished runner's distance. A shift
+preserves it while placing every other runner below the upper boundary, so a
+small forward perturbation improves it. Both contradict the constrained
+maximum. This proves `lonely_runner_five` for all zero-free integer quintuples.
+The proof uses Renault's analytic setup with a uniform interval certificate
+in place of the published residue casework; no novelty claim is made for
+this known theorem or for the certificate method.
+
+`SixGlobal.lean` now discharges both lower-speed assumptions in the six-speed
+instances. It proves the effective off-critical norm bound $9K(6)^2$, finiteness
+of the off-critical near-tight set, and the global bound
+$\|v\|_2<3K(6)q=113{,}374{,}080{,}000q$ for every positive primitive near-tight
+sextuple. None assumes the tight-five classification. The first is a direct,
+explicit six-speed answer to the speed-bounding question in Question 6.7;
+its coarse cutoff does not verify the exceptional region.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
 proposition. **It is a definition, not a proved theorem.** The current
-critical-plane classification is proved under explicit five-speed inputs.
+critical-plane classification retains only the tight-five classification input.
 The unrestricted bound still requires additional work:
 
-1. Supply the five-speed Lonely Runner and tight-five classification proofs,
+1. Supply the tight-five classification proof,
    and a sufficiently sharp global
    reduction for the six-speed exhaustive certificate. The global box theorem
    above has explicit hypotheses and a much larger cutoff.
@@ -736,5 +780,5 @@ The sharp global primitive inequality $\max_i v_i<3q$ in Question 6.6 remains
 unfinished. Neither the complete six-speed classification nor completeness of
 the nine-tuple list is asserted. The effective off-critical bound is proved in
 all dimensions $n\ge3$ conditional on the two explicitly stated lower-speed
-Lonely Runner assertions; the cases through four speeds are proved here,
-while the five-speed input remains explicit.
+Lonely Runner assertions; all cases through five speeds are proved here,
+so the six-speed effective bounds have no unproved lower-speed input.

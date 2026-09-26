@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 62 declared Challenge/Solution claims with the
+declaration, compares all 66 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
@@ -33,14 +33,17 @@ The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
 explicit in the general theorem and are not imported as axioms. The cases
-through four speeds are now formalized here, following Renault's
-[Appendix A](https://doi.org/10.1016/j.disc.2004.06.008). Both modular lemmas
-are proved by exact closed-cell inequalities and ordinary kernel reduction;
-all real inputs, boundary points, signs and gcd normalization are covered.
-The sharp unrestricted six-speed Question 6.6 and completeness of the sporadic list remain outside
-the proved scope. The critical-plane classification is now proved under the
-explicit five-speed assertion and tight-five classification hypothesis; neither
-five-speed input is proved in this package. Conditional
+through five speeds are now formalized here, following Renault's
+[constrained-maximum method](https://doi.org/10.1016/j.disc.2004.06.008). Exact
+closed-cell inequalities and ordinary kernel reduction cover all real inputs,
+boundary points, signs and gcd normalization. The five-speed proof uses an
+independently generated uniform certificate with 29 actions, 792 residue
+patterns and 22,596,480 mask triples. It proves a known theorem; no priority
+claim is made. The six-speed global off-critical and coarse denominator
+bounds now have no unproved input. The sharp unrestricted six-speed Question
+6.6 and completeness of the sporadic list remain outside the proved scope.
+The critical-plane classification retains the explicit tight-five
+classification hypothesis, which is not proved in this package. Conditional
 prime-capacity and assumed-height arithmetic lemmas remain supporting code but
 are no longer independently selected Challenge claims.
 
@@ -66,7 +69,7 @@ independent primitive repeat directions, then kernel-checks the complete
 Cramer certificates identify every survivor with a known family. This uses
 an independently written generator based on the mathematical profiles in
 Cordella's Section 3. The sharp bound now applies to all critical planes under
-the explicit five-speed inputs and, combined with the effective global result,
+the explicit tight-five classification input and, combined with the effective global result,
 to all near-tight sextuples above its coarse cutoff. The finite region below
 that cutoff remains unverified; this does not complete the exhaustive
 six-speed classification.

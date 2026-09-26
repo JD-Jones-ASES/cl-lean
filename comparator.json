@@ -63,7 +63,11 @@
     "LonelyRunner.critical_plane_question66",
     "LonelyRunner.large_six_question66",
     "LonelyRunner.question66_violation_speed_bound",
-    "LonelyRunner.lonely_runner_four"
+    "LonelyRunner.lonely_runner_four",
+    "LonelyRunner.lonely_runner_five",
+    "LonelyRunner.six_offCritical_speedNorm_bound",
+    "LonelyRunner.six_finite_offCritical_near_tight",
+    "LonelyRunner.six_speedNorm_lt_constant_mul_denominator"
   ],
   "permitted_axioms": [
     "propext",
