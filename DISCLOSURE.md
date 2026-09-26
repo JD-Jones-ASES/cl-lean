@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 57 declared Challenge/Solution claims with the
+declaration, compares all 58 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;

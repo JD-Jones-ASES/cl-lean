@@ -58,7 +58,8 @@
     "LonelyRunner.exists_plane_maximizer",
     "LonelyRunner.planeLoneliness_le_add_height",
     "LonelyRunner.planeLoneliness_denominator_bound",
-    "LonelyRunner.speedNorm_bound_of_noncritical_plane"
+    "LonelyRunner.speedNorm_bound_of_noncritical_plane",
+    "LonelyRunner.primitive_directions_bound_of_noncritical_plane"
   ],
   "permitted_axioms": [
     "propext",

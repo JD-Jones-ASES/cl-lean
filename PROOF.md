@@ -280,7 +280,25 @@ and therefore
 $$\boxed{\|v\|<\frac{3n}{2}H^2.}$$
 
 `PlaneHeight.lean` proves this implication without taking rationality,
-denominator control or density as hypotheses. To obtain Question 6.7's
+denominator control or density as hypotheses.
+
+For any **fixed** independent integer columns $c,d$, the same bound applies
+uniformly to all primitive parameter directions $v=Ac+Bd$. Choose integers
+$C,D$ with $AD-BC=1$ by Bézout and put $z=Cc+Dd$. The displayed plane
+$(v,z)$ has exactly the same image and area as $(c,d)$. These two invariances
+are proved in `PlaneDirections.lean`, by an explicit inverse parameter map
+and the Gram determinant identity. Thus, if $L(U)>1/n$,
+
+$$L(Ac+Bd)<1/n,\quad\gcd(A,B)=1
+\quad\Longrightarrow\quad
+\|Ac+Bd\|<\frac{3n}{2}H(c,d)^2.$$
+
+The bound contains no orbit parameters. This proves a finite reduction for
+every fixed noncritical integer plane, without an assumed good triangle,
+density estimate, rational maximum, or parameter cutoff. It still depends
+on the height of that plane.
+
+To obtain Question 6.7's
 bound depending only on $n$, the outstanding work is to construct a containing
 plane with uniformly bounded height and prove its loneliness is above $1/n$
 for every off-critical near-tight tuple, using the stated lower-speed

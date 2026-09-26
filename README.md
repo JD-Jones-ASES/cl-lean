@@ -45,6 +45,10 @@ The development proves the following results.
   $L(U)\le L(v)+H/(2\|v\|)$. Consequently
   $L(v)<1/n<L(U)$ implies $\|v\|<(3n/2)H^2$. These conclusions use the actual
   geometric definitions, with no assumed density or denominator estimate.
+  More generally, for a fixed plane basis $c,d$ with $L(U)>1/n$, every direction
+  $v=Ac+Bd$ with $\gcd(A,B)=1$ and $L(v)<1/n$ satisfies the same bound using
+  $H(c,d)$, independent of $A,B$. A proved Bézout change of basis gives this
+  finite reduction for the entire unbounded parameter family.
   $H$ is the area of the displayed basis; saturation is not assumed or claimed.
 - **Exact finite optimization, for every number of speeds.** Every maximizing
   time has the form $m/(v_i+v_j)$, and $L(v)=a/(v_i+v_j)$ for integers
@@ -111,7 +115,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 57 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 58 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

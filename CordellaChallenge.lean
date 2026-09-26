@@ -458,4 +458,14 @@ theorem speedNorm_bound_of_noncritical_plane {n : ℕ} [NeZero n] (v z : Fin n �
     (hnear : loneliness v < 1/(n : ℝ)) (hplane : 1/(n : ℝ) < planeLoneliness v z) :
     speedNorm v < (3*(n : ℝ)/2)*planeHeight v z^2 := by sorry
 
+/-- All primitive near-tight directions in a fixed noncritical integer plane
+have a uniform norm bound depending only on that plane's original basis.
+There is no bound or search assumption on the integer parameters. -/
+theorem primitive_directions_bound_of_noncritical_plane {n : ℕ} [NeZero n]
+    (c d : Fin n → ℤ) (i j : Fin n) (hij : c i*d j-d i*c j ≠ 0)
+    (hplane : 1/(n : ℝ) < planeLoneliness c d)
+    (A B : ℤ) (hprim : Int.gcd A B=1)
+    (hnear : loneliness (torusSpeeds c d A B) < 1/(n : ℝ)) :
+    speedNorm (torusSpeeds c d A B) < (3*(n : ℝ)/2)*planeHeight c d^2 := by sorry
+
 end LonelyRunner

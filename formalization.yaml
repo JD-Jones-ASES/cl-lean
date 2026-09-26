@@ -16,6 +16,8 @@ project:
     actual loneliness, with reduced denominator at most three times the
     displayed basis area H, and proves the orbit density inequality.
     Consequently L(v) < 1/n < L(U) implies norm(v) < (3n/2) H^2.
+    A proved Bezout change of basis makes this a uniform finite reduction
+    for all coprime parameter directions in any fixed noncritical plane.
     The uniform height construction remains outstanding. The unrestricted
     Questions 6.6 and 6.7 remain targets, not proved theorems.
     Every maximizing time for positive integer speeds is rational. The
@@ -87,7 +89,7 @@ review:
     demonstrated research interest of its conditional prime-obstruction group.
     The present revision has not been resubmitted or editorially approved.
 scope:
-  completed: The 57 theorems listed in comparator.json and their supporting development.
+  completed: The 58 theorems listed in comparator.json and their supporting development.
   excluded: >-
     Global resolutions of Questions 6.6 and 6.7; construction of a uniformly
     bounded-height containing plane; the sharp denominator-height constant;
