@@ -1,21 +1,43 @@
-# Critical-Family Bounds and Exact Maxima for Lonely Runners
+# Effective Global Bounds and Critical Families for Lonely Runners
 
-A Lean formalization of the bound $\max_i|v_i|<3q$ on all three explicit
-critical families, exact optimization, and the nine sporadic values in Francesco Cordella's
+A Lean formalization of explicit global speed bounds under lower-speed Lonely Runner
+hypotheses, the sharp bound $\max_i|v_i|<3q$ on all three explicit critical families,
+and exact optimization, motivated by Francesco Cordella's
 [*Odd denominators in the Lonely Runner spectrum for six speeds*](https://arxiv.org/abs/2609.03444v2).
 
 For positive integer speeds $v_1,\ldots,v_n$, write
 
 $$L(v)=\max_{t\in\mathbb R}\min_i\|tv_i\|_{\mathbb R/\mathbb Z}.$$
 
-The targets are the **unrestricted** primitive six-speed bound in Question 6.6
-and the effective off-critical speed bound in Question 6.7. Neither global
-theorem is **yet formalized**: the exhaustive classification and construction
-of a uniformly bounded-height containing plane remain outside the Lean proof.
-The current critical-family theorems have unbounded parameters and no assumed modular cover.
+The development now proves an **effective global off-critical bound** addressing
+Question 6.7 under the same lower-speed Lonely Runner hypotheses used in the
+paper's reduction lemma. It also proves an explicit $C(n)q$ bound for every
+positive primitive near-tight tuple. The sharp unrestricted six-speed bound
+$\max_i v_i<3q$ in Question 6.6 remains unfinished; it is proved here on the
+three explicit critical families, without parameter cutoffs.
 
 The development proves the following results.
 
+- **Global effective bounds.** Put $K(n)=n^n[n(n-1)]^{n-2}$, with $n\ge3$.
+  Assume the Lonely Runner assertions for $n-1$ and $n-2$ nonzero integer
+  speeds. For every positive primitive $v$ with $L(v)<1/n$, Lean proves:
+
+  $$v\text{ off-critical}\quad\Longrightarrow\quad
+    \|v\|_2<\frac{3n}{2}K(n)^2.$$
+
+  “Off-critical” means no independent integer $z$ gives
+  $L(\operatorname{span}_{\mathbb R}(v,z))=1/n$ modulo the integer lattice.
+  The exceptional set is proved finite. Conversely, a near-tight tuple above
+  this norm cutoff lies in a critical rational two-plane. If $L(v)=p/q$ and
+  $k=q-np$, then every such tuple, including all exceptions, satisfies
+
+  $$\|v\|_2<\frac{nK(n)}{2}\frac{q}{k}\le\frac{nK(n)}{2}q.$$
+
+  The containing plane and its bound $H<K(n)$ are constructed in Lean using
+  a shortest integer projection and Minkowski's theorem on an orthogonal box.
+  Density, denominator bounds, and both rank reductions are proved. The
+  lower-speed Lonely Runner assertions are **explicit hypotheses**, not proved
+  here or imported as axioms. Distinctness of speeds is unnecessary.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
@@ -68,13 +90,6 @@ The development proves the following results.
   and loneliness exactly $1/n$. Its largest speed is unbounded for fixed
   $n$. The explicit maximizing time $(d+1)/(nd)$ has reduced denominator
   $nd$, giving unbounded ratios of time denominator to value denominator.
-- **Supporting prime-capacity lemmas.** For six distinct positive speeds,
-  let $B\ge1$ and $k\ge0$ be integers and suppose
-  $3\sum_i v_i^2<B^{2(k+1)}$. If more than $116k$ distinct primes at least $B$
-  each divide a nonzero signed coordinate form with at most three terms, then an integer relation $v_i+v_j=v_\ell$ holds at
-  three distinct indices. Here “nonzero” refers to the coefficient vector;
-  its value may be zero. A proved specialization uses 233 primes at least
-  139 and the hypothesis $49\sum_i v_i^2<159439954591875$.
 - **Exact values over all real times.** Finite rational interval certificates
   give upper bounds, and rational witness times give matching lower bounds.
 
@@ -96,13 +111,14 @@ invariance also gives $L(2,6,8,10,36,92)=4/25$ with $92>3\cdot25$,
 showing why a bound on speeds in terms of the reduced denominator requires
 primitive normalization.
 
-The submission does **not** claim the global resolutions of Cordella's
-Questions 6.6 and 6.7, or completeness of the sporadic list. In particular,
-$q\le2\max v_i-1$ is a bound on the denominator; Question 6.6 asks for a bound
-in the other direction. The supporting prime-capacity lemmas still have explicit norm and modular-cover
-hypotheses; the new critical-family theorems use neither. [Proof](PROOF.md) gives the arguments
-and the precise scope; [Disclosure](DISCLOSURE.md) records authorship,
-automation and verification.
+The sharp global Question 6.6, completeness of the sporadic list, and proofs
+of the lower-speed Lonely Runner assertions remain outside the proved scope.
+For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
+it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
+The earlier conditional prime-capacity and assumed-height arithmetic lemmas
+remain supporting code, with their assumptions unchanged; they are no longer
+separately selected submission claims. [Proof](PROOF.md) gives the arguments
+and exact scope; [Disclosure](DISCLOSURE.md) records sources and verification.
 
 Build with the pinned Lean and Mathlib revisions:
 
@@ -115,7 +131,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 58 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 53 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

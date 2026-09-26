@@ -1,6 +1,6 @@
 version: v0.4
 project:
-  name: Critical-Family Bounds and Exact Maxima for Lonely Runners
+  name: Effective Global Bounds and Critical Families for Lonely Runners
   description: >-
     Proves max_i |v_i| < 3q on all three explicit critical families, with
     primitive nonzero speeds, arbitrary signs and coordinate permutations,
@@ -18,8 +18,15 @@ project:
     Consequently L(v) < 1/n < L(U) implies norm(v) < (3n/2) H^2.
     A proved Bezout change of basis makes this a uniform finite reduction
     for all coprime parameter directions in any fixed noncritical plane.
-    The uniform height construction remains outstanding. The unrestricted
-    Questions 6.6 and 6.7 remain targets, not proved theorems.
+    For n >= 3, under explicit Lonely Runner hypotheses for n-1 and n-2
+    speeds, constructs a containing plane of height H < K(n), where
+    K(n) = n^n [n(n-1)]^(n-2), and proves the global off-critical bound
+    norm(v) < (3n/2) K(n)^2 for every positive primitive near-tight tuple.
+    The exception set is proved finite, and every larger near-tight direction
+    lies in a critical rational two-plane. All near-tight tuples, including
+    exceptions, satisfy norm(v) < (n K(n)/2) q/k <= (n K(n)/2) q.
+    The lower-speed assertions remain hypotheses, not imported axioms.
+    The sharp unrestricted six-speed Question 6.6 remains unfinished.
     Every maximizing time for positive integer speeds is rational. The
     reduced loneliness denominator divides an opposing active-pair sum
     after dividing by the pair's gcd. At a maximizing time of reduced
@@ -29,14 +36,11 @@ project:
     primitive family (1,d,2d,...,(n-1)d), d = n^(e+1), has loneliness 1/n,
     unbounded largest speed and explicit maximizing times with unbounded
     ratios of time denominator to value denominator. The development also
-    proves exact finite-grid optimization, all nine sporadic values in
-    Cordella's Table 2, and a general finite-prime obstruction to six
-    distinct positive speeds being free of additive triads. The numerical
-    obstruction uses 233 distinct primes at least 139, under explicit norm
-    and modular covering hypotheses. Scaling invariance, plane geometry and
-    supporting effective-bound arithmetic are included. The global resolutions of
-    Questions 6.6 and 6.7 and completeness of the sporadic list are outside
-    the submitted scope.
+    proves exact finite-grid optimization and all nine sporadic values in
+    Cordella's Table 2. Earlier conditional prime-capacity and assumed-height
+    arithmetic lemmas remain supporting code but are not selected claims.
+    The exhaustive six-speed classification and completeness of the sporadic
+    list are outside the submitted scope.
   authors: [JD Jones]
   responsible_maintainers: [JD Jones]
   license: MIT
@@ -56,8 +60,19 @@ sources:
       runners. The denominator, boundary-family, critical-family and prime-obstruction
       arguments are presented in PROOF.md and the Lean sources. No claim
       of literature priority is made for these extensions. Questions 6.6
-      and 6.7 motivate the application; their global resolutions are not
-      asserted by this submission.
+      and 6.7 motivate the application. The effective global off-critical bound
+      is proved under the reduction lemma's explicit lower-speed hypotheses;
+      the sharp unrestricted six-speed Question 6.6 is not asserted.
+  - title: The structure of Lonely Runner spectra
+    authors: [Vikram Giri, Noah Kravitz]
+    type: paper
+    url: https://arxiv.org/abs/2304.01462v4
+    relationship: adapts
+    author_endorsement: not-contacted
+    note: >-
+      Lemma 3.3 is the source of the lower-speed rank reductions.
+      The required rank-two and rank-three lower bounds are proved directly
+      here from explicit lower-speed Lonely Runner hypotheses.
 automation:
   methods:
     - method: agent
@@ -74,7 +89,7 @@ automation:
         Supplied an automated mathematical assessment and proposed
         denominator, boundary-family and prime-threshold extensions. A separate
         mathematical consultation supplied the projection-height mechanism
-        reconstructed in the research notes and partially formalized here.
+        reconstructed in the research notes and formalized here with coarse constants.
         The assessment did not include a Lean rebuild. Included extensions
         were subsequently checked and formalized by Codex.
 review:
@@ -89,10 +104,10 @@ review:
     demonstrated research interest of its conditional prime-obstruction group.
     The present revision has not been resubmitted or editorially approved.
 scope:
-  completed: The 58 theorems listed in comparator.json and their supporting development.
+  completed: The 53 theorems listed in comparator.json and their supporting development.
   excluded: >-
-    Global resolutions of Questions 6.6 and 6.7; construction of a uniformly
-    bounded-height containing plane; the sharp denominator-height constant;
-    completeness of the sporadic list; critical-torus classification;
-    unconditional finite-field prime assertions; complete critical-family spectrum; classification of all
+    Sharp unrestricted six-speed Question 6.6; proofs of the lower-speed Lonely
+    Runner assertions; the sharp denominator-height constant; completeness of
+    the sporadic list; critical-torus classification; unconditional finite-field
+    prime assertions; complete critical-family spectrum; classification of all
     maximizing times for the boundary family.

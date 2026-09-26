@@ -1,13 +1,12 @@
 import Mathlib
 
 /-!
-# Exact Maxima and Prime Obstructions for Lonely Runners
+# Effective Global Bounds and Critical Families for Lonely Runners
 
-Exact finite optimization for arbitrary positive integer speeds, certified
-sporadic values, and finite-prime lifting of short relations. The global
-resolutions of Cordella's Questions 6.6 and 6.7 are outside the submitted scope.
-The plane density and denominator bounds below are proved geometric conclusions.
-The global height construction and modular covering remain outside the proved scope.
+Global height, off-critical speed, and denominator bounds under explicit lower-speed
+Lonely Runner hypotheses; sharp 3q bounds on the three explicit six-speed families;
+and exact optimization. The unrestricted sharp six-speed Question 6.6 is still open
+in this development. The geometric estimates are proved conclusions, not hypotheses.
 -/
 
 namespace LonelyRunner
@@ -34,22 +33,6 @@ assert that the two columns generate the saturated integer lattice of their plan
 noncomputable def planeHeight {n : ℕ} (v z : Fin n → ℤ) : ℝ :=
   Real.sqrt ((∑ i, (v i : ℝ)^2)*(∑ i, (z i : ℝ)^2)-
     (∑ i, (v i : ℝ)*(z i : ℝ))^2)
-
-/-- The ternary codes 0, 1, 2 represent coefficients -1, 0, 1. -/
-def shortCoeff (c : Fin 6 → Fin 3) (i : Fin 6) : ℤ := (c i : ℤ) - 1
-
-/-- Nonzero signed coordinate forms on at most three coordinates, up to overall sign. -/
-def shortForms : Finset (Fin 6 → Fin 3) := Finset.univ.filter fun c =>
-  (∑ i, shortCoeff c i ^ 2) ≤ 3 ∧
-  ∃ i, shortCoeff c i = 1 ∧ ∀ j, j < i → shortCoeff c j = 0
-
-/-- Integer evaluation of a signed coordinate form. -/
-def shortValue (c : Fin 6 → Fin 3) (v : Fin 6 → ℤ) : ℤ :=
-  ∑ i, shortCoeff c i * v i
-
-/-- An additive relation among three distinct runner indices. -/
-def HasTriad (v : Fin 6 → ℤ) : Prop :=
-  ∃ i j k, i ≠ j ∧ i ≠ k ∧ j ≠ k ∧ v i + v j = v k
 
 /-- Cordella Table 2, tuple 1. -/
 def sporadic1 : Fin 6 → ℤ := ![1, 2, 5, 6, 7, 8]
@@ -86,41 +69,6 @@ def boundarySpeeds (n e : ℕ) (i : Fin n) : ℤ :=
 def boundaryTime (n e : ℕ) : ℚ :=
   ((n ^ (e + 1) + 1 : ℕ) : ℚ) / ((n * n ^ (e + 1) : ℕ) : ℚ)
 
-/-- An integer below `B^(k+1)` has at most `k` distinct prime divisors at least `B`. -/
-theorem prime_divisor_capacity (P : Finset ℕ) (M B k : ℕ)
-    (hB : 1 ≤ B) (hM : 0 < M) (hsize : M < B ^ (k + 1))
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
-    (hd : ∀ p ∈ P, p ∣ M) : P.card ≤ k := by sorry
-
-/-- Integer-valued version, allowing arbitrary signs. -/
-theorem integer_prime_cover_capacity {ι : Type*} [DecidableEq ι]
-    (P : Finset ℕ) (W : Finset ι) (a : ι → ℤ) (B k : ℕ)
-    (hB : 1 ≤ B) (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
-    (ha : ∀ w ∈ W, a w ≠ 0 ∧ (a w).natAbs < B ^ (k + 1))
-    (hcover : ∀ p ∈ P, ∃ w ∈ W, (p : ℤ) ∣ a w) : P.card ≤ k * W.card := by sorry
-
-/-- Six coordinate forms, thirty pair forms, and eighty triad forms. -/
-theorem shortForms_card : shortForms.card = 116 := by sorry
-
-/-- The finite-prime transfer underlying the triad-free proof.
-The modular covering assertions and speed norm bound are explicit inputs. -/
-theorem short_relation_of_prime_cover (v : Fin 6 → ℤ) (P : Finset ℕ)
-    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
-    (hcard : 233 ≤ P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 149 ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
-    ∃ c ∈ shortForms, shortValue c v = 0 := by sorry
-
-/-- The 233-prime implication in terms of actual additive triads.
-The norm bound and finite modular assertions have not been discharged here. -/
-theorem triad_of_prime_cover (v : Fin 6 → ℤ) (P : Finset ℕ)
-    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
-    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
-    (hcard : 233 ≤ P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 149 ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
-    HasTriad v := by sorry
-
 /-- Simultaneously multiplying all nonzero speeds changes the time parameter, not loneliness. -/
 theorem loneliness_scale {n : ℕ} [NeZero n] (v : Fin n → ℤ) (c : ℤ) (hc : c ≠ 0) :
     loneliness (fun i => c * v i) = loneliness v := by sorry
@@ -133,27 +81,6 @@ theorem exists_maximizing_time {n : ℕ} [NeZero n] (v : Fin n → ℤ) :
 theorem rational_gap (a b n : ℕ) (hb : 0 < b) (hn : 0 < n)
     (h : (1 : ℝ) / n < (a : ℝ) / b) :
     1 / ((n : ℝ) * b) ≤ (a : ℝ) / b - 1 / n := by sorry
-
-/-- Arithmetic conclusion of the projection-height argument.
-The height and density inequalities are explicit hypotheses; this lemma does not construct a torus. -/
-theorem speed_bound_from_height (V H K n q k : ℝ)
-    (hV : 0 < V) (hn : 0 < n) (hq : 0 < q) (hk : 0 < k)
-    (hheight : H < K) (hdensity : k / (n * q) ≤ H / (2 * V)) :
-    V < (n * K / 2) * (q / k) := by sorry
-
-/-- The off-critical gap gives a uniform bound on the speed norm.
-The real `U` is a torus loneliness value with denominator `b`; `H` bounds its height. -/
-theorem off_critical_bound_from_height (V H K U n : ℝ) (b : ℕ)
-    (hV : 0 < V) (hH : 0 < H) (hn : 0 < n) (hb : 0 < b)
-    (hK : H < K) (hden : (b : ℝ) ≤ Real.sqrt 3 * H)
-    (hgap : 1 / (n * b) ≤ U - 1 / n)
-    (hdensity : U - 1 / n < H / (2 * V)) :
-    V < (n * Real.sqrt 3 / 2) * K ^ 2 := by sorry
-
-/-- The exact six-speed coordinate cutoff from the stated squared-norm inequality. -/
-theorem six_speed_coordinate_cutoff (v : Fin 6 → ℤ)
-    (hv : 49 * (∑ j, v j ^ 2) < 159439954591875) :
-    ∀ i, (v i).natAbs ≤ 1803850 := by sorry
 
 /-- Exact loneliness of `(1, 2, 5, 6, 7, 8)` over all real times. -/
 theorem sporadic1_value : loneliness sporadic1 = ((2 / 13) : ℝ) := by sorry
@@ -224,24 +151,6 @@ theorem reduced_denominator_dvd_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ
 theorem reduced_denominator_le_twice_max {n : ℕ} [NeZero n] (v : Fin n → ℤ)
     (hpos : ∀ i, 0 < v i) (a q M : ℕ) (hq : 0 < q) (hcop : a.Coprime q)
     (hvalue : loneliness v = (a : ℝ) / q) (hM : ∀ i, v i ≤ M) : q ≤ 2 * M := by sorry
-
-/-- A general norm threshold for lifting sufficiently many modular short relations
-into an integer short relation. -/
-theorem short_relation_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
-    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
-    (hcard : 116 * k < P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
-    ∃ c ∈ shortForms, shortValue c v = 0 := by sorry
-
-/-- A general finite-prime obstruction to being triad-free, for positive distinct speeds. -/
-theorem triad_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
-    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
-    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
-    (hcard : 116 * k < P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
-    HasTriad v := by sorry
 
 /-- A maximizing time has an increasing and a decreasing active runner.
 The floor values locate their opposing sides of the same feasible cell. -/
@@ -318,30 +227,6 @@ theorem primitive_boundary_unbounded (n C : ℕ) [NeZero n] (hn : 3 ≤ n) :
 /-- The explicit maximizing time is already reduced, with denominator `n^(e+2)`. -/
 theorem boundary_time_denominator (n e : ℕ) (hn : 3 ≤ n) :
     (boundaryTime n e).den = n ^ (e + 2) := by sorry
-
-/-- Distinctness improves the prime-product threshold to `139*149*151`. -/
-theorem prime_divisor_capacity_139 (P : Finset ℕ) (M : ℕ)
-    (hM : 0 < M) (hsize : M < 3127361)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
-    (hd : ∀ p ∈ P, p ∣ M) : P.card ≤ 2 := by sorry
-
-/-- The same numerical norm bound permits all primes at least 139, while
-retaining the requirement of 233 distinct modular covering assertions. -/
-theorem short_relation_of_prime_cover_139 (v : Fin 6 → ℤ) (P : Finset ℕ)
-    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
-    (hcard : 233 ≤ P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
-    ∃ c ∈ shortForms, shortValue c v = 0 := by sorry
-
-/-- The refined 233-prime criterion forces an additive triad among distinct positive speeds. -/
-theorem triad_of_prime_cover_139 (v : Fin 6 → ℤ) (P : Finset ℕ)
-    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
-    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
-    (hcard : 233 ≤ P.card)
-    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
-    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) : HasTriad v := by sorry
-
 
 /-! Verified development toward the unrestricted Question 6.6 target.
 The critical-family theorem retains explicit membership. No global classification
@@ -467,5 +352,68 @@ theorem primitive_directions_bound_of_noncritical_plane {n : ℕ} [NeZero n]
     (A B : ℤ) (hprim : Int.gcd A B=1)
     (hnear : loneliness (torusSpeeds c d A B) < 1/(n : ℝ)) :
     speedNorm (torusSpeeds c d A B) < (3*(n : ℝ)/2)*planeHeight c d^2 := by sorry
+
+def LonelyRunnerConjecture (n : ℕ) : Prop :=
+  ∀ v : Fin n → ℤ, (∀ i, v i ≠ 0) →
+    ∃ t : ℝ, ∀ i, 1/((n : ℝ)+1) ≤ intDist (t*v i)
+
+noncomputable def boxHeightConstant (n : ℕ) : ℝ :=
+  (n:ℝ)^n*((n:ℝ)*((n:ℝ)-1))^(n-2)
+
+def OffCritical {n : ℕ} [NeZero n] (v : Fin n → ℤ) : Prop :=
+  ∀ z : Fin n → ℤ, (∃ i j, v i*z j-z i*v j ≠ 0) →
+    planeLoneliness v z ≠ 1/(n:ℝ)
+
+theorem planeLoneliness_lower_bound_of_lrc {n : ℕ} (hLRC : LonelyRunnerConjecture n)
+    (c d : Fin (n+1) → ℤ) (hc : ∀ i, c i ≠ 0)
+    (a b : Fin (n+1)) (hab : c a*d b-d a*c b ≠ 0) :
+    1/((n : ℝ)+1) ≤ planeLoneliness c d := by sorry
+
+theorem exists_planeHeight_lt_box_constant {m : ℕ}
+    (hLRC : LonelyRunnerConjecture (m+1)) (v : Fin (m+3) → ℤ)
+    (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (hnear : loneliness v < 1/((m:ℝ)+3)) :
+    ∃ z : Fin (m+3) → ℤ, (∃ i j, v i*z j-z i*v j ≠ 0) ∧
+      planeHeight v z < boxHeightConstant (m+3) := by sorry
+
+theorem offCritical_speedNorm_bound {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2))
+    (v : Fin (m+3) → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (hnear : loneliness v < 1/((m:ℝ)+3)) (hoff : OffCritical v) :
+    speedNorm v < (3*((m:ℝ)+3)/2)*boxHeightConstant (m+3)^2 := by sorry
+
+theorem finite_offCritical_near_tight {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2)) :
+    Set.Finite {v : Fin (m+3) → ℤ | (∀ i, 0 < v i) ∧ PrimitiveSpeeds v ∧
+      loneliness v < 1/((m:ℝ)+3) ∧ OffCritical v} := by sorry
+
+theorem large_near_tight_has_critical_plane {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2))
+    (v : Fin (m+3) → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (hnear : loneliness v < 1/((m:ℝ)+3))
+    (hlarge : (3*((m:ℝ)+3)/2)*boxHeightConstant (m+3)^2 ≤ speedNorm v) :
+    ∃ z : Fin (m+3) → ℤ, (∃ i j, v i*z j-z i*v j ≠ 0) ∧
+      planeLoneliness v z=1/((m:ℝ)+3) := by sorry
+
+theorem speedNorm_bound_by_loneliness_gap {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2))
+    (v : Fin (m+3) → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (hnear : loneliness v < 1/((m:ℝ)+3)) :
+    speedNorm v < boxHeightConstant (m+3)/(2*(1/((m:ℝ)+3)-loneliness v)) := by sorry
+
+theorem speedNorm_bound_by_reduced_denominator {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2))
+    (v : Fin (m+3) → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (p q : ℕ) (hq : 0<q) (hvalue : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v < 1/((m:ℝ)+3)) :
+    speedNorm v < (((m:ℝ)+3)*boxHeightConstant (m+3)/2)*q/
+      ((q:ℝ)-((m:ℝ)+3)*p) := by sorry
+
+theorem speedNorm_lt_constant_mul_denominator {m : ℕ}
+    (hLRC₂ : LonelyRunnerConjecture (m+1)) (hLRC₁ : LonelyRunnerConjecture (m+2))
+    (v : Fin (m+3) → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
+    (p q : ℕ) (hq : 0<q) (hvalue : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v < 1/((m:ℝ)+3)) :
+    speedNorm v < (((m:ℝ)+3)*boxHeightConstant (m+3)/2)*q := by sorry
 
 end LonelyRunner

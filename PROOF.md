@@ -5,6 +5,126 @@ integer tuple $v$, define $L(v)=\sup_t\min_i\|tv_i\|$. Lean uses the norm
 on $\mathbb R/\mathbb Z$. Integer periodicity reduces times to $[0,1]$;
 continuity and compactness show that the supremum is attained.
 
+## Explicit global bounds under lower-speed Lonely Runner hypotheses
+
+Let $n\ge3$, and assume the Lonely Runner assertions for $n-1$ and $n-2$
+nonzero integer speeds. The Lean definition `LonelyRunnerConjecture r` says
+that every nonzero integer $r$-tuple has a time with all distances at least
+$1/(r+1)$. These are parameters of the theorems, never new axioms or hidden
+proof obligations. Let $v$ have positive integer coordinates, gcd one, and
+$L(v)<1/n$. Distinctness is unnecessary. Put
+
+$$\Delta=\frac1{n(n-1)},\qquad K(n)=n^n[n(n-1)]^{n-2}.$$
+
+`EffectiveGlobal.lean` proves the following dimension-only conclusions:
+
+- If $v$ lies in no critical rational two-plane, then
+  $\|v\|_2<(3n/2)K(n)^2$. There are only finitely many such tuples.
+- Every near-tight primitive tuple above that cutoff lies in a critical
+  rational two-plane.
+- If $L(v)=p/q$ and $k=q-np>0$, then
+  $\|v\|_2<(nK(n)/2)q/k\le(nK(n)/2)q$, with no exception set.
+  This even holds for nonreduced presentations $p/q$.
+
+A critical plane here is an independent integer span $(v,z)$ whose actual
+whole-plane loneliness is $1/n$. `OffCritical` quantifies over every integer
+$z$ with a nonzero two-row minor. Every rational two-plane containing $v$
+admits such an integer column; saturation is unnecessary for the argument.
+The formal conclusions use this explicit algebraic formulation throughout.
+
+### Lower-speed reductions
+
+`SubtorusReduction.lean` proves the rank-two reduction directly. After changing
+coordinate signs, the first generator $c$ is positive. Choose adjacent distinct
+values among the ratios $d_i/c_i$. The combination
+
+$$w=(d_i+d_j)c-(c_i+c_j)d$$
+
+has no zero coordinate: its slope lies strictly in the chosen gap. Its $i,j$
+coordinates are opposite. Delete one of them, apply the lower-speed Lonely
+Runner hypothesis, and restore the omitted coordinate. This gives
+$L(\operatorname{span}(c,d))\ge1/n$.
+
+`ThreeTorus.lean` repeats the deletion inside a three-dimensional integer span.
+A nonzero three-row determinant ensures independence after restriction; an
+explicit determinant identity preserves the needed rank. Under the assertion
+for $n-2$ speeds, there is a three-plane point whose coordinate distances are
+all at least $1/(n-1)$. This is a direct formal proof of the lower bounds needed
+from [Giri–Kravitz, Lemma 3.3](https://arxiv.org/html/2304.01462v4#S3).
+No classification of subtori is assumed.
+
+### A shortest projection and its gap
+
+Let $P$ be orthogonal projection onto $v^\perp$, and $V=\|v\|_2$.
+With $S=\sum_i v_i^2$, the vector
+
+$$S P(x)=Sx-(v\cdot x)v$$
+
+has integer coordinates for every integer $x$. Its nonzero squared norms form
+a nonempty set of positive integers. `ProjectionMinimum.lean` minimizes this
+integer objective, obtaining $z$ with $\lambda=\|Pz\|>0$ shortest among all
+nonzero projected integer vectors. No projected-lattice basis is assumed.
+
+Rounding two transverse coefficients and absorbing their parallel parts
+approximates every point in the span of $v,x,z$ by the orbit of $v$, with
+coordinate error at most $(\|Px\|+\lambda)/2$. `SpanDensity.lean` proves this
+rounding statement for any finite number of transverse columns. The rank-three
+lower bound and $L(v)<1/n$ therefore imply, whenever $Px,Pz$ are independent,
+
+$$\Delta<(\|Px\|+\lambda)/2.$$
+
+The conversion from independent real projections to an integer nonzero minor
+is proved in `EuclideanProjection.lean`.
+
+### The ambient orthogonal box
+
+Choose orthonormal coordinates with first vectors $v/V$ and $Pz/\lambda$,
+and put $M=\max(\lambda,\Delta)$. Consider the closed box with half-widths
+$V/n,\lambda/n,M/n,\ldots,M/n$. `AdaptedBasis.lean` constructs these coordinates.
+`BoxExclusion.lean` proves that this box contains no nonzero integer point:
+
+- A point with zero projection is $tv$. Integer Bézout coefficients for the
+  primitive vector imply $t\in\mathbb Z$; the first width gives $|t|<1$.
+- A nonzero projection parallel to $Pz$ has norm at most $\lambda/n$, violating
+  shortestness.
+- Any projection has norm at most the sum of its absolute orthonormal
+  coordinates, hence strictly below $M$. If $M=\lambda$, this violates
+  shortestness. Otherwise an independent projection and $Pz$ both have norm
+  below $\Delta$, violating the proved gap.
+
+`OrthogonalBox.lean` proves the volume formula using measure preservation of
+orthonormal coordinates. Mathlib's compact Minkowski theorem applies to the
+standard integer lattice, whose fundamental-domain volume is one. Thus the
+box volume is strictly below $2^n$, or
+
+$$V\lambda M^{n-2}<n^n.$$
+
+Because $M\ge\Delta$, the displayed plane area satisfies
+$H=V\lambda<K(n)$. `UniformHeight.lean` proves this construction for every
+positive primitive near-tight tuple. The construction needs only the assertion
+for $n-2$ speeds; the rank-two lower bound subsequently uses $n-1$.
+
+### From plane height to global speed bounds
+
+The whole-plane proofs below give $L(U)\ge1/n$,
+$L(U)\le L(v)+H/(2V)$, and a reduced denominator at most $3H$ for $L(U)$.
+Off-criticality makes the first inequality strict, and rational separation
+gives $V<(3n/2)H^2<(3n/2)K(n)^2$. Bounding the integer coordinates puts the
+exception set in an explicitly finite integer box. Contraposition gives the
+critical-plane conclusion for all larger near-tight tuples.
+
+For every tuple, even on critical planes, density gives
+$1/n-L(v)\le H/(2V)$. Substitute $L(v)=p/q$ and $k=q-np\ge1$ to obtain
+$V<(nK(n)/2)q/k$. This is an explicit all-tuples version of the
+dimension-dependent denominator question, under the stated hypotheses.
+
+For $n=6$, $K(6)=37{,}791{,}360{,}000$ and $nK(n)/2=113{,}374{,}080{,}000$.
+These constants are deliberately coarse. They do not prove the sharp $3q$
+bound or the much smaller cutoff needed by the existing six-speed census.
+The height mechanism develops JD's mathematical consultation; the ambient-box
+implementation is given here in full. Published rank reductions are credited
+above, and no literature-priority claim is made.
+
 ## The critical-family part of Question 6.6
 
 For each of the following three integer presentations, and for every primitive
@@ -298,20 +418,10 @@ every fixed noncritical integer plane, without an assumed good triangle,
 density estimate, rational maximum, or parameter cutoff. It still depends
 on the height of that plane.
 
-To obtain Question 6.7's
-bound depending only on $n$, the outstanding work is to construct a containing
-plane with uniformly bounded height and prove its loneliness is above $1/n$
-for every off-critical near-tight tuple, using the stated lower-speed
-Lonely Runner hypotheses. The projected-lattice and lower-dimensional
-subtorus arguments needed for that construction are not yet formalized.
-In particular, this increment does not prove the numerical speed cutoff
+The uniform construction proved above now supplies the dimension-only bound,
+under explicit lower-speed Lonely Runner hypotheses. The coarse displayed area
+is sufficient for that result. It does not prove the numerical speed cutoff
 $1{,}803{,}850$ used by the six-speed research proof.
-
-The height/density mechanism was supplied in JD's GPT-6 mathematical
-consultation and reconstructed in the research notes. This formalization
-proves the plane portion directly from Mathlib; no consultation output,
-external geometric theorem, or numerical linear program is trusted.
-No literature-priority claim is made for these geometric arguments.
 
 ## Remaining obligations for the unrestricted theorem
 
@@ -320,8 +430,9 @@ proposition. **It is a definition, not a proved theorem.** The current
 critical-family membership hypothesis cannot be removed from the proved
 bound without additional work:
 
-1. Formalize the global geometric or Fourier reduction that covers every
-   primitive near-tight sextuple, including its published mathematical inputs.
+1. Supply the lower-speed Lonely Runner proofs and a sufficiently sharp global
+   reduction for the six-speed exhaustive certificate. The global box theorem
+   above has explicit hypotheses and a much larger cutoff.
 2. Convert the complete modular exclusions, relation-space coverage and
    finite direction classification into kernel-checked certificates with
    proved coverage. A digest, a successful Python replay or a finite search
@@ -331,8 +442,8 @@ bound without additional work:
 
 The conditional prime-capacity lemmas below remain supporting statements.
 Their modular hypotheses have not been globally discharged. This revision
-is development toward the requested global theorem, not a completed global
-formalization or a claim that Palomar's editorial requirement has been met.
+proves the effective global off-critical theorem under its stated hypotheses,
+but not the sharp global Question 6.6 or Palomar editorial acceptance.
 
 ## Exact maximizing times
 
@@ -513,13 +624,13 @@ invariance, including the displayed nonprimitive counterexample.
 consequences of explicitly stated height and density inequalities, and
 integer rounding of a squared-norm bound. For example,
 $49\sum_i v_i^2<159439954591875$ implies $|v_i|\le1803850$.
-These arithmetic statements retain their hypotheses. The plane geometry
-proved above now supplies density and a coarse denominator bound, but does
-not yet establish a uniform height bound for near-tight speed tuples.
+These arithmetic statements retain their hypotheses and are no longer selected
+as standalone submission claims. The global geometric theorems above replace
+assumed-height arithmetic with a proved construction and explicit lower-speed
+Lonely Runner inputs.
 
-The global primitive inequality $\max_i v_i<3q$ in Question 6.6 and the
-off-critical speed bound sought in Question 6.7 are outside the proved
-scope. The remaining requirements are the uniform geometric height construction
-for Question 6.7, and the global reductions and exhaustive classification
-for Question 6.6. Neither those inputs
-nor completeness of the nine-tuple list is asserted by this submission.
+The sharp global primitive inequality $\max_i v_i<3q$ in Question 6.6 remains
+unfinished. Neither the complete six-speed classification nor completeness of
+the nine-tuple list is asserted. The effective off-critical bound is proved in
+all dimensions $n\ge3$ conditional on the two explicitly stated lower-speed
+Lonely Runner assertions; this repository does not yet prove those assertions.
