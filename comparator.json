@@ -54,7 +54,11 @@
     "LonelyRunner.example_torus_all_directions",
     "LonelyRunner.integral_cosinePolynomial",
     "LonelyRunner.near_tight_short_relation",
-    "LonelyRunner.near_tight_relation_norm36"
+    "LonelyRunner.near_tight_relation_norm36",
+    "LonelyRunner.exists_plane_maximizer",
+    "LonelyRunner.planeLoneliness_le_add_height",
+    "LonelyRunner.planeLoneliness_denominator_bound",
+    "LonelyRunner.speedNorm_bound_of_noncritical_plane"
   ],
   "permitted_axioms": [
     "propext",

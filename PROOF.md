@@ -210,6 +210,91 @@ in the preceding section is now expanded and integrated independently through
 complex characters. Its negative-line grouping and the full relation-space
 enumerations have not yet been formalized.
 
+## Plane geometry toward Question 6.7
+
+Let $v,z\in\mathbb Z^n$ be independent and $U$ their real plane modulo
+$\mathbb Z^n$. Define
+
+$$L(U)=\sup_{x,y\in\mathbb R}\min_i\|xv_i+yz_i\|,\qquad
+H=\sqrt{\|v\|^2\|z\|^2-\langle v,z\rangle^2}.$$
+
+Here $H$ is the area of the **displayed** integer parallelogram. The proof
+does not assume that its columns generate the saturated integer lattice.
+It works without positivity, distinctness or nonzero-coordinate assumptions.
+
+### Density and attainment
+
+Write $z=cv+w$, where $w$ is perpendicular to $v$. For a point $xv+yz$,
+subtract $\operatorname{round}(y)z$ and put
+$t=x+(y-\operatorname{round}(y))c$. Modulo integers, the difference from
+$tv$ is $(y-\operatorname{round}(y))w$, of norm at most $\|w\|/2$.
+Distance to the integers is 1-Lipschitz, and the Gram identity gives
+$H=\|v\|\|w\|$. Hence
+
+$$L(U)\le L(v)+\frac{H}{2\|v\|}.$$
+
+`TorusDensity.lean` proves the simultaneous point approximation, the Gram
+identity and the supremum inequality. Reducing both parameters modulo one
+and using compactness of the unit square proves attainment of $L(U)$.
+
+### Rationality and denominator bound
+
+Lift a maximizing point to its integer cell $m$ and use the polytope
+
+$$m_i+\ell\le v_i x+z_i y\le m_i+1-\ell,\qquad
+0\le\ell\le1/2.$$
+
+A nonzero two-row minor bounds $x,y$ from these inequalities, so the cell is
+compact. The face maximizing $\ell$ has an extreme point, which is also an
+extreme point of the cell. At any extreme point of a finite polyhedron, the
+active rows span the full coordinate space: otherwise a nonzero common
+kernel direction gives feasible points on both sides, contradicting
+extremality. `Polyhedral.lean` proves this perturbation argument and selects
+a nonsingular active subsystem; it does not assume a linear-programming
+oracle. `PlaneVertices.lean` applies it to the three variables above.
+
+The three selected integer rows have the form $(\pm v_i,\pm z_i,1)$,
+with matching signs, or the level-boundary rows $(0,0,-1)$ and $(0,0,2)$.
+Cramer's rule expresses the optimum as a ratio of integer determinants,
+so its reduced denominator $b$ divides a nonzero determinant $D$.
+Every two-row minor of $(v,z)$ has absolute value at most $H$. If all
+three selected rows are runner rows, expansion in the last column gives
+$|D|\le3H$. If a boundary row is present, expansion in that row gives
+$|D|\le2H$. Thus, uniformly including the two boundary levels,
+
+$$b\le3H.$$
+
+This is a deliberately coarse constant. The sharper $\sqrt3 H$ estimate
+in the research proof needs additional distinct-row and endpoint arguments;
+it is not asserted by this Lean theorem.
+
+### An actual off-critical plane bound
+
+If $L(v)<1/n<L(U)=a/b$, rational separation and the two proved geometric
+estimates give
+
+$$\frac1{nb}\le L(U)-\frac1n<\frac{H}{2\|v\|},\qquad b\le3H,$$
+
+and therefore
+
+$$\boxed{\|v\|<\frac{3n}{2}H^2.}$$
+
+`PlaneHeight.lean` proves this implication without taking rationality,
+denominator control or density as hypotheses. To obtain Question 6.7's
+bound depending only on $n$, the outstanding work is to construct a containing
+plane with uniformly bounded height and prove its loneliness is above $1/n$
+for every off-critical near-tight tuple, using the stated lower-speed
+Lonely Runner hypotheses. The projected-lattice and lower-dimensional
+subtorus arguments needed for that construction are not yet formalized.
+In particular, this increment does not prove the numerical speed cutoff
+$1{,}803{,}850$ used by the six-speed research proof.
+
+The height/density mechanism was supplied in JD's GPT-6 mathematical
+consultation and reconstructed in the research notes. This formalization
+proves the plane portion directly from Mathlib; no consultation output,
+external geometric theorem, or numerical linear program is trusted.
+No literature-priority claim is made for these geometric arguments.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
@@ -410,11 +495,13 @@ invariance, including the displayed nonprimitive counterexample.
 consequences of explicitly stated height and density inequalities, and
 integer rounding of a squared-norm bound. For example,
 $49\sum_i v_i^2<159439954591875$ implies $|v_i|\le1803850$.
-These statements retain their hypotheses; they do not establish a
-geometric bound on near-tight speed tuples.
+These arithmetic statements retain their hypotheses. The plane geometry
+proved above now supplies density and a coarse denominator bound, but does
+not yet establish a uniform height bound for near-tight speed tuples.
 
 The global primitive inequality $\max_i v_i<3q$ in Question 6.6 and the
 off-critical speed bound sought in Question 6.7 are outside the proved
-scope. They would require additional geometric estimates, a critical-torus
-classification and complete exclusion certificates. Neither those inputs
+scope. The remaining requirements are the uniform geometric height construction
+for Question 6.7, and the global reductions and exhaustive classification
+for Question 6.6. Neither those inputs
 nor completeness of the nine-tuple list is asserted by this submission.

@@ -8,10 +8,11 @@ For positive integer speeds $v_1,\ldots,v_n$, write
 
 $$L(v)=\max_{t\in\mathbb R}\min_i\|tv_i\|_{\mathbb R/\mathbb Z}.$$
 
-The target is the **unrestricted** primitive six-speed bound in Question 6.6.
-That global theorem is **not yet formalized**: the exhaustive classification
-and off-critical reductions remain outside the Lean proof. The current
-critical-family theorems have unbounded parameters and no assumed modular cover.
+The targets are the **unrestricted** primitive six-speed bound in Question 6.6
+and the effective off-critical speed bound in Question 6.7. Neither global
+theorem is **yet formalized**: the exhaustive classification and construction
+of a uniformly bounded-height containing plane remain outside the Lean proof.
+The current critical-family theorems have unbounded parameters and no assumed modular cover.
 
 The development proves the following results.
 
@@ -36,6 +37,15 @@ The development proves the following results.
   finite rectangle. A proved grid checker certifies the remaining directions.
   One complete application gives $L(B,2B,A-2B,A-B,A+B,2A+B)\ge1/6$ whenever
   these speeds are nonzero and distinct up to sign, for all integers $A,B$.
+- **Geometry of every integer plane.** For independent integer columns $v,z$,
+  let $U$ be their whole real plane modulo $\mathbb Z^n$ and let
+  $H=\sqrt{\|v\|^2\|z\|^2-\langle v,z\rangle^2}$. Lean proves that the
+  whole-plane maximum $L(U)$ is attained and rational with reduced denominator
+  at most $3H$, including boundary values zero and one-half. It also proves
+  $L(U)\le L(v)+H/(2\|v\|)$. Consequently
+  $L(v)<1/n<L(U)$ implies $\|v\|<(3n/2)H^2$. These conclusions use the actual
+  geometric definitions, with no assumed density or denominator estimate.
+  $H$ is the area of the displayed basis; saturation is not assumed or claimed.
 - **Exact finite optimization, for every number of speeds.** Every maximizing
   time has the form $m/(v_i+v_j)$, and $L(v)=a/(v_i+v_j)$ for integers
   $m,a$ and some indices $i,j$, which may coincide. It suffices to check
@@ -101,7 +111,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 53 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 57 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

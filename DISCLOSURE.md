@@ -23,15 +23,16 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 53 declared Challenge/Solution claims with the
+declaration, compares all 57 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
 they are not human mathematical review or Palomar editorial approval.
 
 The global resolutions of Questions 6.6 and 6.7 are outside the submitted
-scope. The norm bounds, height inequalities and modular covering assertions
-appearing as hypotheses are not claimed as unconditional conclusions.
+scope. The whole-plane density estimate, rationality, denominator bound and
+resulting plane-dependent norm bound are proved. A uniform height bound for the containing
+plane and the global modular covering assertions remain unproved in Lean.
 
 The automated Palomar review of commit
 `7fa5a11b5fbb3aee56d62e87ecf9154e7c374a34` passed mechanical verification
@@ -40,9 +41,12 @@ retained its modular-cover assumptions and lacked a demonstrated application.
 JD requested work toward the full global Question 6.6 theorem. The present
 revision adds actual unbounded critical-family bounds, a direct six-point
 proof for the third family, a global norm-36 short-relation theorem derived
-from an explicit trigonometric obstruction, and proved finite-certificate interfaces. It does
-not complete the exhaustive global classification, and no new editorial
-approval or resubmission is claimed.
+from an explicit trigonometric obstruction, proved finite-certificate interfaces,
+and the whole-plane geometry needed for the Question 6.7 route. The geometric
+mechanism follows JD's supplied GPT-6 mathematical consultation and its research
+reconstruction; the present Lean proof uses a coarse constant three in the
+denominator bound. It does not complete the exhaustive global classification.
+No new editorial approval or resubmission is claimed.
 
 Exploratory exact arithmetic and numerical linear programming helped identify
 the six good points and eighteen directions. Every point, endpoint, residue
