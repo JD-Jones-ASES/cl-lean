@@ -3,10 +3,16 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      palomar_preflight:
+        description: Run the official pinned Palomar mechanical preflight
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
   build-export:
+    if: ${{ !inputs.palomar_preflight }}
     runs-on: ubuntu-22.04
     timeout-minutes: 90
     env:
@@ -68,3 +74,13 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y bubblewrap
       - run: python3 scripts/verify_exports.py --stage "${{ matrix.checker }}"
+  palomar-preflight:
+    if: ${{ inputs.palomar_preflight }}
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@a59f25bd8a66bf6faf3a4f4260d412989c0185ea
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ github.sha }}
+      pipeline_commit: a59f25bd8a66bf6faf3a4f4260d412989c0185ea
+      request_id: cltightfive${{ github.run_id }}
+      mode: full
+      options: '{"comparator_config_path":"comparator.json","authorization_relationship":"I am a responsible author or maintainer"}'

@@ -443,12 +443,11 @@ critical planes. This argument avoids the separate projective counting
 steps used in Cordella's six-coordinate repeat-line reduction. No priority
 claim is made for this proof.
 
-For six coordinates, `TightFiveClassification` explicitly assumes that every
-primitive zero-free five-tuple with loneliness $1/6$ has absolute-coordinate
-multiset $(1,2,3,4,5)$ or $(1,3,4,5,9)$. This is **not proved in this package**.
-It is the all-signs, all-orders form needed from the published tight-five
-classification. In particular, the hypothesis also excludes repeated-speed
-tight five-tuples; it is not silently restricted to distinct positive speeds.
+For six coordinates, `tight_five_classification` proves that every primitive
+zero-free five-tuple with loneliness $1/6$ has absolute-coordinate multiset
+$(1,2,3,4,5)$ or $(1,3,4,5,9)$. The [moment argument](TIGHT_FIVE_MOMENTS.md)
+below proves this known classification for every choice of signs and order.
+Its statement includes, and therefore excludes, repeated-speed tight tuples.
 
 Repeating one entry gives ten canonical first columns. For the second column,
 all permutations and all signs with positive first coordinate give 115,200
@@ -474,15 +473,14 @@ gives the independent generator and rerun commands. Python, binary files,
 JSON, and numerical libraries are outside the proof dependency graph.
 
 `critical_planes_classified` concludes the full critical-plane classification
-under `TightFiveClassification`; the five-speed Lonely Runner theorem is proved below.
+using the proved tight-five classification and five-speed Lonely Runner theorem.
 The three displayed integer bases are proved saturated by reading two
 coordinates, so equality of real planes yields integer parameters for every
 integer direction. `critical_plane_question66` then gives the sharp $3q$
 bound without supplied family membership.
 
 Finally, `large_six_question66` combines this classification with the global
-height theorem: under the tight-five
-classification hypothesis, every positive primitive near-tight sextuple with
+height theorem: every positive primitive near-tight sextuple with
 
 $$\|v\|_2\ge9K(6)^2=12{,}853{,}682{,}015{,}846{,}400{,}000{,}000$$
 
@@ -575,34 +573,32 @@ loneliness at least $1/5$. The squared-coordinate box argument in
 `FiveHeight.lean` proves $\|v\|_2<500{,}000$ for every primitive tight
 quintuple, in every sign and coordinate order. This proves finiteness of all signed, ordered tight quintuples
 and hence, through the repeat-basis theorem, finiteness of all proper critical
-six-planes without assuming their classification. The resulting box is a
-proved reduction only; it has not been exhaustively checked to identify the
-two tight-five profiles. These are supporting reduction lemmas, not additional
-selected Challenge claims.
+six-planes without assuming their classification. The box itself is not
+enumerated. Instead, the norm bound makes the modular lifting argument below
+strong enough to recover the two profiles.
 
-The supporting [moment route](TIGHT_FIVE_MOMENTS.md) now reduces the missing
-tight-five classification to 40 concrete modular implications. Lean proves
-the integer product bounds and prime lift, and proves that the resulting
-four homogeneous identities recover exactly the two primitive profiles.
-The refined five-dimensional box argument proves the tight-tuple bound
-`||v||<500000`, reducing the needed prime set from 57 to 40. Two external
-exhaustive censuses agree on every required modular case.
-Lean now proves the normalization of arbitrary residue tuples and the
-pair-cover checker's soundness. The prime-83 cover is fully kernel-checked,
-including repeated residues. The remaining 39 finite covers are still needed;
-the classification hypothesis has not been removed from any selected theorem.
+The [moment route](TIGHT_FIVE_MOMENTS.md) completes the tight-five
+classification using 40 modular implications. Lean proves the integer bounds
+and prime lift, and proves that four homogeneous identities recover exactly
+the two primitive profiles. The refined bound `||v||<500000` reduces the
+needed prime set from 57 to 40. Lean checks every required normalized cover,
+including repeated residues, with a proved pair-cover checker; normalization
+transfers them to arbitrary integer tuples. `TightFiveModular.lean` assembles
+the certificates and proves `tight_five_classification`. No modular-cover or
+classification hypothesis remains in the four selected six-speed consequences.
+Two external exhaustive censuses provide an independent replay of the finite
+data, but are not dependencies of any Lean proof.
 
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
-proposition. **It is a definition, not a proved theorem.** The current
-critical-plane classification retains only the tight-five classification input.
+proposition. **It is a definition, not a proved theorem.** The critical-plane
+classification and the sharp bound on all those planes are now unconditional.
 The unrestricted bound still requires additional work:
 
-1. Supply the tight-five classification proof,
-   and a sufficiently sharp global
-   reduction for the six-speed exhaustive certificate. The global box theorem
-   above has explicit hypotheses and a much larger cutoff.
+1. Prove a sufficiently sharp global reduction for the six-speed exhaustive
+   certificate. The proved global box theorem gives a much larger cutoff
+   than the one used in the research census.
 2. Convert the complete modular exclusions, relation-space coverage and
    off-critical finite direction classification into kernel-checked certificates with
    proved coverage. A digest, a successful Python replay or a finite search

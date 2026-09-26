@@ -1,4 +1,4 @@
-import LonelyRunner.FiveSpeeds
+import LonelyRunner.TightFiveModular
 import LonelyRunner.RepeatFiniteCheck
 import LonelyRunner.PlaneSymmetry
 import LonelyRunner.CriticalPlaneDirections
@@ -41,17 +41,17 @@ theorem repeat_profiles_plane_known (u w : Fin 6 → ℤ) (i j : Fin 10)
   rwa [he]
 
 /-- Completeness of the three six-speed critical families. The lower-speed
-Lonely Runner assertion is proved; tight-five classification remains an explicit input;
-all geometric, sign, permutation, and finite pair reductions are proved here. -/
-theorem critical_planes_classified (hfive : TightFiveClassification) (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+Lonely Runner and tight-five classification inputs are proved, as are the
+geometric, sign, permutation, and finite pair reductions. -/
+theorem critical_planes_classified (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6) : KnownCriticalPlane c d := by
   obtain ⟨u,w,hpu,hpw,hu,hw,hlu,hlw,hm,he⟩ :=
     critical_plane_has_tight_repeat_basis lonely_runner_five c d hc a b hab
       (by convert hcrit using 1; norm_num)
-  obtain ⟨i,hi⟩ := tight_repeat_has_canonical_profile hfive u hpu hu
+  obtain ⟨i,hi⟩ := tight_repeat_has_canonical_profile tight_five_classification u hpu hu
     (by convert hlu using 1; norm_num)
-  obtain ⟨j,hj⟩ := tight_repeat_has_canonical_profile hfive w hpw hw
+  obtain ⟨j,hj⟩ := tight_repeat_has_canonical_profile tight_five_classification w hpw hw
     (by convert hlw using 1; norm_num)
   have hL : planeLoneliness u w ≤ (1:ℝ)/6 :=
     ((planeLoneliness_eq_of_integerPlane_eq u w c d he).trans hcrit).le
@@ -59,7 +59,7 @@ theorem critical_planes_classified (hfive : TightFiveClassification) (c d : Fin 
 
 /-- The sharp denominator bound on every proper critical rational plane,
 without a supplied family-membership hypothesis. -/
-theorem critical_plane_question66 (hfive : TightFiveClassification) (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+theorem critical_plane_question66 (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6)
     (hv : (fun i => (v i:ℝ)) ∈ integerPlane c d)
@@ -67,7 +67,7 @@ theorem critical_plane_question66 (hfive : TightFiveClassification) (c d v : Fin
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) : ∀ i, |v i|<3*(q:ℤ) := by
   exact known_critical_plane_question66 c d v
-    (critical_planes_classified hfive c d hc a b hab hcrit)
+    (critical_planes_classified c d hc a b hab hcrit)
     hv hprim hnz p q hq hval hnear
 
 end LonelyRunner

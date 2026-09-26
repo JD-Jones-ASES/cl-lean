@@ -32,4 +32,4 @@ import LonelyRunner.SixGlobal
 import LonelyRunner.TightFiveReduction
 import LonelyRunner.TightFivePrimeLift
 import LonelyRunner.StrictGrid
-import LonelyRunner.TightFiveModular83
+import LonelyRunner.TightFiveModular

@@ -1,7 +1,7 @@
 # Tight-five classification by finite modular moment identities
 
-This is supporting work toward discharging `TightFiveClassification`, not an
-additional selected Palomar claim. The classification is a known theorem of
+`tight_five_classification` proves `TightFiveClassification` and is a selected
+Palomar comparison claim. The classification is a known theorem of
 [Bohman, Holzman and Kleitman, Theorem 3](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i2r3/pdf).
 No priority claim is made. The argument below gives a different finite route
 suited to the existing formal norm bound.
@@ -9,11 +9,11 @@ suited to the existing formal norm bound.
 **Formal boundary:** Lean proves the norm bound, the algebraic recovery of the
 two profiles, the prime-product lifting argument, strict grid-witness
 soundness, and normalization of arbitrary nonzero residue tuples. A proved
-finite checker now gives the complete normalized modular cover at **prime 83**,
-including repeated representatives. The other 39 prime covers still require
-kernel certificates. Two exhaustive Python censuses establish the data for
-all 40 primes, but are not imported as axioms or proofs. The existing
-`TightFiveClassification` input therefore remains explicit.
+finite checker gives complete normalized modular covers for **all 40 primes**,
+including repeated representatives. `TightFiveModular.lean` composes the covers
+with the normalization, lifting and algebraic theorems. No unproved modular
+cover or classification input remains. Two exhaustive Python censuses replay
+the data independently, but are not imported as axioms or proofs.
 
 ## Four equations determine the profiles
 
@@ -98,17 +98,21 @@ Mask validity, pair construction, exceptional moments, and full coverage are
 separately checked by ordinary Lean kernel reduction. The generator supplies
 untrusted tables; no Python result is used as a proof.
 Balanced lookups, checked bit-spreading encodings and exact geometric sums
-keep the tables compact. The coverage is divided into batches of eight prefix
-rows; a proved recombination lemma assembles those batches into the complete
-cover. Target masks are checked against their recursive specification as well.
+keep the tables compact. Each prefix row is checked separately; a proved
+recombination lemma assembles those checks into the complete cover. Two import
+chains bound concurrent certificate compilation in an ordinary clean Lake
+build, including Palomar's build. Target masks are checked against their
+recursive specification as well.
 
-`TightFiveModular83.lean` proves `NormalizedFiveCover 83` through this checker.
+The generated `TightFiveModular<p>.lean` modules prove `NormalizedFiveCover p`
+for each of the 40 selected primes through this checker. The prime-83 module
+also contains negative controls.
 Lean negative controls reject a zero-time mask bit, removal of all exceptional
 profiles, false pair masks, empty target masks, and a profile that fails the
 moment congruences. Its `tight_cover` theorem applies the certificate directly
-to arbitrary tight integer tuples. Larger-prime
-packing and verification cost remain under investigation; the full
-classification is not yet claimed.
+to arbitrary tight integer tuples. The aggregate theorem
+`tightFivePrimes_normalized_cover` covers the exact finite prime set in
+`TightFivePrimeLift.lean`; `tight_five_classification` then closes the argument.
 
 ## A sharper norm bound cuts the finite workload
 
@@ -165,14 +169,14 @@ by the product, and every other prime divides the moment. Distinct-prime
 divisibility and the strict size inequality force every weighted moment to
 be zero. Since the speeds are nonzero, all four moments vanish. The formal
 theorem `tight_five_classification_of_prime_cover` composes this argument
-with the proved norm bound and profile recovery; its finite modular-cover
-input is still visible in its statement.
+with the proved norm bound and profile recovery. Its modular-cover input is
+discharged by the 40 kernel certificates in the final classification theorem.
 
 Together the formal normalization, checker, lifting and algebraic steps
-reduce the known classification to concrete finite certificates. The two
-external censuses cover all 40 primes; the current Lean certificates cover
-prime 83. This does not yet constitute a Lean proof of the classification,
-nor settle the remaining six-speed finite region in Question 6.6.
+prove the known classification through concrete finite certificates. The two
+external censuses and the Lean certificates cover all 40 primes. This removes
+the classification hypothesis from the critical-plane and large-six-speed
+Question 6.6 theorems. The remaining six-speed finite region is still unverified.
 
 ## Replay and controls
 

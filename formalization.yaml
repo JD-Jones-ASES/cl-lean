@@ -2,45 +2,32 @@ version: v0.4
 project:
   name: Effective Global Bounds and Critical Families for Lonely Runners
   description: >-
-    Proves max_i |v_i| < 3q on all three explicit critical families, with
-    primitive nonzero speeds, arbitrary signs and coordinate permutations,
-    unbounded parameters, and actual real-time loneliness a/q < 1/6. The
-    third-family proof uses six good points and eighteen rays with exact
-    residue arithmetic; it assumes no spectral classification. A proved
-    good-triangle checker also certifies an unbounded noncritical family.
-    Every integer sextuple with loneliness at most 1/6 has a nonzero integer
-    annihilator with squared norm at most 36, proved by expanding and
-    integrating an explicit Fourier obstruction. This global necessary
-    condition has no speed cutoff or modular-cover hypothesis.
-    For every rank-two integer plane, proves attainment and rationality of its
-    actual loneliness, with reduced denominator at most three times the
-    displayed basis area H, and proves the orbit density inequality.
-    Consequently L(v) < 1/n < L(U) implies norm(v) < (3n/2) H^2.
-    A proved Bezout change of basis makes this a uniform finite reduction
-    for all coprime parameter directions in any fixed noncritical plane.
-    For n >= 3, under explicit Lonely Runner hypotheses for n-1 and n-2
-    speeds, constructs a containing plane of height H < K(n), where
-    K(n) = n^n [n(n-1)]^(n-2), and proves the global off-critical bound
-    norm(v) < (3n/2) K(n)^2 for every positive primitive near-tight tuple.
-    The exception set is proved finite, and every larger near-tight direction
-    lies in a critical rational two-plane. All near-tight tuples, including
-    exceptions, satisfy norm(v) < (n K(n)/2) q/k <= (n K(n)/2) q.
-    The lower-speed assertions remain hypotheses, not imported axioms.
-    The sharp unrestricted six-speed Question 6.6 remains unfinished.
-    Every maximizing time for positive integer speeds is rational. The
-    reduced loneliness denominator divides an opposing active-pair sum
-    after dividing by the pair's gcd. At a maximizing time of reduced
-    denominator r, every active speed v_i satisfies q = r/gcd(r,v_i).
-    For distinct positive speeds with maximum M the bound q <= 2M-1 is
-    sharp, attained by every consecutive pair. For every n >= 3, the
-    primitive family (1,d,2d,...,(n-1)d), d = n^(e+1), has loneliness 1/n,
-    unbounded largest speed and explicit maximizing times with unbounded
-    ratios of time denominator to value denominator. The development also
-    proves exact finite-grid optimization and all nine sporadic values in
-    Cordella's Table 2. Earlier conditional prime-capacity and assumed-height
-    arithmetic lemmas remain supporting code but are not selected claims.
-    The exhaustive six-speed classification and completeness of the sporadic
-    list are outside the submitted scope.
+    Proves explicit global bounds motivated by Cordella's Questions 6.6 and
+    6.7. For n >= 3, assuming Lonely Runner for n-1 and n-2 nonzero speeds,
+    every positive primitive near-tight tuple off the critical rational
+    two-planes satisfies norm(v) < (3n/2) K(n)^2, with
+    K(n) = n^n [n(n-1)]^(n-2). The exceptional set is finite, and every
+    positive primitive tuple with loneliness p/q < 1/n satisfies
+    norm(v) < (n K(n)/2) q/(q-np) <= (n K(n)/2) q. Lean constructs the
+    containing plane, proves its height bound, and establishes the density
+    and denominator estimates. The lower-speed hypotheses are explicit in
+    general and discharged through five speeds, making the six-speed
+    off-critical and coarse denominator bounds unconditional.
+    Also proves the known tight-five classification: every primitive
+    zero-free integer quintuple of loneliness 1/6 is a signed permutation
+    of (1,2,3,4,5) or (1,3,4,5,9). A geometric norm bound, forty finite
+    modular covers, normalization, integer lifting and algebraic profile
+    recovery are all kernel-checked. Combining this with a complete
+    1,152,000-pair repeat-plane certificate classifies every critical
+    six-plane. The sharp max_i |v_i| < 3q bound holds on every such plane,
+    with unbounded parameters, signs and permutations, and for all positive
+    primitive near-tight sextuples above the explicit global norm cutoff.
+    The remaining finite region is unverified, so the sharp unrestricted
+    six-speed Question 6.6 and completeness of the sporadic list are not
+    asserted. Other selected results include a global norm-36 integer
+    relation, exact maximizing-time and denominator theorems, primitive
+    boundary families, and the nine exact sporadic values in Cordella's
+    Table 2. Conditional prime-capacity lemmas remain supporting code.
   authors: [JD Jones]
   responsible_maintainers: [JD Jones]
   license: MIT
@@ -73,6 +60,27 @@ sources:
       Lemma 3.3 is the source of the lower-speed rank reductions.
       The required rank-two and rank-three lower bounds are proved directly
       here from explicit lower-speed Lonely Runner hypotheses.
+  - title: "View-obstruction: a shorter proof for 6 lonely runners"
+    authors: [Jérôme Renault]
+    type: paper
+    url: https://doi.org/10.1016/j.disc.2004.06.008
+    relationship: adapts
+    author_endorsement: not-contacted
+    note: >-
+      Source of the constrained-maximum proof through five speeds. The
+      formalization supplies exact closed-cell certificates in place of
+      the published five-speed residue casework.
+  - title: Six Lonely Runners
+    authors: [Tom Bohman, Ron Holzman, Daniel Kleitman]
+    type: paper
+    url: https://www.combinatorics.org/ojs/index.php/eljc/article/download/v8i2r3/pdf
+    relationship: adapts
+    author_endorsement: not-contacted
+    note: >-
+      Theorem 3 gives the known two-profile tight-five classification.
+      This development proves the classification by a geometric norm
+      bound and finite modular moment identities, rather than importing
+      the published theorem as an axiom. No priority claim is made.
 automation:
   methods:
     - method: agent
@@ -104,10 +112,9 @@ review:
     demonstrated research interest of its conditional prime-obstruction group.
     The present revision has not been resubmitted or editorially approved.
 scope:
-  completed: The 53 theorems listed in comparator.json and their supporting development.
+  completed: The 67 theorems listed in comparator.json and their supporting development.
   excluded: >-
-    Sharp unrestricted six-speed Question 6.6; proofs of the lower-speed Lonely
-    Runner assertions; the sharp denominator-height constant; completeness of
-    the sporadic list; critical-torus classification; unconditional finite-field
-    prime assertions; complete critical-family spectrum; classification of all
-    maximizing times for the boundary family.
+    Sharp unrestricted six-speed Question 6.6; a sharp enough six-speed norm
+    cutoff and exhaustive off-critical certificates; the sharp denominator-height
+    constant; completeness of the sporadic list; complete critical-family
+    spectrum; classification of all maximizing times for the boundary family.

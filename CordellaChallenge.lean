@@ -446,6 +446,9 @@ def TightFiveClassification : Prop :=
     (List.ofFn (fun i => |v i|)).Perm [1,2,3,4,5] ∨
     (List.ofFn (fun i => |v i|)).Perm [1,3,4,5,9]
 
+/-- Classification of all primitive zero-free tight five-tuples, up to signs and order. -/
+theorem tight_five_classification : TightFiveClassification := by sorry
+
 theorem exists_primitive_repeat_plane_basis {n : ℕ} (c d : Fin n → ℤ)
     (hc : ∀ i, c i ≠ 0) (a b : Fin n) (hab : c a*d b-d a*c b ≠ 0) :
     ∃ u w : Fin n → ℤ, PrimitiveSpeeds u ∧ PrimitiveSpeeds w ∧
@@ -476,11 +479,11 @@ theorem critical_repeat_pair_classified (i j : Fin 10) (w : Fin 6 → ℤ)
     (hL : planeLoneliness (canonicalRepeatVectors i) w ≤ (1:ℝ)/6) :
     KnownCriticalPlane (canonicalRepeatVectors i) w := by sorry
 
-theorem critical_planes_classified (hfive : TightFiveClassification) (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+theorem critical_planes_classified (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6) : KnownCriticalPlane c d := by sorry
 
-theorem critical_plane_question66 (hfive : TightFiveClassification) (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+theorem critical_plane_question66 (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
     (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
     (hcrit : planeLoneliness c d=(1:ℝ)/6)
     (hv : (fun i => (v i:ℝ)) ∈ integerPlane c d)
@@ -488,13 +491,13 @@ theorem critical_plane_question66 (hfive : TightFiveClassification) (c d v : Fin
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) : ∀ i, |v i|<3*(q:ℤ) := by sorry
 
-theorem large_six_question66 (htight : TightFiveClassification)
+theorem large_six_question66
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6)
     (hlarge : 9*boxHeightConstant 6^2 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
 
-theorem question66_violation_speed_bound (htight : TightFiveClassification)
+theorem question66_violation_speed_bound
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :

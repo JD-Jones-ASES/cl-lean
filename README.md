@@ -14,7 +14,8 @@ Question 6.7 under the same lower-speed Lonely Runner hypotheses used in the
 paper's reduction lemma, and with no unproved input for six speeds. It also proves an explicit $C(n)q$ bound for every
 positive primitive near-tight tuple. The sharp unrestricted six-speed bound
 $\max_i v_i<3q$ in Question 6.6 remains unfinished; it is proved here on the
-three explicit critical families, without parameter cutoffs.
+every critical six-plane and above an explicit global norm cutoff, without
+parameter cutoffs on the critical families.
 
 The development proves the following results.
 
@@ -48,13 +49,13 @@ The development proves the following results.
   explicit good points and eighteen rays, followed by exact linear integer
   arithmetic in residue classes modulo six. It does not assume the family's
   spectral formula or a precomputed classification.
-- **Classification of all critical six-speed planes, with an explicit tight-five classification input.**
+- **Classification of all critical six-speed planes.**
   Every rational two-plane containing a zero-free integer direction has two
   independent primitive zero-free repeat directions. This structural theorem
   holds in every dimension without a Lonely Runner hypothesis. The proved five-speed
   Lonely Runner theorem makes both directions tight on a critical six-plane;
-  deleting a repeated coordinate reduces them to tight five-tuples. Given the
-  published tight-five classification as an explicit hypothesis, Lean proves
+  deleting a repeated coordinate reduces them to tight five-tuples. The
+  tight-five classification is also proved here, so Lean concludes
   that every such plane is one of the three signed coordinate families above.
   All **1,152,000** repeat pairs and the coverage of their catalogue are checked
   by the ordinary kernel. The 190 surviving pairs have exact plane-equality
@@ -62,8 +63,8 @@ The development proves the following results.
   the critical-plane `3q` theorem.
   Combining this classification with the global height bound proves `3q`
   for every positive primitive near-tight sextuple with
-  $\|v\|_2\ge9K(6)^2$, under the tight-five
-  classification hypothesis. Both lower-speed inputs are proved in the package. Verifying
+  $\|v\|_2\ge9K(6)^2$. Both lower-speed inputs and the tight-five
+  classification are proved in the package. Verifying
   the finite region below this coarse cutoff remains outstanding.
 - **Lower-speed inputs proved through five speeds.** The package proves the
   Lonely Runner theorem for every zero-free integer tuple of one through five
@@ -73,7 +74,10 @@ The development proves the following results.
   triples. Integer endpoint inequalities cover every real position, including
   boundaries; ordinary kernel reduction checks the finite data. Thus the global
   six-speed off-critical bound and the coarse denominator bound are unconditional.
-  The sharp six-speed reduction retains only the tight-five classification input.
+  A separate [modular moment proof](TIGHT_FIVE_MOMENTS.md) classifies every
+  primitive zero-free tight quintuple as a signed permutation of $(1,2,3,4,5)$
+  or $(1,3,4,5,9)$. All 40 required prime covers, arbitrary residue normalization,
+  integer lifting, and algebraic profile recovery are kernel-checked.
 - **A global short relation.** Every six-speed tuple with $L(v)\le1/6$
   has a nonzero integer relation $a\cdot v=0$ with $\sum_i a_i^2\le36$.
   At most one coefficient has absolute value above two, and that coefficient
@@ -138,14 +142,11 @@ invariance also gives $L(2,6,8,10,36,92)=4/25$ with $92>3\cdot25$,
 showing why a bound on speeds in terms of the reduced denominator requires
 primitive normalization.
 
-The sharp global Question 6.6, completeness of the sporadic list, and the
-tight-five classification remain outside the proved scope.
-Supporting work now gives a [40-prime moment route](TIGHT_FIVE_MOMENTS.md)
-to the known tight-five classification: Lean proves normalization, lifting,
-profile recovery, and the finite checker's soundness. The complete prime-83
-cover is kernel-checked, including repeated residues and negative controls.
-The other 39 covers remain to be formalized; two external exhaustive censuses
-agree on the data for all 40 primes.
+The sharp global Question 6.6 and completeness of the sporadic list remain
+outside the proved scope. The known tight-five classification and the resulting
+critical-plane classification are fully formalized. Two external exhaustive
+censuses independently agree with the 40 kernel-checked modular certificates;
+their output is not used as a proof.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas
@@ -164,7 +165,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 66 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 67 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 builds and audits once, exports the selected claims once, and runs sandboxed
@@ -172,3 +173,9 @@ Comparator, NanoDa and con-ron in separate jobs. Every job checks the source
 commit, comparator configuration, toolchain and SHA-256 identity of both
 exports before verification. The default script still runs all stages locally;
 `--stage export|comparator|nanoda|con-ron` exposes the same stages for CI.
+
+The manual workflow also offers `palomar_preflight`, which calls Palomar's
+official verifier at a pinned revision under its production profile. This
+checks the immutable commit mechanically and does not submit it for editorial
+review or registration. The generated modular proofs use two import chains to
+bound compilation concurrency even in a clean verifier-owned Lake build.

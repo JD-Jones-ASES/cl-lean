@@ -1,8 +1,8 @@
 """Exact external census supporting the tight-five moment route.
 
-This is NOT imported as a Lean proof. The complete 40-prime finite coverage
-remains a formalization obligation; see TIGHT_FIVE_MOMENTS.md. Normalization,
-integer lifting, checker soundness, and prime 83 are now proved in Lean.
+This is NOT imported as a Lean proof. Separate kernel certificates prove all
+40 prime covers; see TIGHT_FIVE_MOMENTS.md. This script provides independent
+external replays of the finite arithmetic.
 --check replays two independent exhaustive enumerations and negative controls.
 --write regenerates the literal record after those same checks.
 Only Python's standard library is required. No assertions are used for checks.

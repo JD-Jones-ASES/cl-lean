@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 66 declared Challenge/Solution claims with the
+declaration, compares all 67 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. The three verifiers run in
 separate jobs against identical, hash-checked exports so one checker does
@@ -44,18 +44,17 @@ patterns and 22,596,480 mask triples. It proves a known theorem; no priority
 claim is made. The six-speed global off-critical and coarse denominator
 bounds now have no unproved input. The sharp unrestricted six-speed Question
 6.6 and completeness of the sporadic list remain outside the proved scope.
-The critical-plane classification retains the explicit tight-five
-classification hypothesis, which is not proved in this package. Conditional
+The tight-five classification and resulting critical-plane classification
+are also proved in this package. Conditional
 prime-capacity and assumed-height arithmetic lemmas remain supporting code but
 are no longer independently selected Challenge claims.
 
-The [tight-five moment route](TIGHT_FIVE_MOMENTS.md) is supporting development.
-Its normalization, integer lift, profile recovery and finite checker soundness
-are proved in Lean. The prime-83 cover is kernel-checked, including repeated
-residues. The other 39 covers remain formalization obligations; two independent
-exhaustive Python algorithms check all 40 primes. The literal census is not
-trusted by any Lean theorem. This targets the known
-Bohman–Holzman–Kleitman tight-five classification; no novelty claim is made.
+The [tight-five moment proof](TIGHT_FIVE_MOMENTS.md) proves the known
+Bohman–Holzman–Kleitman classification. Its norm bound, normalization, integer
+lift, profile recovery, checker soundness and all 40 finite prime covers are
+proved in Lean, including repeated residues. Two independent exhaustive
+Python algorithms replay the finite data; the literal census is not trusted
+by any Lean theorem. No novelty claim is made for the classification.
 
 The automated Palomar review of commit
 `7fa5a11b5fbb3aee56d62e87ecf9154e7c374a34` passed mechanical verification
@@ -78,8 +77,8 @@ independent primitive repeat directions, then kernel-checks the complete
 1,152,000-pair critical-plane calculation and catalogue coverage. Exact
 Cramer certificates identify every survivor with a known family. This uses
 an independently written generator based on the mathematical profiles in
-Cordella's Section 3. The sharp bound now applies to all critical planes under
-the explicit tight-five classification input and, combined with the effective global result,
+Cordella's Section 3. With the tight-five classification now proved, the sharp
+bound applies to all critical planes and, combined with the effective global result,
 to all near-tight sextuples above its coarse cutoff. The finite region below
 that cutoff remains unverified; this does not complete the exhaustive
 six-speed classification.

@@ -177,20 +177,90 @@ theorem targets_ok : targetsCheck 42 targets=true := by decide +kernel
 
 theorem exceptions_ok : exceptionsCheck 83 42 exceptions=true := by decide +kernel
 
-theorem block_0 : blockCheck 42 masks pairs targets exceptions 1 8=true := by decide +kernel
+theorem block_0 : blockCheck 42 masks pairs targets exceptions 1 1=true := by decide +kernel
 
-theorem block_1 : blockCheck 42 masks pairs targets exceptions 9 8=true := by decide +kernel
+theorem block_1 : blockCheck 42 masks pairs targets exceptions 2 1=true := by decide +kernel
 
-theorem block_2 : blockCheck 42 masks pairs targets exceptions 17 8=true := by decide +kernel
+theorem block_2 : blockCheck 42 masks pairs targets exceptions 3 1=true := by decide +kernel
 
-theorem block_3 : blockCheck 42 masks pairs targets exceptions 25 8=true := by decide +kernel
+theorem block_3 : blockCheck 42 masks pairs targets exceptions 4 1=true := by decide +kernel
 
-theorem block_4 : blockCheck 42 masks pairs targets exceptions 33 8=true := by decide +kernel
+theorem block_4 : blockCheck 42 masks pairs targets exceptions 5 1=true := by decide +kernel
 
-theorem block_5 : blockCheck 42 masks pairs targets exceptions 41 8=true := by decide +kernel
+theorem block_5 : blockCheck 42 masks pairs targets exceptions 6 1=true := by decide +kernel
+
+theorem block_6 : blockCheck 42 masks pairs targets exceptions 7 1=true := by decide +kernel
+
+theorem block_7 : blockCheck 42 masks pairs targets exceptions 8 1=true := by decide +kernel
+
+theorem block_8 : blockCheck 42 masks pairs targets exceptions 9 1=true := by decide +kernel
+
+theorem block_9 : blockCheck 42 masks pairs targets exceptions 10 1=true := by decide +kernel
+
+theorem block_10 : blockCheck 42 masks pairs targets exceptions 11 1=true := by decide +kernel
+
+theorem block_11 : blockCheck 42 masks pairs targets exceptions 12 1=true := by decide +kernel
+
+theorem block_12 : blockCheck 42 masks pairs targets exceptions 13 1=true := by decide +kernel
+
+theorem block_13 : blockCheck 42 masks pairs targets exceptions 14 1=true := by decide +kernel
+
+theorem block_14 : blockCheck 42 masks pairs targets exceptions 15 1=true := by decide +kernel
+
+theorem block_15 : blockCheck 42 masks pairs targets exceptions 16 1=true := by decide +kernel
+
+theorem block_16 : blockCheck 42 masks pairs targets exceptions 17 1=true := by decide +kernel
+
+theorem block_17 : blockCheck 42 masks pairs targets exceptions 18 1=true := by decide +kernel
+
+theorem block_18 : blockCheck 42 masks pairs targets exceptions 19 1=true := by decide +kernel
+
+theorem block_19 : blockCheck 42 masks pairs targets exceptions 20 1=true := by decide +kernel
+
+theorem block_20 : blockCheck 42 masks pairs targets exceptions 21 1=true := by decide +kernel
+
+theorem block_21 : blockCheck 42 masks pairs targets exceptions 22 1=true := by decide +kernel
+
+theorem block_22 : blockCheck 42 masks pairs targets exceptions 23 1=true := by decide +kernel
+
+theorem block_23 : blockCheck 42 masks pairs targets exceptions 24 1=true := by decide +kernel
+
+theorem block_24 : blockCheck 42 masks pairs targets exceptions 25 1=true := by decide +kernel
+
+theorem block_25 : blockCheck 42 masks pairs targets exceptions 26 1=true := by decide +kernel
+
+theorem block_26 : blockCheck 42 masks pairs targets exceptions 27 1=true := by decide +kernel
+
+theorem block_27 : blockCheck 42 masks pairs targets exceptions 28 1=true := by decide +kernel
+
+theorem block_28 : blockCheck 42 masks pairs targets exceptions 29 1=true := by decide +kernel
+
+theorem block_29 : blockCheck 42 masks pairs targets exceptions 30 1=true := by decide +kernel
+
+theorem block_30 : blockCheck 42 masks pairs targets exceptions 31 1=true := by decide +kernel
+
+theorem block_31 : blockCheck 42 masks pairs targets exceptions 32 1=true := by decide +kernel
+
+theorem block_32 : blockCheck 42 masks pairs targets exceptions 33 1=true := by decide +kernel
+
+theorem block_33 : blockCheck 42 masks pairs targets exceptions 34 1=true := by decide +kernel
+
+theorem block_34 : blockCheck 42 masks pairs targets exceptions 35 1=true := by decide +kernel
+
+theorem block_35 : blockCheck 42 masks pairs targets exceptions 36 1=true := by decide +kernel
+
+theorem block_36 : blockCheck 42 masks pairs targets exceptions 37 1=true := by decide +kernel
+
+theorem block_37 : blockCheck 42 masks pairs targets exceptions 38 1=true := by decide +kernel
+
+theorem block_38 : blockCheck 42 masks pairs targets exceptions 39 1=true := by decide +kernel
+
+theorem block_39 : blockCheck 42 masks pairs targets exceptions 40 1=true := by decide +kernel
+
+theorem block_40 : blockCheck 42 masks pairs targets exceptions 41 1=true := by decide +kernel
 
 theorem rows_ok : rowsCheck 42 masks pairs targets exceptions=true := by
-  apply rowsCheck_of_blocks 42 masks pairs targets exceptions 8 6 (by decide) (by decide)
+  apply rowsCheck_of_blocks 42 masks pairs targets exceptions 1 41 (by decide) (by decide)
   intro q hq
   interval_cases q
   · exact block_0
@@ -199,6 +269,41 @@ theorem rows_ok : rowsCheck 42 masks pairs targets exceptions=true := by
   · exact block_3
   · exact block_4
   · exact block_5
+  · exact block_6
+  · exact block_7
+  · exact block_8
+  · exact block_9
+  · exact block_10
+  · exact block_11
+  · exact block_12
+  · exact block_13
+  · exact block_14
+  · exact block_15
+  · exact block_16
+  · exact block_17
+  · exact block_18
+  · exact block_19
+  · exact block_20
+  · exact block_21
+  · exact block_22
+  · exact block_23
+  · exact block_24
+  · exact block_25
+  · exact block_26
+  · exact block_27
+  · exact block_28
+  · exact block_29
+  · exact block_30
+  · exact block_31
+  · exact block_32
+  · exact block_33
+  · exact block_34
+  · exact block_35
+  · exact block_36
+  · exact block_37
+  · exact block_38
+  · exact block_39
+  · exact block_40
 
 theorem normalized_cover : NormalizedFiveCover 83 :=
   normalized_of_checks 83 (by decide) masks pairs targets exceptions
