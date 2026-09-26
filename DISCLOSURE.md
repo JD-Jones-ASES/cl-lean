@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 61 declared Challenge/Solution claims with the
+declaration, compares all 62 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
@@ -32,8 +32,12 @@ they are not human mathematical review or Palomar editorial approval.
 The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
-not formalized here and are not imported as axioms. The sharp unrestricted
-six-speed Question 6.6 and completeness of the sporadic list remain outside
+explicit in the general theorem and are not imported as axioms. The cases
+through four speeds are now formalized here, following Renault's
+[Appendix A](https://doi.org/10.1016/j.disc.2004.06.008). Both modular lemmas
+are proved by exact closed-cell inequalities and ordinary kernel reduction;
+all real inputs, boundary points, signs and gcd normalization are covered.
+The sharp unrestricted six-speed Question 6.6 and completeness of the sporadic list remain outside
 the proved scope. The critical-plane classification is now proved under the
 explicit five-speed assertion and tight-five classification hypothesis; neither
 five-speed input is proved in this package. Conditional

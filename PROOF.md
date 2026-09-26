@@ -481,7 +481,7 @@ integer direction. `critical_plane_question66` then gives the sharp $3q$
 bound without supplied family membership.
 
 Finally, `large_six_question66` combines this classification with the global
-height theorem: under the four- and five-speed assertions and the tight-five
+height theorem: under the five-speed assertion and the tight-five
 classification, every positive primitive near-tight sextuple with
 
 $$\|v\|_2\ge9K(6)^2=12{,}853{,}682{,}015{,}846{,}400{,}000{,}000$$
@@ -490,6 +490,41 @@ satisfies $\max_i v_i<3q$. Every possible violation is below that explicit
 cutoff. This is a proved finite reduction; the box below it has **not** been
 exhaustively verified.
 
+## Proved lower-speed inputs through four speeds
+
+`ConstrainedMaximum.lean` formalizes the extremal-time setup from Jérôme
+Renault, [*View-obstruction: a shorter proof for 6 lonely runners*](https://doi.org/10.1016/j.disc.2004.06.008),
+Appendix A. If the other runners admit a strictly safe time, compactness
+provides a positive constrained maximum. Reflection puts the distinguished
+runner on the increasing half of the circle. A finite minimum of upper
+cell endpoints proves that some other runner must attain the upper boundary.
+The argument treats closed endpoints explicitly.
+
+`LowerSpeeds.lean` proves the one-, two- and three-speed assertions for all
+nonzero integer speeds. Absolute values and division by the positive common
+gcd reduce to positive primitive tuples; the final time is scaled back.
+For three speeds, the even-speed case uses a half-period shift and a forward
+perturbation, including the case of a second upper-boundary runner.
+
+`RenaultGrid.lean` proves Renault's two-position Lemma A.1 through exact
+closed interval cells. Each fractional position lies in one of sixty cells
+`[j/60,(j+1)/60]`. Integer endpoint inequalities prove safety throughout a cell;
+strict endpoint inequalities prove strict safety throughout it. Ordinary
+`decide +kernel` covers all 57,600 pairs of cells and nonzero residue choices.
+The conclusion gives either one dilation/shift with both positions safe, or
+two distinct shifts with both strictly safe. A second 57,600-case check gives
+a common fifth-period shift for any two positions. These are proved interval
+covers, not sampled grids. No generated data or external search is assumed.
+
+`FourSpeeds.lean` finishes Appendix A.3. Two multiples of five allow the
+three-speed theorem and the common-shift lemma to produce a good time. With
+one multiple of five, shift the boundary runner to zero and apply the
+interval dichotomy. A dilation improves the constrained maximum immediately;
+in the strict-shift case one of the two shifts leaves the boundary runner
+below its upper endpoint, permitting a forward improvement. This contradiction
+proves `lonely_runner_four` without a lower-speed hypothesis. The two
+six-speed sharp-bound reduction theorems now use this proved result.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
@@ -497,7 +532,7 @@ proposition. **It is a definition, not a proved theorem.** The current
 critical-plane classification is proved under explicit five-speed inputs.
 The unrestricted bound still requires additional work:
 
-1. Supply the lower-speed Lonely Runner and tight-five classification proofs,
+1. Supply the five-speed Lonely Runner and tight-five classification proofs,
    and a sufficiently sharp global
    reduction for the six-speed exhaustive certificate. The global box theorem
    above has explicit hypotheses and a much larger cutoff.
@@ -701,4 +736,5 @@ The sharp global primitive inequality $\max_i v_i<3q$ in Question 6.6 remains
 unfinished. Neither the complete six-speed classification nor completeness of
 the nine-tuple list is asserted. The effective off-critical bound is proved in
 all dimensions $n\ge3$ conditional on the two explicitly stated lower-speed
-Lonely Runner assertions; this repository does not yet prove those assertions.
+Lonely Runner assertions; the cases through four speeds are proved here,
+while the five-speed input remains explicit.

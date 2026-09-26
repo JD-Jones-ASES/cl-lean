@@ -490,18 +490,18 @@ theorem critical_plane_question66 (hLRC : LonelyRunnerConjecture 5)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) : ∀ i, |v i|<3*(q:ℤ) := by sorry
 
-theorem large_six_question66 (hfour : LonelyRunnerConjecture 4)
-    (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+theorem large_six_question66 (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6)
     (hlarge : 9*boxHeightConstant 6^2 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
 
-theorem question66_violation_speed_bound (hfour : LonelyRunnerConjecture 4)
-    (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+theorem question66_violation_speed_bound (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :
     speedNorm v<9*boxHeightConstant 6^2 := by sorry
+
+theorem lonely_runner_four : LonelyRunnerConjecture 4 := by sorry
 
 end LonelyRunner

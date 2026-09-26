@@ -36,8 +36,8 @@ The development proves the following results.
   The containing plane and its bound $H<K(n)$ are constructed in Lean using
   a shortest integer projection and Minkowski's theorem on an orthogonal box.
   Density, denominator bounds, and both rank reductions are proved. The
-  lower-speed Lonely Runner assertions are **explicit hypotheses**, not proved
-  here or imported as axioms. Distinctness of speeds is unnecessary.
+  lower-speed Lonely Runner assertions are **explicit hypotheses** in this
+  dimension-general theorem; the cases through four speeds are proved here. Distinctness of speeds is unnecessary.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
@@ -61,9 +61,15 @@ The development proves the following results.
   the critical-plane `3q` theorem.
   Combining this classification with the global height bound proves `3q`
   for every positive primitive near-tight sextuple with
-  $\|v\|_2\ge9K(6)^2$, under the lower-speed assertions and tight-five
-  classification. Verifying the finite region below this coarse cutoff
-  remains outstanding.
+  $\|v\|_2\ge9K(6)^2$, under the five-speed assertion and tight-five
+  classification. The four-speed input is now proved in the package. Verifying
+  the finite region below this coarse cutoff remains outstanding.
+- **Lower-speed inputs proved through four speeds.** The package proves the
+  Lonely Runner theorem for every zero-free integer tuple of one, two, three,
+  or four speeds, including repeated absolute speeds. The proofs follow
+  Renault's constrained-maximum argument; exact interval checks prove the
+  modular lemma for arbitrary real positions. The global six-speed finite
+  reduction now uses only the five-speed assertion and tight-five classification.
 - **A global short relation.** Every six-speed tuple with $L(v)\le1/6$
   has a nonzero integer relation $a\cdot v=0$ with $\sum_i a_i^2\le36$.
   At most one coefficient has absolute value above two, and that coefficient
@@ -129,7 +135,7 @@ showing why a bound on speeds in terms of the reduced denominator requires
 primitive normalization.
 
 The sharp global Question 6.6, completeness of the sporadic list, and proofs
-of the lower-speed Lonely Runner assertions and tight-five classification remain outside the proved scope.
+of the five-speed Lonely Runner assertion and tight-five classification remain outside the proved scope.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas
@@ -148,7 +154,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 61 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 62 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.
