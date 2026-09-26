@@ -27,7 +27,7 @@ theorem shortValue_sq_le (c : Fin 6 → Fin 3) (hc : c ∈ shortForms)
   exact (Finset.sum_mul_sq_le_sq_mul_sq Finset.univ (shortCoeff c) v).trans
     (mul_le_mul_of_nonneg_right hw hv)
 
-/-- Cauchy--Schwarz converts the Lab's rational norm cutoff to an integer capacity bound. -/
+/-- Cauchy--Schwarz converts the stated rational norm cutoff to an integer capacity bound. -/
 theorem shortValue_lt_cube (v : Fin 6 → ℤ)
     (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
     (c : Fin 6 → Fin 3) (hc : c ∈ shortForms) :
@@ -38,6 +38,29 @@ theorem shortValue_lt_cube (v : Fin 6 → ℤ)
   have hh : ((shortValue c v).natAbs : ℤ) < ((149 ^ 3 : ℕ) : ℤ) := by
     simpa only [Int.natCast_natAbs, Nat.cast_pow, Nat.cast_ofNat] using hb
   exact_mod_cast hh
+
+/-- A general norm threshold for lifting sufficiently many modular short relations
+into an integer short relation. -/
+theorem short_relation_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
+    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
+    (hcard : 116 * k < P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
+    ∃ c ∈ shortForms, shortValue c v = 0 := by
+  by_contra hzero
+  have hz : ∀ c ∈ shortForms, shortValue c v ≠ 0 := by simpa using hzero
+  have habs (c) (hc : c ∈ shortForms) : (shortValue c v).natAbs < B ^ (k + 1) := by
+    have hsq := shortValue_sq_le c hc v
+    have hpow : (0 : ℤ) ≤ (B : ℤ) ^ (k + 1) := by positivity
+    have hlt : |shortValue c v| < (B : ℤ) ^ (k + 1) := by
+      nlinarith [sq_abs (shortValue c v), abs_nonneg (shortValue c v)]
+    have hcast : ((shortValue c v).natAbs : ℤ) < ((B ^ (k + 1) : ℕ) : ℤ) := by
+      simpa only [Int.natCast_natAbs, Nat.cast_pow] using hlt
+    exact_mod_cast hcast
+  have hbound := integer_prime_cover_capacity P shortForms (fun c => shortValue c v)
+    B k hB hp hlarge (fun c hc => ⟨hz c hc, habs c hc⟩) hcover
+  rw [shortForms_card] at hbound
+  omega
 
 /-- The finite-prime transfer underlying the triad-free proof.
 The modular covering assertions and speed norm bound are explicit inputs. -/

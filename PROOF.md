@@ -1,119 +1,116 @@
-# Proof and formalization boundary
+# Proof
 
-Write $\|x\|=\min_{z\in\mathbb Z}|x-z|$ and
-$L(v)=\max_t\min_i\|tv_i\|$. The Lean definition uses the standard norm on
-$\mathbb R/\mathbb Z$ and a supremum over all real times. Compactness and
-integer periodicity prove that the supremum is attained in $[0,1]$.
+For $x\in\mathbb R$, let $\|x\|=\min_{z\in\mathbb Z}|x-z|$. For a nonempty
+integer tuple $v$, define $L(v)=\sup_t\min_i\|tv_i\|$. Lean uses the norm
+on $\mathbb R/\mathbb Z$. Integer periodicity reduces times to $[0,1]$;
+continuity and compactness show that the supremum is attained.
 
-## Mathematical targets
+## Exact maximizing times
 
-These are the conclusions of the Lab argument, **not yet theorems of this
-Lean development**.
+Assume every speed is positive, and let $t$ maximize the loneliness. Put
+$L=L(v)$ and $k_i=\lfloor tv_i\rfloor$. Then
 
-**Question 6.6.** For six distinct positive integer speeds with gcd one,
-$L(v)=a/q<1/6$ in lowest terms implies $\max_i v_i<3q$.
+$$\frac{k_i+L}{v_i}\le t\le\frac{k_i+1-L}{v_i}\qquad\text{for every }i.$$
 
-**Question 6.7 and a general speed bound.** Assume the Lonely Runner
-conjecture for $n-1$ and $n-2$ speeds, with $n\ge3$. Put
-$V=\|v\|_2$, $k=q-na>0$, and
+Let $A$ be the maximum of the left endpoints and $B$ the minimum of the
+right endpoints. We have $A\le t\le B$. If $A<B$, the midpoint $(A+B)/2$
+is at distance at least $L+(B-A)/2$ from the two neighboring integers in
+every coordinate: each positive integer speed is at least one. It is
+therefore at least that far from every integer, contradicting maximality.
+Thus $A=B=t$.
 
-$$K_n=\frac{2^{n-1}}{\omega_{n-1}}[n(n-1)]^{n-2},$$
+Choose indices $i,j$ attaining the two endpoints. Solving their equations
+gives
 
-where $\omega_d$ is the volume of the Euclidean unit ball in dimension $d$.
-For primitive near-tight vectors the intended bounds are
+$$t=\frac{k_i+k_j+1}{v_i+v_j},\qquad
+L(v)=\frac{v_i(k_j+1)-v_jk_i}{v_i+v_j}.$$
 
-$$V<\frac{nK_n}{2}\frac qk,\qquad
-V<\frac{n\sqrt3}{2}K_n^2\quad\text{off the critical two-tori}.$$
+This proves `maximizing_time_pair_sum` for **every** maximizing time, for
+any nonempty positive integer tuple, without distinctness or primitivity
+assumptions. The case $i=j$ is allowed. Choosing a maximizer in $[0,1]$
+gives `exists_pair_sum_maximizer`, hence the finite criterion
 
-A rational torus is proper when no coordinate vanishes identically. It is
-critical here when its loneliness equals $1/n$. Off-critical means that
-$v$ lies in no such proper rational two-torus, including signed coordinate
-permutations. This is a geometric condition, not a list-membership test.
+$$L(v)\le C\quad\Longleftrightarrow\quad
+\text{for every }i,j,\ 0\le m\le v_i+v_j,
+\text{ some }r\text{ satisfies }
+\left\|\frac{mv_r}{v_i+v_j}\right\|\le C.$$
 
-The sharper Lab bounds, using additional lattice arguments, are:
+Here $m$ is an integer. The implication from the finite checks back to all
+real times is `loneliness_le_iff_pair_sum_grid`. Clearing denominators in
+the displayed formula for $L(v)$ and cancelling coprime factors proves
+`reduced_denominator_dvd_pair_sum`. Consequently its reduced denominator
+is at most twice the largest speed.
 
-| Number of speeds | Strict off-critical bound on $V^2$ | Coordinate bound |
-|---:|---:|---:|
-| 4 | $326700$ | $571$ |
-| 5 | $36975155718400/61347$ | $24550$ |
-| 6 | $159439954591875/49$ | $1803850$ |
+These results adapt the candidate-time principle in Cordella's Lemma 2.2,
+using sums of positive speeds only and including the case $L(v)=1/2$.
+No novelty claim is made for the rationality or candidate-time principle.
 
-The geometric proof projects $\mathbb Z^n$ perpendicular to a primitive
-$v$. The projection lattice has determinant $1/V$. A shortest vector
-of length $\lambda_1$ determines a saturated two-torus of height
-$H=V\lambda_1$, within distance $\lambda_1/2$ of the runner orbit.
-The lower-speed Lonely Runner hypotheses and Minkowski's second theorem
-give $H<K_n$. The rational loneliness of a rank-two torus has denominator
-$b\le\sqrt3H$. Thus a torus above $1/n$ is at least $1/(nb)$ above it.
-These facts give the two displayed inequalities. The sharper constants
-use a reduced lattice basis and a product inequality.
+## Prime obstructions and additive triads
 
-## What Lean proves
+Let $P$ be a finite set of primes, each at least $B\ge1$, dividing a
+positive integer $M<B^{k+1}$. Distinct primes are coprime, so their product
+divides $M$. Thus
 
-**Prime capacity.** Let $P$ be a finite set of distinct primes, each at
-least $B\ge1$, dividing a positive integer $M<B^{k+1}$. Their product
-divides $M$, hence
+$$B^{|P|}\le\prod_{p\in P}p\le M<B^{k+1},$$
 
-$$B^{|P|}\le\prod_{p\in P}p\le M<B^{k+1}.$$
+and $|P|\le k$. Taking unions shows that $m$ nonzero integers of absolute
+value below $B^{k+1}$ can collectively have at most $km$ distinct prime
+divisors at least $B$. `PrimeCapacity.lean` proves this for arbitrary finite
+index sets and integer values of either sign.
 
-Therefore $|P|\le k$. Taking the union of the prime divisors assigned to
-$m$ nonzero integer forms proves the bound $km$.
-`PrimeCapacity.lean` proves this for arbitrary finite index sets and
-integer values of either sign.
+For six coordinates, choose one representative, with first nonzero
+coefficient positive, from each sign pair of nonzero vectors in
+$\{-1,0,1\}^6$ supported on at most three coordinates. There are
 
-**The 116 forms.** `ShortForms.lean` defines all coefficient vectors in
-$\{-1,0,1\}^6$ supported on one, two, or three coordinates, choosing the
-representative with first nonzero coefficient positive. Lean computes
-$6+30+80=116$. Cauchy–Schwarz gives
+$$6+2\binom62+4\binom63=116$$
 
-$$|w\cdot v|^2\le3V^2.$$
+such forms. Their definition and this count are checked in Lean.
+Cauchy–Schwarz gives $|w\cdot v|^2\le3\sum_i v_i^2$. Hence, under
+$3\sum_i v_i^2<B^{2(k+1)}$, each nonzero form value has prime capacity at
+most $k$. If more than $116k$ distinct primes at least $B$ each divide
+some form value, one value must be zero.
 
-Under the explicit hypothesis $49V^2<159439954591875$, every such integer
-has absolute value below $149^3$. If 233 distinct primes at least 149 each
-divide some form value, not all 116 values can be nonzero: each would have
-capacity at most two. `Triads.lean` proves, by an exhaustive checked
-catalogue, that a zero form on distinct positive speeds is an additive
-relation $v_i+v_j=v_k$ with three different indices.
+For positive distinct speeds, a one-term value cannot vanish, nor can a
+two-term value. A vanishing three-term value must have both signs, and
+therefore gives $v_i+v_j=v_\ell$ at distinct indices. `Triads.lean` checks
+this implication using the complete 116-form catalogue. Together these
+arguments prove `triad_of_prime_cover_bound`.
 
-This proves a **transfer implication**. The required prime-by-prime
-modular assertions and the geometric norm hypothesis are not proved by
-that implication. In the Lab, 239 primes from 149 through 1777 satisfy the
-necessary finite-field assertion; 181 and 199 fail and are not used.
-Those Python computations have not been promoted to Lean certificates.
+The numerical specialization follows from
+$49\sum_i v_i^2<159439954591875$, which implies every form value has
+absolute value less than $149^3$. Each nonzero value accommodates at most
+two primes at least 149; 233 primes exceed the total capacity of 232.
+This is a conditional lifting theorem: no prime-by-prime assertion or
+geometric norm estimate is assumed implicitly.
 
-**Exact values.** `Certificates.lean` checks rational intervals covering
-$[0,1]$. Each interval selects a runner and an integer; the endpoint
-inequalities ensure that runner stays within the claimed distance
-throughout the interval. A separate rational time provides the matching
-lower bound for every runner. Integer periodicity extends the upper bound
-to every real time. The literal interval certificates in `Sporadics.lean`
-prove all nine values in the README. Python was used to find certificates;
-only the resulting Lean proof terms establish their validity.
+## Exact values and certificate soundness
 
-**Height arithmetic.** `Effective.lean` proves the rational separation
-inequality and the deductions from the explicit height, density, and
-norm inequalities. `six_speed_coordinate_cutoff` checks the integer
-rounding to 1803850. These lemmas do not construct the projection lattice,
-prove the torus denominator theorem, or establish off-criticality.
+A certificate partitions $[0,1]$ into rational intervals. Each interval
+selects one runner and an integer. Its two endpoint distances from that
+integer are at most the proposed bound. Convexity of the absolute value
+then bounds that runner throughout the interval, so the minimum over all
+runners is bounded there. Periodicity covers all real times.
 
-## Remaining proof obligations
+For the matching lower bound, a rational witness time and one integer
+per runner certify distances between the proposed bound and $1/2$.
+The distance to the selected integer is then the distance to a nearest
+integer. `Certificates.lean` proves both implications; `Sporadics.lean`
+supplies literal certificates for the nine values in Cordella's Table 2.
+The finite check for the seventh tuple excludes every time $m/25$ modulo
+one. A change of time parameter proves common nonzero integer scaling
+invariance, including the displayed nonprimitive counterexample.
 
-To obtain the two requested global Lean theorems, the following mathematical
-work still needs formalization:
+## Scope of the effective-bound lemmas
 
-1. The projection lattice, density and height arguments; the torus
-   denominator bound; the lower-dimensional Lonely Runner inputs; the
-   lattice inequalities giving the effective constants.
-2. Cordella's critical-torus classification and the Lab's global one-triad
-   exclusion and classification for two or more independent triads.
-3. A proved finite-field search/certificate checker and kernel-checked
-   certificates for the actual prime exclusions, including their complete
-   symmetry reductions and pruning rules.
+`Effective.lean` proves rational separation above $1/n$, elementary
+consequences of explicitly stated height and density inequalities, and
+integer rounding of a squared-norm bound. For example,
+$49\sum_i v_i^2<159439954591875$ implies $|v_i|\le1803850$.
+These statements retain their hypotheses; they do not establish a
+geometric bound on near-tight speed tuples.
 
-The source proof and replay evidence are pinned at Analytic-Lab commit
-`556edc596fb8ebc973def2241cf728809a1de3e9`:
-[effective bounds](https://github.com/JD-Jones-ASES/Analytic-Lab/blob/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective/NOTES.md),
-[triad-free exclusion](https://github.com/JD-Jones-ASES/Analytic-Lab/blob/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective/TRIAD_FREE.md),
-[one-triad exclusion](https://github.com/JD-Jones-ASES/Analytic-Lab/blob/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective/ONE_TRIAD.md), and
-[two-triad classification](https://github.com/JD-Jones-ASES/Analytic-Lab/blob/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective/TWO_TRIADS.md).
-These remain mathematical sources, not trusted Lean axioms.
+The global primitive inequality $\max_i v_i<3q$ in Question 6.6 and the
+off-critical speed bound sought in Question 6.7 are outside the proved
+scope. They would require additional geometric estimates, a critical-torus
+classification and complete exclusion certificates. Neither those inputs
+nor completeness of the nine-tuple list is asserted by this submission.

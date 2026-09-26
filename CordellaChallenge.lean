@@ -1,11 +1,12 @@
 import Mathlib
 
 /-!
-# Effective Bounds for the Lonely Runner Spectrum
+# Exact Maxima and Prime Obstructions for Lonely Runners
 
-This Challenge records the proved supporting results only. The global
-resolutions of Cordella Questions 6.6 and 6.7 are not yet formalized.
-Every geometric or modular input below is an explicit hypothesis.
+Exact finite optimization for arbitrary positive integer speeds, certified
+sporadic values, and finite-prime lifting of short relations. The global
+resolutions of Cordella's Questions 6.6 and 6.7 are outside the submitted scope.
+Every norm, geometric or modular input below is an explicit hypothesis.
 -/
 
 namespace LonelyRunner
@@ -164,5 +165,58 @@ theorem sporadic7_grid25_miss : ∀ k : Fin 25, ∃ i : Fin 6,
 /-- Common dilation shows why primitive speeds are required in Question 6.6. -/
 theorem nonprimitive_counterexample :
     loneliness ![2, 6, 8, 10, 36, 92] = (4 / 25 : ℝ) ∧ (3 * 25 : ℤ) < 92 := by sorry
+
+/-- Every maximizing time for positive integer speeds has denominator `v i + v j`
+for some indices, which may coincide. The same denominator represents the loneliness.
+This strengthens the candidate set in Cordella's Lemma 2.2 by using sums only. -/
+theorem maximizing_time_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (t : ℝ)
+    (hmax : ∀ i, loneliness v ≤ intDist (t * v i)) :
+    ∃ i j : Fin n, ∃ m a : ℤ,
+      t = (m : ℝ) / (v i + v j) ∧
+      loneliness v = (a : ℝ) / (v i + v j) := by sorry
+
+/-- The continuous optimization reduces to finitely many sum-denominator times. -/
+theorem exists_pair_sum_maximizer {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) :
+    ∃ i j : Fin n, ∃ m a : ℤ,
+      0 ≤ m ∧ m ≤ v i + v j ∧
+      loneliness v = (a : ℝ) / (v i + v j) ∧
+      ∀ r, loneliness v ≤ intDist (((m : ℝ) / (v i + v j)) * v r) := by sorry
+
+/-- An exact finite-grid criterion for an upper bound over all real times. -/
+theorem loneliness_le_iff_pair_sum_grid {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (L : ℝ) :
+    loneliness v ≤ L ↔ ∀ i j : Fin n, ∀ m : ℤ, 0 ≤ m → m ≤ v i + v j →
+      ∃ r, intDist (((m : ℝ) / (v i + v j)) * v r) ≤ L := by sorry
+
+/-- The reduced denominator of the loneliness divides a sum of two speeds. -/
+theorem reduced_denominator_dvd_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (a q : ℕ) (hq : 0 < q) (hcop : a.Coprime q)
+    (hvalue : loneliness v = (a : ℝ) / q) :
+    ∃ i j : Fin n, (q : ℤ) ∣ v i + v j := by sorry
+
+/-- A denominator bound valid for every positive integer tuple, with no near-tightness assumption. -/
+theorem reduced_denominator_le_twice_max {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (a q M : ℕ) (hq : 0 < q) (hcop : a.Coprime q)
+    (hvalue : loneliness v = (a : ℝ) / q) (hM : ∀ i, v i ≤ M) : q ≤ 2 * M := by sorry
+
+/-- A general norm threshold for lifting sufficiently many modular short relations
+into an integer short relation. -/
+theorem short_relation_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
+    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
+    (hcard : 116 * k < P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
+    ∃ c ∈ shortForms, shortValue c v = 0 := by sorry
+
+/-- A general finite-prime obstruction to being triad-free, for positive distinct speeds. -/
+theorem triad_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
+    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
+    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
+    (hcard : 116 * k < P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
+    HasTriad v := by sorry
 
 end LonelyRunner

@@ -841,4 +841,15 @@ theorem triad_of_prime_cover (v : Fin 6 → ℤ) (P : Finset ℕ)
   obtain ⟨c, hc, hz⟩ := short_relation_of_prime_cover v P hv hcard hp hlarge hcover
   exact triad_of_short_relation v hpos hinj c hc hz
 
+/-- A general finite-prime obstruction to being triad-free, for positive distinct speeds. -/
+theorem triad_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : ℕ)
+    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
+    (hB : 1 ≤ B) (hv : 3 * (∑ i, v i ^ 2) < ((B : ℤ) ^ (k + 1)) ^ 2)
+    (hcard : 116 * k < P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
+    HasTriad v := by
+  obtain ⟨c, hc, hz⟩ := short_relation_of_prime_cover_bound v P B k hB hv hcard hp hlarge hcover
+  exact triad_of_short_relation v hpos hinj c hc hz
+
 end LonelyRunner

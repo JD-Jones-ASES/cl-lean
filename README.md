@@ -1,34 +1,30 @@
-# Effective Bounds for the Lonely Runner Spectrum
+# Exact Maxima and Prime Obstructions for Lonely Runners
 
-A private Lean development toward Questions 6.6 and 6.7 of Francesco
-Cordella's [*Odd denominators in the Lonely Runner spectrum for six speeds*](https://arxiv.org/abs/2609.03444v2).
+A Lean formalization of exact optimization and finite-prime obstructions for
+the Lonely Runner spectrum, with certified values for all nine sporadic
+sextuples in Francesco Cordella's
+[*Odd denominators in the Lonely Runner spectrum for six speeds*](https://arxiv.org/abs/2609.03444v2).
 
-**The two global resolutions are not yet formalized.** This snapshot proves
-the supporting results below. It is not a completed Palomar submission.
-The original computer-assisted proof is retained in
-[Analytic-Lab](https://github.com/JD-Jones-ASES/Analytic-Lab/tree/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective).
-
-For an integer speed vector $v$, write
+For positive integer speeds $v_1,\ldots,v_n$, write
 
 $$L(v)=\max_{t\in\mathbb R}\min_i\|tv_i\|_{\mathbb R/\mathbb Z}.$$
 
-The intended six-speed result is: if the speeds are distinct positive
-integers, $\gcd(v)=1$, and $L(v)=a/q<1/6$ in lowest terms, then
-$\max_i v_i<3q$. The general target gives explicit bounds for near-tight
-primitive vectors outside the critical subtori. See [Proof](PROOF.md) for
-the formulas and the precise formalization boundary.
+The development proves the following results.
 
-The current Lean proofs establish:
-
-- A general prime-divisor capacity theorem: $m$ nonzero integers of absolute
-  value below $B^{k+1}$ accommodate at most $km$ distinct prime divisors
-  at least $B$.
-- The exact 116-form count and the implication from a stated norm bound and
-  233 modular covering assertions to an additive triad. The modular
-  assertions and the geometric norm bound remain hypotheses.
-- Soundness of finite rational interval certificates for the real-time
-  maximum, its attainment, and invariance under common nonzero scaling.
-- The following exact values for all nine sextuples in Cordella's Table 2.
+- **Exact finite optimization, for every number of speeds.** Every maximizing
+  time has the form $m/(v_i+v_j)$, and $L(v)=a/(v_i+v_j)$ for integers
+  $m,a$ and some indices $i,j$, which may coincide. It suffices to check
+  $0\le m\le v_i+v_j$. If $L(v)=p/q$ in lowest terms, then $q$ divides
+  some $v_i+v_j$, and consequently $q\le2\max_i v_i$.
+- **A general finite-prime obstruction.** For six distinct positive speeds,
+  suppose $3\sum_i v_i^2<B^{2(k+1)}$. If more than $116k$ distinct primes
+  at least $B\ge1$ each divide a nonzero signed coordinate form with at
+  most three terms, then an integer relation $v_i+v_j=v_\ell$ holds at
+  three distinct indices. Here “nonzero” refers to the coefficient vector;
+  its value may be zero. A proved specialization uses 233 primes at least
+  149 and the hypothesis $49\sum_i v_i^2<159439954591875$.
+- **Exact values over all real times.** Finite rational interval certificates
+  give upper bounds, and rational witness times give matching lower bounds.
 
 | Speeds | $L(v)$ |
 |---|---:|
@@ -42,10 +38,19 @@ The current Lean proofs establish:
 | $(1,3,4,5,7,24)$ | $5/31$ |
 | $(1,4,5,6,7,33)$ | $6/37$ |
 
-Lean also proves that the seventh value is never attained at a time
-$k/25$, despite having reduced denominator 25. Common dilation gives
-$L(2,6,8,10,36,92)=4/25$ and $92>3\cdot25$, demonstrating why the primitive
-normalization is essential. The table is not a formal completeness theorem.
+For the seventh tuple, no time $m/25$ attains the maximum: the reduced
+denominator of the value need not suffice for the time grid. Scaling
+invariance also gives $L(2,6,8,10,36,92)=4/25$ with $92>3\cdot25$,
+showing why a bound on speeds in terms of the reduced denominator requires
+primitive normalization.
+
+The submission does **not** claim the global resolutions of Cordella's
+Questions 6.6 and 6.7, or completeness of the sporadic list. In particular,
+$q\le2\max v_i$ is a bound on the denominator; Question 6.6 asks for a bound
+in the other direction. The prime obstruction's norm and modular covering
+conditions are explicit hypotheses. [Proof](PROOF.md) gives the arguments
+and the precise scope; [Disclosure](DISCLOSURE.md) records authorship,
+automation and verification.
 
 Build with the pinned Lean and Mathlib revisions:
 
@@ -58,9 +63,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 22 currently
-proved comparison claims using Mathlib only.
-[CordellaSolution.lean](CordellaSolution.lean) imports their proofs.
-The build rejects unapproved axioms throughout the `LonelyRunner` namespace;
-Challenge placeholders are deliberately isolated from the Solution.
-[Disclosure](DISCLOSURE.md) records provenance and verification limits.
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 29 comparison
+claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
+imports their proofs. The [verification workflow](.github/workflows/lean.yml)
+runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

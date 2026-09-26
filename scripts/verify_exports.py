@@ -49,4 +49,4 @@ nanoda_config.write_text(json.dumps({
 subprocess.run([lake, 'env', 'nanoda_bin', str(nanoda_config)], cwd=root, check=True)
 subprocess.run([lake, 'env', 'con-ron', '--verified', '--jobs=2',
                 str(exports['solution_module'])], cwd=root, check=True)
-print('Comparator, NanoDa and con-ron accepted the declared supporting claims.', flush=True)
+print('Comparator, NanoDa and con-ron accepted the declared claims.', flush=True)

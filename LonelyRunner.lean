@@ -1,5 +1,6 @@
 import LonelyRunner.Basic
 import LonelyRunner.Invariance
+import LonelyRunner.Candidates
 import LonelyRunner.Certificates
 import LonelyRunner.PrimeCapacity
 import LonelyRunner.ShortForms

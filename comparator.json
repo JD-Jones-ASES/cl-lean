@@ -23,7 +23,14 @@
     "LonelyRunner.sporadic8_value",
     "LonelyRunner.sporadic9_value",
     "LonelyRunner.sporadic7_grid25_miss",
-    "LonelyRunner.nonprimitive_counterexample"
+    "LonelyRunner.nonprimitive_counterexample",
+    "LonelyRunner.maximizing_time_pair_sum",
+    "LonelyRunner.exists_pair_sum_maximizer",
+    "LonelyRunner.loneliness_le_iff_pair_sum_grid",
+    "LonelyRunner.reduced_denominator_dvd_pair_sum",
+    "LonelyRunner.reduced_denominator_le_twice_max",
+    "LonelyRunner.short_relation_of_prime_cover_bound",
+    "LonelyRunner.triad_of_prime_cover_bound"
   ],
   "permitted_axioms": [
     "propext",
