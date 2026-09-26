@@ -2,20 +2,23 @@ version: v0.4
 project:
   name: Exact Maxima and Prime Obstructions for Lonely Runners
   description: >-
-    For every nonempty tuple of positive integer speeds, every maximizing
-    time and the maximum loneliness admit a common denominator equal to
-    a sum of two speeds, with repeated indices allowed. This gives an exact
-    finite-grid criterion and proves that the reduced denominator divides
-    such a sum. The development also proves a general prime-divisor
-    capacity theorem and a finite-prime obstruction to six distinct
-    positive speeds being free of additive triads, under explicit norm
-    and modular covering hypotheses. Rational interval certificates
-    establish all nine sporadic loneliness values in Cordella's Table 2,
-    and show that the reduced denominator of the value need not suffice
-    for a maximizing-time grid. Scaling invariance and conditional
-    effective-bound arithmetic are included. The submission does not
-    assert the global resolutions of Questions 6.6 and 6.7 or completeness
-    of the sporadic list.
+    Every maximizing time for positive integer speeds is rational. The
+    reduced loneliness denominator divides an opposing active-pair sum
+    after dividing by the pair's gcd. At a maximizing time of reduced
+    denominator r, every active speed v_i satisfies q = r/gcd(r,v_i).
+    For distinct positive speeds with maximum M the bound q <= 2M-1 is
+    sharp, attained by every consecutive pair. For every n >= 3, the
+    primitive family (1,d,2d,...,(n-1)d), d = n^(e+1), has loneliness 1/n,
+    unbounded largest speed and explicit maximizing times with unbounded
+    ratios of time denominator to value denominator. The development also
+    proves exact finite-grid optimization, all nine sporadic values in
+    Cordella's Table 2, and a general finite-prime obstruction to six
+    distinct positive speeds being free of additive triads. The numerical
+    obstruction uses 233 distinct primes at least 139, under explicit norm
+    and modular covering hypotheses. Scaling invariance and conditional
+    effective-bound arithmetic are included. The global resolutions of
+    Questions 6.6 and 6.7 and completeness of the sporadic list are outside
+    the submitted scope.
   authors: [JD Jones]
   responsible_maintainers: [JD Jones]
   license: MIT
@@ -30,14 +33,13 @@ sources:
     relationship: adapts
     author_endorsement: not-contacted
     note: >-
-      Formalizes the nine exact values in Table 2 and adapts the
-      candidate-time principle of Lemma 2.2 to positive speeds using
-      only sum denominators, including loneliness one half. The general
-      prime-capacity and triad-lifting arguments are stated and proved
-      in PROOF.md and the Lean sources. No novelty is claimed for the
-      published values or the candidate-time principle. Questions 6.6
-      and 6.7 motivate the application; their global resolution is
-      outside the submitted scope.
+      Formalizes the nine exact values in Table 2 and adapts the candidate-time
+      principle of Lemma 2.2 using sum denominators and opposing active
+      runners. The denominator, boundary-family and prime-obstruction
+      arguments are presented in PROOF.md and the Lean sources. No claim
+      of literature priority is made for these extensions. Questions 6.6
+      and 6.7 motivate the application; their global resolutions are not
+      asserted by this submission.
 automation:
   methods:
     - method: agent
@@ -46,18 +48,28 @@ automation:
         Assisted with mathematical arguments; wrote Lean proofs and
         documentation; generated rational interval certificates and a
         complete short-form catalogue with Python; compiled and audited
-        the resulting proof terms. Generated data and external computations
+        all included proof terms. Generated data and external computations
         are not trusted without Lean proofs.
+    - method: copilot
+      tool_setup: OpenAI GPT-6 Pro
+      notes: >-
+        Supplied an automated mathematical assessment and proposed
+        denominator, boundary-family and prime-threshold extensions.
+        The assessment did not include a Lean rebuild. Included extensions
+        were subsequently checked and formalized by Codex.
 review:
-  status: self-assessed
+  status: agent-reviewed
   notes: >-
-    Authoring-agent compilation, source checks and axiom audit; sandboxed
-    Comparator and independent NanoDa and con-ron checks are run by the
-    verification workflow. No independent human review or Palomar editorial
-    review is recorded.
+    GPT-6 Pro assessed the existing statements and proofs without rebuilding
+    Lean. Codex checked and formalized the included extensions, rebuilt the
+    package, and ran source and axiom audits. The verification workflow runs
+    sandboxed Comparator and independent NanoDa and con-ron checks on all
+    selected claims. No independent human or Palomar editorial review is
+    recorded.
 scope:
-  completed: The 29 theorems listed in comparator.json and their supporting development.
+  completed: The 45 theorems listed in comparator.json and their supporting development.
   excluded: >-
     Global resolutions of Questions 6.6 and 6.7; geometric norm and height
-    estimates; completeness of the sporadic list; critical-torus
-    classification; unconditional finite-field prime assertions.
+    estimates; completeness of the sporadic list; critical-torus classification;
+    unconditional finite-field prime assertions; classification of all
+    maximizing times for the boundary family.

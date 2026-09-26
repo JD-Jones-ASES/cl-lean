@@ -14,15 +14,14 @@ theorem le_intDist_of_between (x L : ℝ) (k : ℤ)
     exact hu.trans ((by linarith : (k : ℝ) + 1 - x ≤ -(x - round x)).trans
       (neg_le_abs _))
 
-/-- Every maximizing time for positive integer speeds has denominator `v i + v j`
-for some indices, which may coincide. The same denominator represents the loneliness.
-This strengthens the candidate set in Cordella's Lemma 2.2 by using sums only. -/
-theorem maximizing_time_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+/-- A maximizing time has an increasing and a decreasing active runner.
+The floor values locate their opposing sides of the same feasible cell. -/
+theorem maximizing_time_active_pair {n : ℕ} [NeZero n] (v : Fin n → ℤ)
     (hpos : ∀ i, 0 < v i) (t : ℝ)
     (hmax : ∀ i, loneliness v ≤ intDist (t * v i)) :
-    ∃ i j : Fin n, ∃ m a : ℤ,
-      t = (m : ℝ) / (v i + v j) ∧
-      loneliness v = (a : ℝ) / (v i + v j) := by
+    ∃ i j : Fin n,
+      t * v i = (⌊t * v i⌋ : ℝ) + loneliness v ∧
+      t * v j = (⌊t * v j⌋ : ℝ) + 1 - loneliness v := by
   let L := loneliness v
   let k : Fin n → ℤ := fun i => ⌊t * v i⌋
   let lower : Fin n → ℝ := fun i => ((k i : ℝ) + L) / v i
@@ -75,6 +74,21 @@ theorem maximizing_time_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ)
   have htj : t * v j = (k j : ℝ) + 1 - L := by
     rw [htup]
     exact div_mul_cancel₀ _ (hv j).ne'
+  exact ⟨i, j, hti, htj⟩
+
+/-- Every maximizing time for positive integer speeds has denominator `v i + v j`
+for some indices, which may coincide. The same denominator represents the loneliness.
+This strengthens the candidate set in Cordella's Lemma 2.2 by using sums only. -/
+theorem maximizing_time_pair_sum {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (t : ℝ)
+    (hmax : ∀ i, loneliness v ≤ intDist (t * v i)) :
+    ∃ i j : Fin n, ∃ m a : ℤ,
+      t = (m : ℝ) / (v i + v j) ∧
+      loneliness v = (a : ℝ) / (v i + v j) := by
+  obtain ⟨i, j, hti, htj⟩ := maximizing_time_active_pair v hpos t hmax
+  let L := loneliness v
+  let k : Fin n → ℤ := fun i => ⌊t * v i⌋
+  have hv (i : Fin n) : (0 : ℝ) < v i := by exact_mod_cast hpos i
   have hsum : (0 : ℝ) < v i + v j := add_pos (hv i) (hv j)
   refine ⟨i, j, k i + k j + 1, v i * (k j + 1) - v j * k i, ?_, ?_⟩
   · apply (eq_div_iff hsum.ne').mpr

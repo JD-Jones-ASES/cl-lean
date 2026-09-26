@@ -45,6 +45,76 @@ These results adapt the candidate-time principle in Cordella's Lemma 2.2,
 using sums of positive speeds only and including the case $L(v)=1/2$.
 No novelty claim is made for the rationality or candidate-time principle.
 
+## Reduced value and time denominators
+
+The candidate proof retains an increasing and a decreasing active runner:
+
+$$tv_i=k_i+L,\qquad tv_j=k_j+1-L.$$
+
+If $g=\gcd(v_i,v_j)$, both numerator and denominator of the displayed
+formula for $L$ are divisible by $g$. Therefore its reduced denominator
+$q$ divides $(v_i+v_j)/g$. This strengthens the bound in a way invariant
+under a common dilation of all speeds.
+
+For a rational time $t=m/r$ in lowest terms, subtracting an integer or
+changing sign preserves the reduced denominator. Multiplication by an
+integer speed changes it to $r/\gcd(r,|v_i|)$. Since the distance to a
+nearest integer is such an integer translate followed by an absolute
+value, every active runner satisfies
+
+$$q=\frac r{\gcd(r,|v_i|)}.$$
+
+For the opposing active pair, this gives
+
+$$q\mid r\mid v_i+v_j,\qquad
+\frac rq=\gcd\bigl(r,\gcd(v_i,v_j)\bigr).$$
+
+The active indices can coincide only when $L=1/2$. Thus for pairwise-coprime
+positive speeds with $L<1/2$, every maximizing time has reduced denominator
+$q$. `Denominators.lean` proves these identities using the numerator and
+denominator of Lean's reduced rational representation.
+
+For at least two distinct positive speeds bounded by $M$, the normalized
+pair divisibility gives $q\le2M-1$. If the pair is distinct, its sum is at
+most $2M-1$; if it coincides, its normalized sum is two and $M\ge2$.
+
+This is sharp: `Consecutive.lean` proves $L(m,m+1)=m/(2m+1)$ for every
+$m\ge1$, and the fraction is reduced. The time $1/(2m+1)$ gives the lower
+bound. For the upper bound, if both distances exceeded $R=m/(2m+1)$,
+subtracting their nearest unit-cell constraints would place $t$ within
+$1-2R$ of an integer. The speed-$m$ distance would then be less than
+$m(1-2R)=R$, a contradiction.
+
+## Primitive boundary families
+
+Let $n\ge3$, $e\ge0$, $d=n^{e+1}$ and
+
+$$V_{n,e}=(1,d,2d,\ldots,(n-1)d).$$
+
+Mathlib's Dirichlet approximation theorem gives, for every real $x$, an
+integer $1\le j\le n-1$ with $\|jx\|\le1/n$. Applied to $x=dt$, it proves
+$L(V_{n,e})\le1/n$. At
+
+$$t_0=\frac{d+1}{nd},$$
+
+the speed-1 coordinate lies in $[1/n,1-1/n]$, while the $jd$ coordinate
+is congruent to $j/n$ modulo one. All distances are at least $1/n$, proving
+equality. The initial coordinate one proves primitivity, and $d\ge n$
+ensures positivity and distinctness.
+
+Since $\gcd(d+1,n)=1$, the displayed time is reduced and has denominator
+$nd=n^{e+2}$. The value denominator is $n$. Consequently
+
+$$\frac{\max V_{n,e}}n=(n-1)n^e\longrightarrow\infty,\qquad
+\frac{\operatorname{den}(t_0)}n=n^{e+1}\longrightarrow\infty.$$
+
+`Boundary.lean` proves the exact values, primitivity, unbounded speed
+ratios, the explicit witnesses and their reduced denominators for every
+$n\ge3$. These tuples lie at $L=1/n$: they show that strict near-tightness
+cannot be relaxed to a weak inequality, even for primitive tuples. The
+claim about time denominators concerns the explicit maximizer $t_0$;
+a classification of all maximizing times is not asserted.
+
 ## Prime obstructions and additive triads
 
 Let $P$ be a finite set of primes, each at least $B\ge1$, dividing a
@@ -76,12 +146,20 @@ therefore gives $v_i+v_j=v_\ell$ at distinct indices. `Triads.lean` checks
 this implication using the complete 116-form catalogue. Together these
 arguments prove `triad_of_prime_cover_bound`.
 
-The numerical specialization follows from
-$49\sum_i v_i^2<159439954591875$, which implies every form value has
-absolute value less than $149^3$. Each nonzero value accommodates at most
-two primes at least 149; 233 primes exceed the total capacity of 232.
-This is a conditional lifting theorem: no prime-by-prime assertion or
-geometric norm estimate is assumed implicitly.
+The numerical specialization uses
+$49\sum_i v_i^2<159439954591875$. Set $T=139\cdot149\cdot151=3127361$.
+The exact inequality
+
+$$49T^2-3\cdot159439954591875=919090616104>0$$
+
+implies every form value has absolute value less than $T$. The first
+three primes at least 139 are 139, 149 and 151, so a nonzero value has
+capacity at most two among distinct primes at least 139. Lean checks
+the short prime gaps and the product bound. A cover by 233 primes exceeds
+the capacity of 232 and forces a zero form. `PrimeRefinement.lean` proves
+this stronger numerical criterion; the 149-prime specialization also
+remains available. These lifting theorems retain explicit norm and modular
+covering hypotheses.
 
 ## Exact values and certificate soundness
 

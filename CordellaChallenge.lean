@@ -62,6 +62,14 @@ def sporadic8 : Fin 6 → ℤ := ![1, 3, 4, 5, 7, 24]
 /-- Cordella Table 2, tuple 9. -/
 def sporadic9 : Fin 6 → ℤ := ![1, 4, 5, 6, 7, 33]
 
+/-- Primitive boundary speeds with `d = n^(e+1)`. -/
+def boundarySpeeds (n e : ℕ) (i : Fin n) : ℤ :=
+  if i.val = 0 then 1 else (i.val : ℤ) * (n : ℤ) ^ (e + 1)
+
+/-- An explicit rational maximizing time for the boundary family. -/
+def boundaryTime (n e : ℕ) : ℚ :=
+  ((n ^ (e + 1) + 1 : ℕ) : ℚ) / ((n * n ^ (e + 1) : ℕ) : ℚ)
+
 /-- An integer below `B^(k+1)` has at most `k` distinct prime divisors at least `B`. -/
 theorem prime_divisor_capacity (P : Finset ℕ) (M B k : ℕ)
     (hB : 1 ≤ B) (hM : 0 < M) (hsize : M < B ^ (k + 1))
@@ -218,5 +226,104 @@ theorem triad_of_prime_cover_bound (v : Fin 6 → ℤ) (P : Finset ℕ) (B k : �
     (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, B ≤ p)
     (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
     HasTriad v := by sorry
+
+/-- A maximizing time has an increasing and a decreasing active runner.
+The floor values locate their opposing sides of the same feasible cell. -/
+theorem maximizing_time_active_pair {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (t : ℝ)
+    (hmax : ∀ i, loneliness v ≤ intDist (t * v i)) :
+    ∃ i j : Fin n,
+      t * v i = (⌊t * v i⌋ : ℝ) + loneliness v ∧
+      t * v j = (⌊t * v j⌋ : ℝ) + 1 - loneliness v := by sorry
+
+/-- The reduced denominator of a rational runner distance is determined exactly
+by the reduced time denominator and the speed. -/
+theorem active_runner_denominator (t L : ℚ) (v : ℤ)
+    (h : intDist ((t : ℝ) * v) = (L : ℝ)) :
+    L.den = t.den / Nat.gcd t.den v.natAbs := by sorry
+
+/-- The value denominator divides an active-pair sum after removing that pair's gcd. -/
+theorem reduced_denominator_dvd_normalized_pair_sum {n : ℕ} [NeZero n]
+    (v : Fin n → ℤ) (hpos : ∀ i, 0 < v i) (a q : ℕ)
+    (hq : 0 < q) (hcop : a.Coprime q) (hvalue : loneliness v = (a : ℝ) / q) :
+    ∃ i j : Fin n, (q : ℤ) ∣ (v i + v j) / (Int.gcd (v i) (v j) : ℤ) := by sorry
+
+/-- Every maximizing rational time has a reduced denominator controlled exactly
+by the gcd of an opposing active pair. -/
+theorem maximizing_time_denominators {n : ℕ} [NeZero n] (v : Fin n → ℤ)
+    (hpos : ∀ i, 0 < v i) (t L : ℚ) (hL : loneliness v = (L : ℝ))
+    (hmax : ∀ i, loneliness v ≤ intDist ((t : ℝ) * v i)) :
+    ∃ i j : Fin n,
+      (i = j → L = 1 / 2) ∧ L.den ∣ t.den ∧
+      (t.den : ℤ) ∣ v i + v j ∧
+      t.den / L.den = Nat.gcd t.den (Int.gcd (v i) (v j)) := by sorry
+
+/-- Pairwise-coprime positive speeds force equality of the value and time
+reduced denominators whenever the loneliness is below one half. -/
+theorem coprime_speeds_maximizing_denominator {n : ℕ} [NeZero n]
+    (v : Fin n → ℤ) (hpos : ∀ i, 0 < v i)
+    (hcop : ∀ i j, i ≠ j → Int.gcd (v i) (v j) = 1)
+    (t L : ℚ) (hL : loneliness v = (L : ℝ)) (hlt : L < 1 / 2)
+    (hmax : ∀ i, loneliness v ≤ intDist ((t : ℝ) * v i)) : t.den = L.den := by sorry
+
+/-- Distinct positive speeds improve the general denominator bound by one. -/
+theorem reduced_denominator_le_twice_max_sub_one {n : ℕ} [NeZero n]
+    (hn : 2 ≤ n) (v : Fin n → ℤ) (hpos : ∀ i, 0 < v i)
+    (hinj : Function.Injective v) (a q M : ℕ) (hq : 0 < q) (hc : a.Coprime q)
+    (hL : loneliness v = (a : ℝ) / q) (hM : ∀ i, v i ≤ M) : q ≤ 2 * M - 1 := by sorry
+
+/-- Consecutive positive speeds attain the denominator bound `q = 2*max(v)-1`. -/
+theorem consecutive_pair_loneliness (m : ℕ) (hm : 0 < m) :
+    loneliness ![(m : ℤ), (m : ℤ) + 1] = (m : ℝ) / (2 * m + 1) := by sorry
+
+/-- The exact value for consecutive speeds is in lowest terms. -/
+theorem consecutive_pair_coprime (m : ℕ) : m.Coprime (2 * m + 1) := by sorry
+
+/-- Every coordinate reaches distance at least `1/n` at the explicit boundary time. -/
+theorem boundary_time_witness (n e : ℕ) [NeZero n] (hn : 3 ≤ n) :
+    ∀ i, 1 / (n : ℝ) ≤ intDist ((boundaryTime n e : ℝ) * boundarySpeeds n e i) := by sorry
+
+/-- The boundary family has exact loneliness `1/n` in every dimension at least three. -/
+theorem boundary_loneliness (n e : ℕ) [NeZero n] (hn : 3 ≤ n) :
+    loneliness (boundarySpeeds n e) = 1 / (n : ℝ) := by sorry
+
+/-- Every member of the family has positive distinct speeds and gcd one. -/
+theorem boundary_primitive (n e : ℕ) [NeZero n] (hn : 3 ≤ n) :
+    (∀ i, 0 < boundarySpeeds n e i) ∧ Function.Injective (boundarySpeeds n e) ∧
+    Finset.univ.gcd (fun i => (boundarySpeeds n e i).natAbs) = 1 := by sorry
+
+/-- With the reduced loneliness denominator fixed at `n`, primitive boundary
+families have unbounded largest speed. Strict near-tightness is therefore essential. -/
+theorem primitive_boundary_unbounded (n C : ℕ) [NeZero n] (hn : 3 ≤ n) :
+    ∃ e : ℕ, loneliness (boundarySpeeds n e) = 1 / (n : ℝ) ∧
+      Finset.univ.gcd (fun i => (boundarySpeeds n e i).natAbs) = 1 ∧
+      ∃ i, (C : ℤ) * n < boundarySpeeds n e i := by sorry
+
+/-- The explicit maximizing time is already reduced, with denominator `n^(e+2)`. -/
+theorem boundary_time_denominator (n e : ℕ) (hn : 3 ≤ n) :
+    (boundaryTime n e).den = n ^ (e + 2) := by sorry
+
+/-- Distinctness improves the prime-product threshold to `139*149*151`. -/
+theorem prime_divisor_capacity_139 (P : Finset ℕ) (M : ℕ)
+    (hM : 0 < M) (hsize : M < 3127361)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
+    (hd : ∀ p ∈ P, p ∣ M) : P.card ≤ 2 := by sorry
+
+/-- The same numerical norm bound permits all primes at least 139, while
+retaining the requirement of 233 distinct modular covering assertions. -/
+theorem short_relation_of_prime_cover_139 (v : Fin 6 → ℤ) (P : Finset ℕ)
+    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
+    (hcard : 233 ≤ P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) :
+    ∃ c ∈ shortForms, shortValue c v = 0 := by sorry
+
+/-- The refined 233-prime criterion forces an additive triad among distinct positive speeds. -/
+theorem triad_of_prime_cover_139 (v : Fin 6 → ℤ) (P : Finset ℕ)
+    (hpos : ∀ i, 0 < v i) (hinj : Function.Injective v)
+    (hv : 49 * (∑ i, v i ^ 2) < 159439954591875)
+    (hcard : 233 ≤ P.card)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
+    (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) : HasTriad v := by sorry
 
 end LonelyRunner

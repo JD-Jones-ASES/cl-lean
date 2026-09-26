@@ -21,7 +21,7 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'true'
           leanchecker: 'false'
-      - run: python3 scripts/check_sources.py
+      - run: python3 -O scripts/check_sources.py
       - run: lake env lean AxiomAudit.lean
       - name: Install Comparator sandbox
         run: |
