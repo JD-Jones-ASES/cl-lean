@@ -1,0 +1,4415 @@
+{
+  "status": "UNTRUSTED_GENERATION_NOT_LEAN_PROOF",
+  "denominator": 102,
+  "vector_count": 115200,
+  "case_count": 1152000,
+  "canonical_first": [
+    [
+      1,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    [
+      2,
+      2,
+      1,
+      3,
+      4,
+      5
+    ],
+    [
+      3,
+      3,
+      1,
+      2,
+      4,
+      5
+    ],
+    [
+      4,
+      4,
+      1,
+      2,
+      3,
+      5
+    ],
+    [
+      5,
+      5,
+      1,
+      2,
+      3,
+      4
+    ],
+    [
+      1,
+      1,
+      3,
+      4,
+      5,
+      9
+    ],
+    [
+      3,
+      3,
+      1,
+      4,
+      5,
+      9
+    ],
+    [
+      4,
+      4,
+      1,
+      3,
+      5,
+      9
+    ],
+    [
+      5,
+      5,
+      1,
+      3,
+      4,
+      9
+    ],
+    [
+      9,
+      9,
+      1,
+      3,
+      4,
+      5
+    ]
+  ],
+  "counts": [
+    {
+      "first": 0,
+      "vector": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "dependent": 1,
+      "survivors": 28,
+      "witnesses": 115171
+    },
+    {
+      "first": 1,
+      "vector": [
+        2,
+        2,
+        1,
+        3,
+        4,
+        5
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 2,
+      "vector": [
+        3,
+        3,
+        1,
+        2,
+        4,
+        5
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 3,
+      "vector": [
+        4,
+        4,
+        1,
+        2,
+        3,
+        5
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 4,
+      "vector": [
+        5,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 5,
+      "vector": [
+        1,
+        1,
+        3,
+        4,
+        5,
+        9
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 6,
+      "vector": [
+        3,
+        3,
+        1,
+        4,
+        5,
+        9
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 7,
+      "vector": [
+        4,
+        4,
+        1,
+        3,
+        5,
+        9
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 8,
+      "vector": [
+        5,
+        5,
+        1,
+        3,
+        4,
+        9
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    },
+    {
+      "first": 9,
+      "vector": [
+        9,
+        9,
+        1,
+        3,
+        4,
+        5
+      ],
+      "dependent": 1,
+      "survivors": 18,
+      "witnesses": 115181
+    }
+  ],
+  "survivors": [
+    {
+      "first": 0,
+      "second": 1,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 31,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -1,
+        -2,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 831,
+      "family": 2,
+      "permutation": [
+        1,
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -2,
+        -1,
+        -3,
+        -5,
+        -4
+      ]
+    },
+    {
+      "first": 0,
+      "second": 2783,
+      "family": 2,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -4,
+        -3,
+        -2,
+        -1,
+        -5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 3873,
+      "family": 2,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -1,
+        1,
+        3,
+        5,
+        4
+      ]
+    },
+    {
+      "first": 0,
+      "second": 5591,
+      "family": 2,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -5,
+        -3,
+        -1,
+        1,
+        -4
+      ]
+    },
+    {
+      "first": 0,
+      "second": 7011,
+      "family": 2,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -4,
+        -1,
+        2,
+        5,
+        1
+      ]
+    },
+    {
+      "first": 0,
+      "second": 7539,
+      "family": 2,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -5,
+        -2,
+        1,
+        4,
+        -1
+      ]
+    },
+    {
+      "first": 0,
+      "second": 8129,
+      "family": 2,
+      "permutation": [
+        1,
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -1,
+        3,
+        2,
+        1,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 8957,
+      "family": 2,
+      "permutation": [
+        1,
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -3,
+        1,
+        -2,
+        -5,
+        -1
+      ]
+    },
+    {
+      "first": 0,
+      "second": 10569,
+      "family": 2,
+      "permutation": [
+        1,
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -2,
+        3,
+        1,
+        -1,
+        4
+      ]
+    },
+    {
+      "first": 0,
+      "second": 10989,
+      "family": 2,
+      "permutation": [
+        1,
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -3,
+        2,
+        -1,
+        -4,
+        1
+      ]
+    },
+    {
+      "first": 0,
+      "second": 11520,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        2,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 11521,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -2,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 13440,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 13471,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -1,
+        -2,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 23424,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        3,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 23425,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -3,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 26880,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 26911,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -1,
+        -2,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 35328,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        4,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 35329,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -4,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 40320,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 40351,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -1,
+        -2,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 47232,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        5,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 47233,
+      "family": 0,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -5,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 53760,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 0,
+      "second": 53791,
+      "family": 0,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -1,
+        -2,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 768,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        2,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 799,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -2,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 3840,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        1,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 3841,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -1,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 14209,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -2,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 14239,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -2,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 25344,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        3,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 25345,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -3,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 27648,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        2,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 27679,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -2,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 37248,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        4,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 37249,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -4,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 41088,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        2,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 41119,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -2,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 49152,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        5,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 49153,
+      "family": 0,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -5,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 54528,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        2,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 1,
+      "second": 54559,
+      "family": 0,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -2,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 1536,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        3,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 1567,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -3,
+        -1,
+        -2,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 5760,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        1,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 5761,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -1,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 14976,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        3,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 15007,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -3,
+        -1,
+        -2,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 17664,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        2,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 17665,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -2,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 28417,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -3,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 28447,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -3,
+        -1,
+        -2,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 39168,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        4,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 39169,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -4,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 41856,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        3,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 41887,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -3,
+        -1,
+        -2,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 51072,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        5,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 51073,
+      "family": 0,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -5,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 55296,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        3,
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 2,
+      "second": 55327,
+      "family": 0,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -3,
+        -1,
+        -2,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 2304,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        4,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 2335,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -4,
+        -1,
+        -2,
+        -3,
+        -5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 7680,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        1,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 7681,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -1,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 15744,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        4,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 15775,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -4,
+        -1,
+        -2,
+        -3,
+        -5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 19584,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        2,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 19585,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -2,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 29184,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        4,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 29215,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -4,
+        -1,
+        -2,
+        -3,
+        -5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 31488,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        3,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 31489,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -3,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 42625,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -4,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 42655,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -4,
+        -1,
+        -2,
+        -3,
+        -5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 52992,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        5,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 52993,
+      "family": 0,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -5,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 56064,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        4,
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "first": 3,
+      "second": 56095,
+      "family": 0,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -4,
+        -1,
+        -2,
+        -3,
+        -5
+      ]
+    },
+    {
+      "first": 4,
+      "second": 3072,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        5,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 3103,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -5,
+        -1,
+        -2,
+        -3,
+        -4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 9600,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        1,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 9601,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -1,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 16512,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        5,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 16543,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        2,
+        -5,
+        -1,
+        -2,
+        -3,
+        -4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 21504,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        2,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 21505,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -2,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 29952,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        5,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 29983,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -5,
+        -1,
+        -2,
+        -3,
+        -4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 33408,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        3,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 33409,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -3,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 43392,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        5,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 43423,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -5,
+        -1,
+        -2,
+        -3,
+        -4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 45312,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        4,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 45313,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -4,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 56833,
+      "family": 0,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -5,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "first": 4,
+      "second": 56863,
+      "family": 0,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -5,
+        -1,
+        -2,
+        -3,
+        -4
+      ]
+    },
+    {
+      "first": 5,
+      "second": 57601,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -1,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 57631,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -1,
+        -3,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 69120,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        3,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 69121,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -3,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 71040,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        1,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 71071,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -1,
+        -3,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 81024,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        4,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 81025,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -4,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 84480,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        1,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 84511,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -1,
+        -3,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 92928,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        5,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 92929,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -5,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 97920,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        1,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 97951,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -1,
+        -3,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 104832,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        9,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 104833,
+      "family": 1,
+      "permutation": [
+        0,
+        5,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -9,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 111360,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        1,
+        3,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 5,
+      "second": 111391,
+      "family": 1,
+      "permutation": [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -1,
+        -3,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 58368,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        3,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 58399,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -3,
+        -1,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 61440,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        1,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 61441,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -1,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 71809,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -3,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 71839,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -3,
+        -1,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 82944,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        4,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 82945,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -4,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 85248,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        3,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 85279,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -3,
+        -1,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 94848,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        5,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 94849,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -5,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 98688,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        3,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 98719,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -3,
+        -1,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 106752,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        9,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 106753,
+      "family": 1,
+      "permutation": [
+        1,
+        5,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -9,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 112128,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        3,
+        1,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 6,
+      "second": 112159,
+      "family": 1,
+      "permutation": [
+        5,
+        1,
+        0,
+        2,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -3,
+        -1,
+        -4,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 59136,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        4,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 59167,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -4,
+        -1,
+        -3,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 63360,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        1,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 63361,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -1,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 72576,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        4,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 72607,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -4,
+        -1,
+        -3,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 75264,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        3,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 75265,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -3,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 86017,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -4,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 86047,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -4,
+        -1,
+        -3,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 96768,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        5,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 96769,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -5,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 99456,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        4,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 99487,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -4,
+        -1,
+        -3,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 108672,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        9,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 108673,
+      "family": 1,
+      "permutation": [
+        2,
+        5,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -9,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 112896,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        4,
+        1,
+        3,
+        5,
+        9
+      ]
+    },
+    {
+      "first": 7,
+      "second": 112927,
+      "family": 1,
+      "permutation": [
+        5,
+        2,
+        0,
+        1,
+        3,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -4,
+        -1,
+        -3,
+        -5,
+        -9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 59904,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        5,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 59935,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -5,
+        -1,
+        -3,
+        -4,
+        -9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 65280,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        1,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 65281,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -1,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 73344,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        5,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 73375,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -5,
+        -1,
+        -3,
+        -4,
+        -9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 77184,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        3,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 77185,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -3,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 86784,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        5,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 86815,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -5,
+        -1,
+        -3,
+        -4,
+        -9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 89088,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        4,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 89089,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -4,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 100225,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -5,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 100255,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -5,
+        -1,
+        -3,
+        -4,
+        -9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 110592,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        9,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 110593,
+      "family": 1,
+      "permutation": [
+        3,
+        5,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -9,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 113664,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        5,
+        1,
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "first": 8,
+      "second": 113695,
+      "family": 1,
+      "permutation": [
+        5,
+        3,
+        0,
+        1,
+        2,
+        4
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -5,
+        -1,
+        -3,
+        -4,
+        -9
+      ]
+    },
+    {
+      "first": 9,
+      "second": 60672,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        9,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 60703,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        1,
+        -9,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 67200,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        1,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 67201,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -1,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 74112,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        9,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 74143,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        3,
+        -9,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 79104,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        3,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 79105,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -3,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 87552,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        9,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 87583,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        4,
+        -9,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 91008,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        4,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 91009,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -4,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 100992,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        9,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 101023,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        5,
+        -9,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 102912,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        5,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 102913,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -5,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 114433,
+      "family": 1,
+      "permutation": [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -9,
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "first": 9,
+      "second": 114463,
+      "family": 1,
+      "permutation": [
+        5,
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "sign_mask": 0,
+      "second_vector": [
+        9,
+        -9,
+        -1,
+        -3,
+        -4,
+        -5
+      ]
+    }
+  ],
+  "distinct_surviving_planes": 22,
+  "bytes": 2304000,
+  "sha256": "9b8a5a9de66bd8e4e78a171d344c72a41473451c172a8e7aa12f0645c5fb90ae"
+}

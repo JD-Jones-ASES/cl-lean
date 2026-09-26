@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 53 declared Challenge/Solution claims with the
+declaration, compares all 61 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
@@ -33,8 +33,10 @@ The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
 not formalized here and are not imported as axioms. The sharp unrestricted
-six-speed Question 6.6, the exhaustive critical-plane classification, and
-completeness of the sporadic list remain outside the proved scope. Conditional
+six-speed Question 6.6 and completeness of the sporadic list remain outside
+the proved scope. The critical-plane classification is now proved under the
+explicit five-speed assertion and tight-five classification hypothesis; neither
+five-speed input is proved in this package. Conditional
 prime-capacity and assumed-height arithmetic lemmas remain supporting code but
 are no longer independently selected Challenge claims.
 
@@ -54,7 +56,16 @@ denominator bound. Giri–Kravitz, Lemma 3.3, supplies the mathematical source f
 the lower-speed rank reductions, which are proved directly in Lean. Mathlib
 supplies Minkowski's compact convex-body theorem and orthonormal measure
 preservation; the integer-point exclusion and its application are proved here.
-This does not complete the exhaustive six-speed classification.
+The revision also proves that every zero-free rational two-plane has two
+independent primitive repeat directions, then kernel-checks the complete
+1,152,000-pair critical-plane calculation and catalogue coverage. Exact
+Cramer certificates identify every survivor with a known family. This uses
+an independently written generator based on the mathematical profiles in
+Cordella's Section 3. The sharp bound now applies to all critical planes under
+the explicit five-speed inputs and, combined with the effective global result,
+to all near-tight sextuples above its coarse cutoff. The finite region below
+that cutoff remains unverified; this does not complete the exhaustive
+six-speed classification.
 No new editorial approval or resubmission is claimed.
 
 Exploratory exact arithmetic and numerical linear programming helped identify

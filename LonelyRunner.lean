@@ -25,3 +25,6 @@ import LonelyRunner.ShortRelation
 import LonelyRunner.PlaneHeight
 import LonelyRunner.PlaneDirections
 import LonelyRunner.EffectiveGlobal
+import LonelyRunner.RepeatCatalogue
+import LonelyRunner.Question66FiniteReduction
+import LonelyRunner.PlaneCertificateControls

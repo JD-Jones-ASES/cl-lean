@@ -8,7 +8,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-22.04
-    timeout-minutes: 30
+    timeout-minutes: 90
     env:
       LEAN_NUM_THREADS: 2
     steps:
@@ -22,6 +22,7 @@ jobs:
           use-mathlib-cache: 'true'
           leanchecker: 'false'
       - run: python3 -O scripts/check_sources.py
+      - run: python3 scripts/generate_repeat_lean.py --check
       - run: lake env lean AxiomAudit.lean
       - name: Install Comparator sandbox
         run: |

@@ -47,6 +47,23 @@ The development proves the following results.
   explicit good points and eighteen rays, followed by exact linear integer
   arithmetic in residue classes modulo six. It does not assume the family's
   spectral formula or a precomputed classification.
+- **Classification of all critical six-speed planes, with explicit five-speed inputs.**
+  Every rational two-plane containing a zero-free integer direction has two
+  independent primitive zero-free repeat directions. This structural theorem
+  holds in every dimension without a Lonely Runner hypothesis. The five-speed
+  Lonely Runner assertion makes both directions tight on a critical six-plane;
+  deleting a repeated coordinate reduces them to tight five-tuples. Given the
+  published tight-five classification as an explicit hypothesis, Lean proves
+  that every such plane is one of the three signed coordinate families above.
+  All **1,152,000** repeat pairs and the coverage of their catalogue are checked
+  by the ordinary kernel. The 190 surviving pairs have exact plane-equality
+  certificates. This removes the supplied family-membership hypothesis from
+  the critical-plane `3q` theorem.
+  Combining this classification with the global height bound proves `3q`
+  for every positive primitive near-tight sextuple with
+  $\|v\|_2\ge9K(6)^2$, under the lower-speed assertions and tight-five
+  classification. Verifying the finite region below this coarse cutoff
+  remains outstanding.
 - **A global short relation.** Every six-speed tuple with $L(v)\le1/6$
   has a nonzero integer relation $a\cdot v=0$ with $\sum_i a_i^2\le36$.
   At most one coefficient has absolute value above two, and that coefficient
@@ -112,7 +129,7 @@ showing why a bound on speeds in terms of the reduced denominator requires
 primitive normalization.
 
 The sharp global Question 6.6, completeness of the sporadic list, and proofs
-of the lower-speed Lonely Runner assertions remain outside the proved scope.
+of the lower-speed Lonely Runner assertions and tight-five classification remain outside the proved scope.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas
@@ -131,7 +148,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 53 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 61 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

@@ -27,7 +27,7 @@ for name in ('challenge_module', 'solution_module'):
                   if (Path(base) / relative).is_file()), None)
     require(first is not None, f'Module not found: {relative}')
     require(first.resolve() == (root / relative).resolve(), f'Module shadowed: {name}: {first}')
-for path in sorted(root.glob('*.lean')) + sorted((root / 'LonelyRunner').glob('*.lean')):
+for path in sorted(root.glob('*.lean')) + sorted((root / 'LonelyRunner').rglob('*.lean')):
     if path.name == config['challenge_module'] + '.lean':
         continue
     # Strip comments before checking declaration/proof tokens.

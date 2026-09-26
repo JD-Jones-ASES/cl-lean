@@ -54,7 +54,15 @@
     "LonelyRunner.large_near_tight_has_critical_plane",
     "LonelyRunner.speedNorm_bound_by_loneliness_gap",
     "LonelyRunner.speedNorm_bound_by_reduced_denominator",
-    "LonelyRunner.speedNorm_lt_constant_mul_denominator"
+    "LonelyRunner.speedNorm_lt_constant_mul_denominator",
+    "LonelyRunner.exists_primitive_repeat_plane_basis",
+    "LonelyRunner.critical_plane_has_tight_repeat_basis",
+    "LonelyRunner.finite_critical_planes_of_finite_tight",
+    "LonelyRunner.critical_repeat_pair_classified",
+    "LonelyRunner.critical_planes_classified",
+    "LonelyRunner.critical_plane_question66",
+    "LonelyRunner.large_six_question66",
+    "LonelyRunner.question66_violation_speed_bound"
   ],
   "permitted_axioms": [
     "propext",

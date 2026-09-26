@@ -423,18 +423,86 @@ under explicit lower-speed Lonely Runner hypotheses. The coarse displayed area
 is sufficient for that result. It does not prove the numerical speed cutoff
 $1{,}803{,}850$ used by the six-speed research proof.
 
+## Two repeat directions and the full critical-plane calculation
+
+`RepeatBasis.lean` retains the nonzero transverse coefficient in the gap
+construction above. In a basis $(c,d)$ with zero-free $c$, the constructed
+repeat direction $w=Ac+Bd$ has $B\ne0$. Applying the same construction to
+$(w,c)$ gives $x=Ew+Fc$ with $F\ne0$. The determinant of their coefficients
+in $(c,d)$ is $-BF\ne0$. Dividing each column by its gcd preserves both the
+repeat property and the actual real plane. Thus every such integer plane,
+in every dimension, has **two independent primitive zero-free repeat
+directions**, without a Lonely Runner hypothesis.
+
+Under the $n$-speed Lonely Runner assertion, both repeat directions in a
+critical $(n+1)$-coordinate plane have loneliness exactly $1/(n+1)$.
+Deleting a repeated absolute coordinate preserves primitivity and loneliness.
+`RepeatCatalogue.lean` proves, in all dimensions, that a finite complete list
+of primitive tight $n$-tuples therefore gives a finite complete list of these
+critical planes. This argument avoids the separate projective counting
+steps used in Cordella's six-coordinate repeat-line reduction. No priority
+claim is made for this proof.
+
+For six coordinates, `TightFiveClassification` explicitly assumes that every
+primitive zero-free five-tuple with loneliness $1/6$ has absolute-coordinate
+multiset $(1,2,3,4,5)$ or $(1,3,4,5,9)$. This is **not proved in this package**.
+It is the all-signs, all-orders form needed from the published tight-five
+classification. In particular, the hypothesis also excludes repeated-speed
+tight five-tuples; it is not silently restricted to distinct positive speeds.
+
+Repeating one entry gives ten canonical first columns. For the second column,
+all permutations and all signs with positive first coordinate give 115,200
+vectors. `RepeatSigns.lean`, `TuplePermutations.lean`, and
+`PlaneSymmetry.lean` prove the normalization and its inverse, including
+preservation of real planes, loneliness, minors, and absolute-coordinate
+multisets. Every needed permutation and sign mask is covered by a proved
+finite list; no Python enumeration count is used as a coverage assumption.
+
+The 1,152,000 pairs have ten dependent cases. For 1,151,800 cases the stored
+point $(p,q)/102$ has every residue between 18 and 84, inclusive. The proved
+checker gives $L(U)\ge3/17>1/6$. For the remaining 190 cases, exact integer
+Cramer equations prove equality with a signed coordinate permutation of one
+of the three critical presentations. The Python search reports 22 distinct
+surviving planes; that count is descriptive metadata and is not an assumption
+or a separately selected Lean theorem.
+
+All case checks use ordinary `decide +kernel`. Thirty-two 17-bit codes are
+packed into each natural to limit exported term size; transparent Lean
+functions unpack them. Reserved codes, missing entries and out-of-range
+exception indices fail. The [certificate record](certificates/repeat-planes/README.md)
+gives the independent generator and rerun commands. Python, binary files,
+JSON, and numerical libraries are outside the proof dependency graph.
+
+`critical_planes_classified` concludes the full critical-plane classification
+under the five-speed Lonely Runner assertion and `TightFiveClassification`.
+The three displayed integer bases are proved saturated by reading two
+coordinates, so equality of real planes yields integer parameters for every
+integer direction. `critical_plane_question66` then gives the sharp $3q$
+bound without supplied family membership.
+
+Finally, `large_six_question66` combines this classification with the global
+height theorem: under the four- and five-speed assertions and the tight-five
+classification, every positive primitive near-tight sextuple with
+
+$$\|v\|_2\ge9K(6)^2=12{,}853{,}682{,}015{,}846{,}400{,}000{,}000$$
+
+satisfies $\max_i v_i<3q$. Every possible violation is below that explicit
+cutoff. This is a proved finite reduction; the box below it has **not** been
+exhaustively verified.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
 proposition. **It is a definition, not a proved theorem.** The current
-critical-family membership hypothesis cannot be removed from the proved
-bound without additional work:
+critical-plane classification is proved under explicit five-speed inputs.
+The unrestricted bound still requires additional work:
 
-1. Supply the lower-speed Lonely Runner proofs and a sufficiently sharp global
+1. Supply the lower-speed Lonely Runner and tight-five classification proofs,
+   and a sufficiently sharp global
    reduction for the six-speed exhaustive certificate. The global box theorem
    above has explicit hypotheses and a much larger cutoff.
 2. Convert the complete modular exclusions, relation-space coverage and
-   finite direction classification into kernel-checked certificates with
+   off-critical finite direction classification into kernel-checked certificates with
    proved coverage. A digest, a successful Python replay or a finite search
    summary does not discharge this step.
 3. Connect the resulting exhaustive critical-or-sporadic classification to

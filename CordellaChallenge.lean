@@ -416,4 +416,92 @@ theorem speedNorm_lt_constant_mul_denominator {m : ℕ}
     (hnear : loneliness v < 1/((m:ℝ)+3)) :
     speedNorm v < (((m:ℝ)+3)*boxHeightConstant (m+3)/2)*q := by sorry
 
+/-! Repeat-plane classification, with all lower-speed inputs explicit. -/
+
+def RepeatVector {n : ℕ} (v : Fin n → ℤ) : Prop :=
+  (∀ i, v i ≠ 0) ∧ ∃ i j, i ≠ j ∧ (v i).natAbs=(v j).natAbs
+
+def integerPlane {n : ℕ} (c d : Fin n → ℤ) : Set (Fin n → ℝ) :=
+  Set.range (fun p : ℝ × ℝ => fun i => p.1*c i+p.2*d i)
+
+def canonicalRepeatVectors : Fin 10 → Fin 6 → ℤ := ![
+![1,1,2,3,4,5],
+![2,2,1,3,4,5],
+![3,3,1,2,4,5],
+![4,4,1,2,3,5],
+![5,5,1,2,3,4],
+![1,1,3,4,5,9],
+![3,3,1,4,5,9],
+![4,4,1,3,5,9],
+![5,5,1,3,4,9],
+![9,9,1,3,4,5]]
+
+def KnownCriticalPlane (u w : Fin 6 → ℤ) : Prop :=
+  ∃ c d : Fin 6 → ℤ, CriticalPresentation c d ∧ ∃ e : Equiv.Perm (Fin 6),
+    ∃ s : Fin 6 → ℤ, (∀ i, s i=1 ∨ s i= -1) ∧
+      integerPlane u w=integerPlane (fun i => s i*c (e i)) (fun i => s i*d (e i))
+
+def TightFiveClassification : Prop :=
+  ∀ v : Fin 5 → ℤ, PrimitiveSpeeds v → (∀ i, v i ≠ 0) → loneliness v=(1:ℝ)/6 →
+    (List.ofFn (fun i => |v i|)).Perm [1,2,3,4,5] ∨
+    (List.ofFn (fun i => |v i|)).Perm [1,3,4,5,9]
+
+theorem exists_primitive_repeat_plane_basis {n : ℕ} (c d : Fin n → ℤ)
+    (hc : ∀ i, c i ≠ 0) (a b : Fin n) (hab : c a*d b-d a*c b ≠ 0) :
+    ∃ u w : Fin n → ℤ, PrimitiveSpeeds u ∧ PrimitiveSpeeds w ∧
+      RepeatVector u ∧ RepeatVector w ∧
+      (∃ i j, u i*w j-w i*u j ≠ 0) ∧ integerPlane u w=integerPlane c d := by sorry
+
+theorem critical_plane_has_tight_repeat_basis {n : ℕ}
+    (hLRC : LonelyRunnerConjecture n) (c d : Fin (n+1) → ℤ)
+    (hc : ∀ i, c i ≠ 0) (a b : Fin (n+1)) (hab : c a*d b-d a*c b ≠ 0)
+    (hcrit : planeLoneliness c d=1/((n:ℝ)+1)) :
+    ∃ u w : Fin (n+1) → ℤ, PrimitiveSpeeds u ∧ PrimitiveSpeeds w ∧
+      RepeatVector u ∧ RepeatVector w ∧
+      loneliness u=1/((n:ℝ)+1) ∧ loneliness w=1/((n:ℝ)+1) ∧
+      (∃ i j, u i*w j-w i*u j ≠ 0) ∧ integerPlane u w=integerPlane c d := by sorry
+
+theorem finite_critical_planes_of_finite_tight {n : ℕ} [NeZero n]
+    (hLRC : LonelyRunnerConjecture n)
+    (hfinite : Set.Finite {v : Fin n → ℤ | PrimitiveSpeeds v ∧ (∀ i, v i ≠ 0) ∧
+      loneliness v=1/((n:ℝ)+1)}) :
+    Set.Finite {U : Set (Fin (n+1) → ℝ) | ∃ c d : Fin (n+1) → ℤ,
+      (∀ i, c i ≠ 0) ∧ (∃ a b, c a*d b-d a*c b ≠ 0) ∧
+      planeLoneliness c d=1/((n:ℝ)+1) ∧ U=integerPlane c d} := by sorry
+
+theorem critical_repeat_pair_classified (i j : Fin 10) (w : Fin 6 → ℤ)
+    (hw : (List.ofFn (fun k => |w k|)).Perm (List.ofFn (canonicalRepeatVectors j)))
+    (hfirst : 0<w 0) (a b : Fin 6)
+    (hm : canonicalRepeatVectors i a*w b-w a*canonicalRepeatVectors i b ≠ 0)
+    (hL : planeLoneliness (canonicalRepeatVectors i) w ≤ (1:ℝ)/6) :
+    KnownCriticalPlane (canonicalRepeatVectors i) w := by sorry
+
+theorem critical_planes_classified (hLRC : LonelyRunnerConjecture 5)
+    (hfive : TightFiveClassification) (c d : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+    (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
+    (hcrit : planeLoneliness c d=(1:ℝ)/6) : KnownCriticalPlane c d := by sorry
+
+theorem critical_plane_question66 (hLRC : LonelyRunnerConjecture 5)
+    (hfive : TightFiveClassification) (c d v : Fin 6 → ℤ) (hc : ∀ i, c i ≠ 0)
+    (a b : Fin 6) (hab : c a*d b-d a*c b ≠ 0)
+    (hcrit : planeLoneliness c d=(1:ℝ)/6)
+    (hv : (fun i => (v i:ℝ)) ∈ integerPlane c d)
+    (hprim : PrimitiveSpeeds v) (hnz : ∀ i, v i ≠ 0)
+    (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v<(1:ℝ)/6) : ∀ i, |v i|<3*(q:ℤ) := by sorry
+
+theorem large_six_question66 (hfour : LonelyRunnerConjecture 4)
+    (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+    (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
+    (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v<(1:ℝ)/6)
+    (hlarge : 9*boxHeightConstant 6^2 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
+
+theorem question66_violation_speed_bound (hfour : LonelyRunnerConjecture 4)
+    (hfive : LonelyRunnerConjecture 5) (htight : TightFiveClassification)
+    (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
+    (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
+    (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :
+    speedNorm v<9*boxHeightConstant 6^2 := by sorry
+
 end LonelyRunner

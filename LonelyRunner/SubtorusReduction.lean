@@ -68,9 +68,9 @@ theorem positive_plane_equal_coordinates {n : ℕ} (c d : Fin n → ℤ)
 
 /-- A proper integer plane has a proper integer direction with two equal
 absolute speeds, allowing arbitrary signs in its nonzero first column. -/
-theorem plane_equal_abs_coordinates {n : ℕ} (c d : Fin n → ℤ)
+theorem plane_equal_abs_coordinates_transverse {n : ℕ} (c d : Fin n → ℤ)
     (hc : ∀ i, c i ≠ 0) (a b : Fin n) (hab : c a*d b-d a*c b ≠ 0) :
-    ∃ A B : ℤ, ∃ i j : Fin n, i ≠ j ∧
+    ∃ A B : ℤ, B ≠ 0 ∧ ∃ i j : Fin n, i ≠ j ∧
       (∀ k, torusSpeeds c d A B k ≠ 0) ∧
       (torusSpeeds c d A B i).natAbs=(torusSpeeds c d A B j).natAbs := by
   let c' : Fin n → ℤ := fun i => (c i).sign*c i
@@ -88,7 +88,7 @@ theorem plane_equal_abs_coordinates {n : ℕ} (c d : Fin n → ℤ)
       have hh := Int.abs_sign_of_ne_zero (hc k)
       simp [h] at hh
     exact mul_ne_zero (mul_ne_zero (hs a) (hs b)) hab
-  obtain ⟨A,B,i,j,hij,hnz,he,_,_⟩ := positive_plane_equal_coordinates c' d' hpos a b hm
+  obtain ⟨A,B,i,j,hij,hnz,he,_,hB⟩ := positive_plane_equal_coordinates c' d' hpos a b hm
   have hf (k : Fin n) : torusSpeeds c' d' A B k=(c k).sign*torusSpeeds c d A B k := by
     dsimp [torusSpeeds,c',d']; ring
   have ha (k : Fin n) : (torusSpeeds c' d' A B k).natAbs=(torusSpeeds c d A B k).natAbs := by
@@ -98,10 +98,21 @@ theorem plane_equal_abs_coordinates {n : ℕ} (c d : Fin n → ℤ)
       rw [← Int.natCast_natAbs] at hh
       exact_mod_cast hh
     rw [hs, one_mul]
-  refine ⟨A,B,i,j,hij,fun k hk => hnz k (by rw [hf,hk,mul_zero]), ?_⟩
-  rw [← ha i, ← ha j]
-  have hneg : torusSpeeds c' d' A B i= -torusSpeeds c' d' A B j := by omega
-  rw [hneg, Int.natAbs_neg]
+  refine ⟨A,B,?_,i,j,hij,fun k hk => hnz k (by rw [hf,hk,mul_zero]), ?_⟩
+  · rw [hB]
+    exact neg_ne_zero.mpr (add_pos (hpos i) (hpos j)).ne'
+  · rw [← ha i, ← ha j]
+    have hneg : torusSpeeds c' d' A B i= -torusSpeeds c' d' A B j := by omega
+    rw [hneg, Int.natAbs_neg]
+
+/-- A zero-free repeat direction exists in every proper integer plane. -/
+theorem plane_equal_abs_coordinates {n : ℕ} (c d : Fin n → ℤ)
+    (hc : ∀ i, c i ≠ 0) (a b : Fin n) (hab : c a*d b-d a*c b ≠ 0) :
+    ∃ A B : ℤ, ∃ i j : Fin n, i ≠ j ∧
+      (∀ k, torusSpeeds c d A B k ≠ 0) ∧
+      (torusSpeeds c d A B i).natAbs=(torusSpeeds c d A B j).natAbs := by
+  obtain ⟨A,B,_,h⟩ := plane_equal_abs_coordinates_transverse c d hc a b hab
+  exact ⟨A,B,h⟩
 
 /-- The integer-speed Lonely Runner assertion in an exact number of coordinates.
 It is an explicit hypothesis in dimension-reduction theorems, not a new axiom. -/
