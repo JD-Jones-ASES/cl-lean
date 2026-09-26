@@ -1,0 +1,33 @@
+{
+  "challenge_module": "CordellaChallenge",
+  "solution_module": "CordellaSolution",
+  "theorem_names": [
+    "LonelyRunner.prime_divisor_capacity",
+    "LonelyRunner.integer_prime_cover_capacity",
+    "LonelyRunner.shortForms_card",
+    "LonelyRunner.short_relation_of_prime_cover",
+    "LonelyRunner.triad_of_prime_cover",
+    "LonelyRunner.loneliness_scale",
+    "LonelyRunner.exists_maximizing_time",
+    "LonelyRunner.rational_gap",
+    "LonelyRunner.speed_bound_from_height",
+    "LonelyRunner.off_critical_bound_from_height",
+    "LonelyRunner.six_speed_coordinate_cutoff",
+    "LonelyRunner.sporadic1_value",
+    "LonelyRunner.sporadic2_value",
+    "LonelyRunner.sporadic3_value",
+    "LonelyRunner.sporadic4_value",
+    "LonelyRunner.sporadic5_value",
+    "LonelyRunner.sporadic6_value",
+    "LonelyRunner.sporadic7_value",
+    "LonelyRunner.sporadic8_value",
+    "LonelyRunner.sporadic9_value",
+    "LonelyRunner.sporadic7_grid25_miss",
+    "LonelyRunner.nonprimitive_counterexample"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

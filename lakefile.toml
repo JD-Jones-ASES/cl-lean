@@ -1,0 +1,24 @@
+name = "clLean"
+version = "0.1.0"
+defaultTargets = ["LonelyRunner", "CordellaChallenge", "CordellaSolution", "AxiomAudit"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "a98628e16c11f5167f16124105ddce53efa9bfe5"
+
+[[lean_lib]]
+name = "LonelyRunner"
+
+[[lean_lib]]
+name = "CordellaChallenge"
+
+[[lean_lib]]
+name = "CordellaSolution"
+
+[[lean_lib]]
+name = "AxiomAudit"

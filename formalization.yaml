@@ -1,0 +1,64 @@
+version: v0.4
+project:
+  name: Effective Bounds for the Lonely Runner Spectrum
+  description: >-
+    A partial Lean development toward Cordella's Questions 6.6 and 6.7.
+    The proved results comprise a general prime-divisor capacity theorem,
+    the 116-short-form count and a conditional 233-prime transfer to an
+    additive triad, exact real-time loneliness values for the nine
+    sporadic sextuples in Cordella's Table 2, attainment and scaling
+    invariance, and explicit arithmetic consequences of height and norm
+    inequalities. The geometric inputs, modular exclusions, and global
+    classification are not formalized. This snapshot does not prove the
+    global answers to Questions 6.6 and 6.7 and is not ready for submission
+    as their resolution.
+  authors: [JD Jones]
+  responsible_maintainers: [JD Jones]
+  license: MIT
+classification:
+  arxiv: [math.NT, math.CO]
+  msc2020: [11J13, 11H06]
+sources:
+  - title: Odd denominators in the Lonely Runner spectrum for six speeds
+    authors: [Francesco Cordella]
+    type: paper
+    url: https://arxiv.org/abs/2609.03444v2
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      The nine exact values in Table 2 are formalized. Questions 6.6 and 6.7
+      motivate the remaining global formalization; no resolution of those
+      questions is claimed for the current Lean snapshot.
+  - title: Effective near-tight Lonely Runner bounds and finite-prime triad exclusions
+    authors: [JD Jones]
+    type: other
+    url: https://github.com/JD-Jones-ASES/Analytic-Lab/tree/556edc596fb8ebc973def2241cf728809a1de3e9/probes/P0181_lonely_runner_effective
+    relationship: formalizes
+    note: >-
+      Private mathematical research record, RT-015/P0181. This development
+      formalizes the general prime-capacity mechanism and supporting
+      arithmetic, not the full computer-assisted proof. The source credits
+      the GPT-6 consultation supplied by JD for the starting effective-bound
+      argument and records the Lab's subsequent extensions and audits.
+automation:
+  methods:
+    - method: agent
+      tool_setup: OpenAI Codex (GPT-6), directed by JD Jones
+      notes: >-
+        Wrote Lean proofs and documentation; generated rational interval
+        certificates and an exhaustive short-form catalogue with Python;
+        compiled and audited the resulting proof terms. No generated
+        certificate or external computation is trusted without a Lean proof.
+review:
+  status: self-assessed
+  notes: >-
+    Authoring-agent compilation, source checks and axiom audit; independent
+    NanoDa and con-ron kernel checks of the exported supporting claims.
+    No independent human mathematical review or Palomar review is recorded.
+scope:
+  completed: The 22 supporting theorems in comparator.json.
+  excluded: >-
+    Global resolutions of Questions 6.6 and 6.7; geometric/lattice inputs;
+    completeness of the sporadic list; critical-torus classification;
+    finite-field prime assertions and large classification certificates.
+  publication: Private development; no Palomar submission.
