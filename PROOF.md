@@ -569,6 +569,17 @@ sextuple. None assumes the tight-five classification. The first is a direct,
 explicit six-speed answer to the speed-bounding question in Question 6.7;
 its coarse cutoff does not verify the exceptional region.
 
+`TightFiveReduction.lean` further proves that a zero-free tight quintuple
+has distinct absolute speeds, since deleting a repeated speed would give
+loneliness at least $1/5$. Applying the global gap bound in dimension five
+to its absolute speeds proves $\|v\|_2<375{,}000{,}000$ for every primitive
+tight quintuple. This proves finiteness of all signed, ordered tight quintuples
+and hence, through the repeat-basis theorem, finiteness of all proper critical
+six-planes without assuming their classification. The resulting box is a
+proved reduction only; it has not been exhaustively checked to identify the
+two tight-five profiles. These are supporting reduction lemmas, not additional
+selected Challenge claims.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted
