@@ -1,6 +1,6 @@
 """Exact external census supporting the tight-five moment route.
 
-This is NOT imported as a Lean proof. The complete 57-prime finite coverage
+This is NOT imported as a Lean proof. The complete 40-prime finite coverage
 remains a formalization obligation; see TIGHT_FIVE_MOMENTS.md. Normalization,
 integer lifting, checker soundness, and prime 83 are now proved in Lean.
 --check replays two independent exhaustive enumerations and negative controls.
@@ -20,10 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / 'certificates' / 'tight-five-modular.json'
 PRIMES = (83,101,103,107,131,149,151,163,167,173,179,191,193,197,199,
           211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,
-          293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,
-          389,397,401,409,419,421,431,433,439,443,449,457)
+          293,307,311,313,317,331,337,347,349,353)
 PROFILES = ((1,2,3,4,5),(1,3,4,5,9))
-NORM_BOUND = 375000000
+NORM_BOUND = 500000
 
 
 def require(condition, message):
@@ -188,7 +187,7 @@ def main():
         RECORD.write_text(output)
     else:
         require(RECORD.read_text()==output, 'Literal record differs')
-    print(f'PASS: 57 primes, exact product bound and negative controls; '
+    print(f'PASS: 40 primes, exact product bound and negative controls; '
           f'record SHA256={sha256(output.encode()).hexdigest()}')
 
 

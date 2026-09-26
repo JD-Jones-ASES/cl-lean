@@ -571,9 +571,9 @@ its coarse cutoff does not verify the exceptional region.
 
 `TightFiveReduction.lean` further proves that a zero-free tight quintuple
 has distinct absolute speeds, since deleting a repeated speed would give
-loneliness at least $1/5$. Applying the global gap bound in dimension five
-to its absolute speeds proves $\|v\|_2<375{,}000{,}000$ for every primitive
-tight quintuple. This proves finiteness of all signed, ordered tight quintuples
+loneliness at least $1/5$. The squared-coordinate box argument in
+`FiveHeight.lean` proves $\|v\|_2<500{,}000$ for every primitive tight
+quintuple, in every sign and coordinate order. This proves finiteness of all signed, ordered tight quintuples
 and hence, through the repeat-basis theorem, finiteness of all proper critical
 six-planes without assuming their classification. The resulting box is a
 proved reduction only; it has not been exhaustively checked to identify the
@@ -581,13 +581,15 @@ two tight-five profiles. These are supporting reduction lemmas, not additional
 selected Challenge claims.
 
 The supporting [moment route](TIGHT_FIVE_MOMENTS.md) now reduces the missing
-tight-five classification to 57 concrete modular implications. Lean proves
+tight-five classification to 40 concrete modular implications. Lean proves
 the integer product bounds and prime lift, and proves that the resulting
 four homogeneous identities recover exactly the two primitive profiles.
-Two external exhaustive censuses agree on every required modular case.
+The refined five-dimensional box argument proves the tight-tuple bound
+`||v||<500000`, reducing the needed prime set from 57 to 40. Two external
+exhaustive censuses agree on every required modular case.
 Lean now proves the normalization of arbitrary residue tuples and the
 pair-cover checker's soundness. The prime-83 cover is fully kernel-checked,
-including repeated residues. The remaining 56 finite covers are still needed;
+including repeated residues. The remaining 39 finite covers are still needed;
 the classification hypothesis has not been removed from any selected theorem.
 
 ## Remaining obligations for the unrestricted theorem

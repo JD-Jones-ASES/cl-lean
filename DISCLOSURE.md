@@ -52,8 +52,8 @@ are no longer independently selected Challenge claims.
 The [tight-five moment route](TIGHT_FIVE_MOMENTS.md) is supporting development.
 Its normalization, integer lift, profile recovery and finite checker soundness
 are proved in Lean. The prime-83 cover is kernel-checked, including repeated
-residues. The other 56 covers remain formalization obligations; two independent
-exhaustive Python algorithms check all 57 primes. The literal census is not
+residues. The other 39 covers remain formalization obligations; two independent
+exhaustive Python algorithms check all 40 primes. The literal census is not
 trusted by any Lean theorem. This targets the known
 Bohman–Holzman–Kleitman tight-five classification; no novelty claim is made.
 

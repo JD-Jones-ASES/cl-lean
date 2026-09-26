@@ -140,12 +140,12 @@ primitive normalization.
 
 The sharp global Question 6.6, completeness of the sporadic list, and the
 tight-five classification remain outside the proved scope.
-Supporting work now gives a [57-prime moment route](TIGHT_FIVE_MOMENTS.md)
+Supporting work now gives a [40-prime moment route](TIGHT_FIVE_MOMENTS.md)
 to the known tight-five classification: Lean proves normalization, lifting,
 profile recovery, and the finite checker's soundness. The complete prime-83
 cover is kernel-checked, including repeated residues and negative controls.
-The other 56 covers remain to be formalized; two external exhaustive censuses
-agree on the data for all 57 primes.
+The other 39 covers remain to be formalized; two external exhaustive censuses
+agree on the data for all 40 primes.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas

@@ -46,49 +46,52 @@ theorem testBit_tensor (w m n d e : ℕ) (hm : m<2^w) (he : e<w) :
       simp only [hh]
       cases hbit : m.testBit n <;> simp [testBit_row w m n d e hm he,hn]
 
-/-- A successful accumulator covers the target. Each added row is authorized
-by a bit in `gates`; the low-bit heuristic affects speed, never soundness. -/
-def cover (pairs : ℕ → ℕ) (target : ℕ) : ℕ → ℕ → ℕ → Bool
+/-- Scan positions directly. Unlike the logical model of `Nat.log2`, this
+performs at most one bit test for each possible time. -/
+def coverFrom (pairs : ℕ → ℕ) (target gates : ℕ) : ℕ → ℕ → ℕ → Bool
   | 0, _, acc => acc &&& target == target
-  | fuel+1, gates, acc =>
-    if acc &&& target == target then true else
-    if gates == 0 then false else
-    let rest := gates &&& (gates-1)
-    let t := Nat.log2 (gates ^^^ rest)
-    if gates.testBit t then cover pairs target fuel rest (acc ||| pairs t) else false
+  | fuel+1, t, acc =>
+    if gates.testBit t then
+      if acc &&& target == target then true else
+      coverFrom pairs target gates fuel (t+1) (acc ||| pairs t)
+    else coverFrom pairs target gates fuel (t+1) acc
+
+def cover (pairs : ℕ → ℕ) (target fuel gates acc : ℕ) : Bool :=
+  coverFrom pairs target gates fuel 0 acc
 
 theorem covered_bit {acc target k : ℕ} (h : acc &&& target=target)
     (hk : target.testBit k=true) : acc.testBit k=true := by
   have hh := congrArg (fun n : ℕ => n.testBit k) h
   simpa [Nat.testBit_land,hk] using hh
 
+theorem coverFrom_sound (pairs : ℕ → ℕ) (target gates fuel t acc k : ℕ)
+    (h : coverFrom pairs target gates fuel t acc=true) (hk : target.testBit k=true) :
+    acc.testBit k=true ∨ ∃ s, gates.testBit s=true ∧ (pairs s).testBit k=true := by
+  induction fuel generalizing t acc with
+  | zero =>
+    exact Or.inl (covered_bit (by simpa [coverFrom] using h) hk)
+  | succ fuel ih =>
+    simp only [coverFrom] at h
+    split at h
+    next hbit =>
+      split at h
+      next hh => exact Or.inl (covered_bit (by simpa using hh) hk)
+      next hh =>
+        rcases ih (t+1) (acc ||| pairs t) h with ha|hs
+        · have ha' : acc.testBit k=true ∨ (pairs t).testBit k=true := by
+            simpa only [Nat.testBit_or,Bool.or_eq_true] using ha
+          rcases ha' with ha|hp
+          · exact Or.inl ha
+          · exact Or.inr ⟨t,hbit,hp⟩
+        · exact Or.inr hs
+    next hbit => exact ih (t+1) acc h
+
+/-- Every successfully covered bit comes from the initial accumulator or a
+pair mask authorized by the original time mask. -/
 theorem cover_sound (pairs : ℕ → ℕ) (target fuel gates acc k : ℕ)
     (h : cover pairs target fuel gates acc=true) (hk : target.testBit k=true) :
-    acc.testBit k=true ∨ ∃ t, gates.testBit t=true ∧ (pairs t).testBit k=true := by
-  induction fuel generalizing gates acc with
-  | zero =>
-    left
-    exact covered_bit (by simpa [cover] using h) hk
-  | succ fuel ih =>
-    simp only [cover] at h
-    split at h
-    next hh => exact Or.inl (covered_bit (by simpa using hh) hk)
-    next hh =>
-      split at h
-      next hz => simp at h
-      next hz =>
-        split at h
-        next ht =>
-          rcases ih _ _ h with ha|⟨t,ht',hp⟩
-          · have ha' : acc.testBit k=true ∨ (pairs (Nat.log2 (gates ^^^ (gates &&& (gates-1))))).testBit k=true := by
-              simpa only [Nat.testBit_or,Bool.or_eq_true] using ha
-            rcases ha' with ha|hp
-            · exact Or.inl ha
-            · exact Or.inr ⟨_,ht,hp⟩
-          · have ht'' : gates.testBit t=true ∧ (gates-1).testBit t=true := by
-              simpa only [Nat.testBit_land,Bool.and_eq_true] using ht'
-            exact Or.inr ⟨t,ht''.1,hp⟩
-        next ht => simp at h
+    acc.testBit k=true ∨ ∃ t, gates.testBit t=true ∧ (pairs t).testBit k=true :=
+  coverFrom_sound pairs target gates fuel 0 acc k h hk
 
 /-- All velocities at least `c` and less than the row width. -/
 def suffix (w c : ℕ) : ℕ := (2^(w-c)-1) <<< c
