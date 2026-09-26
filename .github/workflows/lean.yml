@@ -24,6 +24,7 @@ jobs:
       - run: python3 -O scripts/check_sources.py
       - run: python3 scripts/generate_repeat_lean.py --check
       - run: python3 scripts/generate_five_speed_lean.py --check
+      - run: python3 -O scripts/generate_tight_five_lean.py --check
       - run: python3 -O scripts/verify_tight_five_modular.py --check
       - run: lake env lean AxiomAudit.lean
       - run: python3 scripts/verify_exports.py --stage export

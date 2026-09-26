@@ -50,10 +50,11 @@ prime-capacity and assumed-height arithmetic lemmas remain supporting code but
 are no longer independently selected Challenge claims.
 
 The [tight-five moment route](TIGHT_FIVE_MOMENTS.md) is supporting development.
-Its integer lift and profile recovery are proved in Lean, while its 57-prime
-modular census is presently checked by two independent exhaustive Python
-algorithms. The finite normalization/coverage implication remains unformalized.
-The literal census is not trusted by any Lean theorem. This targets the known
+Its normalization, integer lift, profile recovery and finite checker soundness
+are proved in Lean. The prime-83 cover is kernel-checked, including repeated
+residues. The other 56 covers remain formalization obligations; two independent
+exhaustive Python algorithms check all 57 primes. The literal census is not
+trusted by any Lean theorem. This targets the known
 Bohman–Holzman–Kleitman tight-five classification; no novelty claim is made.
 
 The automated Palomar review of commit
