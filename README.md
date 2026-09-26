@@ -161,4 +161,8 @@ python3 scripts/verify_exports.py
 [CordellaChallenge.lean](CordellaChallenge.lean) states the 66 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
-runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.
+builds and audits once, exports the selected claims once, and runs sandboxed
+Comparator, NanoDa and con-ron in separate jobs. Every job checks the source
+commit, comparator configuration, toolchain and SHA-256 identity of both
+exports before verification. The default script still runs all stages locally;
+`--stage export|comparator|nanoda|con-ron` exposes the same stages for CI.

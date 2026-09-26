@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  verify:
+  build-export:
     runs-on: ubuntu-22.04
     timeout-minutes: 90
     env:
@@ -25,8 +25,44 @@ jobs:
       - run: python3 scripts/generate_repeat_lean.py --check
       - run: python3 scripts/generate_five_speed_lean.py --check
       - run: lake env lean AxiomAudit.lean
+      - run: python3 scripts/verify_exports.py --stage export
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verification-exports
+          path: |
+            .lake/verification/manifest.json
+            .lake/verification/challenge_module.ndjson
+            .lake/verification/solution_module.ndjson
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+  verify:
+    needs: build-export
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        checker: [comparator, nanoda, con-ron]
+    env:
+      LEAN_NUM_THREADS: 2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          leanchecker: 'false'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: verification-exports
+          path: .lake/verification
       - name: Install Comparator sandbox
+        if: matrix.checker == 'comparator'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y bubblewrap
-      - run: python3 scripts/verify_exports.py
+      - run: python3 scripts/verify_exports.py --stage "${{ matrix.checker }}"

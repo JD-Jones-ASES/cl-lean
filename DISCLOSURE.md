@@ -25,7 +25,9 @@ placeholders are isolated from the Solution.
 The verification workflow builds the pinned sources, audits every project
 declaration, compares all 66 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
-with NanoDa and con-ron in verified mode. Verification logs identify the
+with NanoDa and con-ron in verified mode. The three verifiers run in
+separate jobs against identical, hash-checked exports so one checker does
+not consume another checker's time allowance. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
 they are not human mathematical review or Palomar editorial approval.
 
