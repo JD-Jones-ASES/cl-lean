@@ -11,3 +11,13 @@ import LonelyRunner.Denominators
 import LonelyRunner.Consecutive
 import LonelyRunner.Boundary
 import LonelyRunner.PrimeRefinement
+import LonelyRunner.Modular
+import LonelyRunner.Torus
+import LonelyRunner.TorusCertificate
+import LonelyRunner.Fourier
+import LonelyRunner.Symmetry
+import LonelyRunner.CriticalFast
+import LonelyRunner.CriticalRay
+import LonelyRunner.CriticalUC
+import LonelyRunner.CriticalFamilies
+import LonelyRunner.CertificateControls

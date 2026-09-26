@@ -326,4 +326,84 @@ theorem triad_of_prime_cover_139 (v : Fin 6 → ℤ) (P : Finset ℕ)
     (hp : ∀ p ∈ P, Nat.Prime p) (hlarge : ∀ p ∈ P, 139 ≤ p)
     (hcover : ∀ p ∈ P, ∃ c ∈ shortForms, (p : ℤ) ∣ shortValue c v) : HasTriad v := by sorry
 
+
+/-! Verified development toward the unrestricted Question 6.6 target.
+The critical-family theorem retains explicit membership. No global classification
+or global Question 6.6 theorem is asserted. -/
+
+def torusSpeeds {n : ℕ} (c d : Fin n → ℤ) (A B : ℤ) : Fin n → ℤ :=
+  fun i => c i * A + d i * B
+
+def PrimitiveSpeeds {n : ℕ} (v : Fin n → ℤ) : Prop :=
+  Finset.univ.gcd (fun i => (v i).natAbs) = 1
+
+def fastCoreA : Fin 6 → ℤ := ![1, 2, 3, 4, 5, 0]
+
+def fastCoreB : Fin 6 → ℤ := ![1, 3, 4, 5, 9, 0]
+
+def fastDirection : Fin 6 → ℤ := ![0, 0, 0, 0, 0, 1]
+
+def ucC : Fin 6 → ℤ := ![1, 0, 1, 2, 3, 3]
+
+def ucD : Fin 6 → ℤ := ![0, 1, 1, 1, 1, 2]
+
+def CriticalPresentation (c d : Fin 6 → ℤ) : Prop :=
+  (c = fastCoreA ∧ d = fastDirection) ∨
+  (c = fastCoreB ∧ d = fastDirection) ∨ (c = ucC ∧ d = ucD)
+
+def ProperSpeeds {n : ℕ} (v : Fin n → ℤ) : Prop :=
+  (∀ i, v i ≠ 0) ∧ ∀ i j, i ≠ j → v i ≠ v j ∧ v i ≠ -v j
+
+def exampleTorusC : Fin 6 → ℤ := ![0, 0, 1, 1, 1, 2]
+
+def exampleTorusD : Fin 6 → ℤ := ![1, 2, -2, -1, 1, 1]
+
+def frequency {n : ℕ} (a v : Fin n → ℤ) : ℤ := ∑ i, a i * v i
+
+noncomputable def cosinePolynomial {n : ℕ} (S : Finset (Fin n → ℤ))
+    (c : (Fin n → ℤ) → ℝ) (x : Fin n → ℝ) : ℝ :=
+  ∑ a ∈ S, c a * Real.cos (2 * Real.pi * ∑ i, (a i : ℝ) * x i)
+
+theorem critical_families_question66 (v c d : Fin 6 → ℤ)
+    (hc : CriticalPresentation c d) (A B : ℤ) (e : Equiv.Perm (Fin 6))
+    (hprim : PrimitiveSpeeds v) (hnz : ∀ i, v i ≠ 0)
+    (he : ∀ i, (v i).natAbs = (torusSpeeds c d A B (e i)).natAbs)
+    (a q : ℕ) (hq : 0 < q) (hval : loneliness v = (a : ℝ)/q)
+    (hnear : loneliness v < (1 : ℝ)/6) : ∀ i, |v i| < 3*(q : ℤ) := by sorry
+
+theorem uc_question66 (A B : ℤ) (hprim : Int.gcd A B = 1)
+    (hnz : ∀ i, torusSpeeds ucC ucD A B i ≠ 0)
+    (a q : ℕ) (hq : 0 < q)
+    (hval : loneliness (torusSpeeds ucC ucD A B) = (a : ℝ)/q)
+    (hnear : loneliness (torusSpeeds ucC ucD A B) < (1 : ℝ)/6) :
+    ∀ i, |torusSpeeds ucC ucD A B i| < 3*(q : ℤ) := by sorry
+
+theorem fast_families_signed_question66 (c : Fin 6 → ℤ) (hc : c = fastCoreA ∨ c = fastCoreB)
+    (A B : ℤ) (hnz : ∀ i, torusSpeeds c fastDirection A B i ≠ 0)
+    (hprim : Int.gcd A B = 1) (a q : ℕ) (hq : 0 < q)
+    (hval : loneliness (torusSpeeds c fastDirection A B) = (a : ℝ)/q)
+    (hnear : loneliness (torusSpeeds c fastDirection A B) < (1 : ℝ)/6) :
+    ∀ i, |torusSpeeds c fastDirection A B i| < 3*(q : ℤ) := by sorry
+
+theorem good_triangle_parameter_bounds {n : ℕ} [NeZero n]
+    (c d : Fin n → ℤ) (A B : ℤ) (hprim : Int.gcd A B = 1)
+    (x y : Fin 3 → ℝ) (L : ℝ) (m : Fin n → ℤ)
+    (hnear : loneliness (torusSpeeds c d A B) < L)
+    (hlo : ∀ j i, (m i : ℝ) + L ≤ c i * x j + d i * y j)
+    (hhi : ∀ j i, (c i : ℝ) * x j + d i * y j ≤ m i + 1 - L)
+    (hD : (x 1-x 0)*(y 2-y 0)-(y 1-y 0)*(x 2-x 0) ≠ 0) :
+    |(A : ℝ)| < (|x 1-x 0|+|x 2-x 0|) /
+      |(x 1-x 0)*(y 2-y 0)-(y 1-y 0)*(x 2-x 0)| ∧
+    |(B : ℝ)| < (|y 1-y 0|+|y 2-y 0|) /
+      |(x 1-x 0)*(y 2-y 0)-(y 1-y 0)*(x 2-x 0)| := by sorry
+
+theorem example_torus_all_directions (A B : ℤ)
+    (hproper : ProperSpeeds (torusSpeeds exampleTorusC exampleTorusD A B)) :
+    (1 : ℝ)/6 ≤ loneliness (torusSpeeds exampleTorusC exampleTorusD A B) := by sorry
+
+theorem integral_cosinePolynomial {n : ℕ} (S : Finset (Fin n → ℤ))
+    (c : (Fin n → ℤ) → ℝ) (v : Fin n → ℤ) :
+    (∫ t in (0 : ℝ)..1, cosinePolynomial S c (fun i => t * v i)) =
+      ∑ a ∈ S, if frequency a v = 0 then c a else 0 := by sorry
+
 end LonelyRunner

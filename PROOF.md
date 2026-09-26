@@ -5,6 +5,178 @@ integer tuple $v$, define $L(v)=\sup_t\min_i\|tv_i\|$. Lean uses the norm
 on $\mathbb R/\mathbb Z$. Integer periodicity reduces times to $[0,1]$;
 continuity and compactness show that the supremum is attained.
 
+## The critical-family part of Question 6.6
+
+For each of the following three integer presentations, and for every primitive
+nonzero speed vector in its image (allowing signs and coordinate permutations),
+Lean proves $|v_i|<3q$ whenever $L(v)=a/q<1/6$ and $q>0$:
+
+\[
+ (A,2A,3A,4A,5A,B),\quad (A,3A,4A,5A,9A,B),\quad
+ (A,B,A+B,2A+B,3A+B,3A+2B).
+\]
+
+Neither a parameter cutoff nor distinctness is needed. Reduction of $a/q$
+is also unnecessary for this implication. `CriticalFamilies.lean` gives the
+combined theorem; primitivity of the speed vector forces coprimality of
+its integer parameters. `Symmetry.lean` proves the sign and permutation
+invariance used here. These are the three families identified in Cordella's
+Theorem 3.7. **Their completeness is not a theorem of this development.**
+
+### A primitive character and a good segment
+
+For coprime integers $A,B$, a parameter point $(x,y)$ belongs modulo
+$\mathbb Z^2$ to the orbit of $(A,B)$ exactly when $Ay-Bx$ is an integer.
+For the needed implication, choose $u,w\in\mathbb Z$ with $Au+Bw=1$.
+If $Ay-Bx=k$, put $t=ux+wy$. Then $At=x+wk$ and $Bt=y-uk$.
+Thus an integer-character point in a good cell yields an actual good time
+for all of its integer coordinate forms. Convexity extends the endpoint
+checks to a segment. `Torus.lean` proves these facts over the reals.
+
+### The two one-fast-runner families
+
+Normalize the signs of $A,B$ to be positive. In each family the segment
+$x=1/6$, $1/6\le y\le5/6$ is good at level $1/6$. Its character width is
+$2A/3$. If $A\ge2$, that interval contains an integer, contradicting
+near-tightness. Therefore $A=1$. The time $1/6$ then shows that $B=6s$
+for an integer $s\ge1$.
+
+At $t=s/(6s+1)$ all the core speeds $1,\ldots,5$ and $9$, when present,
+and the last speed $6s$ have distance at least $t$ from the integers.
+Thus $L\ge s/(6s+1)$. Since $L=a/q<1/6$ implies $6a+1\le q$,
+clearing positive denominators gives $q\ge6s+1$. Every coordinate is at
+most $\max(9,6s)<3q$. `CriticalFast.lean` proves this argument, including
+negative parameter signs. It uses only the lower witness, not a complete
+formula for the spectrum.
+
+### A short proof on the third critical family
+
+Use the coordinate forms
+
+\[
+ C(x,y)=(x,y,x+y,2x+y,3x+y,3x+2y).
+\]
+
+The following six points $p=(x,y)/6$ are good at level $1/6$. For every
+listed direction $e$, the endpoint $p+e/6$ lies in the same closed
+integer cell, at level zero. All inequalities for the six coordinate
+forms are checked exactly in `CriticalUC.lean`.
+
+| $(x,y)$ | Three directions $e$ |
+|---|---|
+| $(1,1)$ | $(-1,-1),(-1,2),(1,-1)$ |
+| $(1,2)$ | $(-1,1),(-1,4),(1,-2)$ |
+| $(2,1)$ | $(-2,5),(0,-1),(1,-1)$ |
+| $(3,1)$ | $(-3,5),(0,-1),(1,-1)$ |
+| $(3,2)$ | $(-3,4),(0,1),(1,-2)$ |
+| $(4,1)$ | $(-1,2),(0,-1),(2,-1)$ |
+
+Put $r=(Ay-Bx)\bmod6$. If $r=0$, the base point itself contradicts
+near-tightness. Otherwise put $\ell=Ae_y-Be_x$. Moving along the ray
+from the base point towards its endpoint gives the inequalities
+
+\[
+                   -rq\le\ell\le(6-r)q.                 \tag{R}
+\]
+
+For example, if $\ell>(6-r)q$, set $u=(6-r)/\ell$. Then $0<u<1/q\le1$,
+and $p+ue/6$ has integer character and is good at level $(1-u)/6$.
+But $6a+1\le q$ gives
+
+\[
+ L=a/q\le(1-1/q)/6<(1-u)/6,
+\]
+
+a contradiction. Reversing $(A,B)$ gives the lower inequality.
+`CriticalRay.lean` proves these statements for arbitrary integer coordinate
+forms, including the real interpolation and the integer-character crossing.
+
+For the eighteen rays, (R) is a finite system of linear inequalities.
+Enumerate $(A,B)$ modulo six. A zero base-point residue eliminates twenty-two
+of the thirty-six cases; coprimality eliminates the two additional all-even
+cases $(2,0)$ and $(4,0)$. In the remaining twelve cases the inequalities
+imply every speed is at most $3q$ in absolute value. Equality forces one of
+$B$, $3A+B$, $3A+2B$ to vanish, which is excluded. Lean's exact integer
+arithmetic tactic proves the strict bounds in all cases. It generates proof
+terms checked by the kernel; no linear-programming result is trusted.
+
+This proves the inequality part of Cordella's Theorem 5.3 by a direct
+argument. It does not reprove his complete spectrum, residue classification,
+or optimality assertion. The original theorem is credited to Cordella;
+no literature-priority claim is made for this proof.
+
+## Good triangles and finite-to-infinite certificates
+
+Let $p_0,p_1,p_2$ lie in one good cell at level $L$, set
+$e=p_1-p_0$, $f=p_2-p_0$, and suppose $D=|\det(e,f)|>0$.
+For a primitive direction $(A,B)$ with loneliness below $L$, the character
+interval of either segment cannot contain an integer, so
+
+\[
+ |Ae_y-Be_x|<1,\qquad |Af_y-Bf_x|<1.
+\]
+
+Inverting these two equations and applying the triangle inequality yields
+
+\[
+ |A|<\frac{|e_x|+|f_x|}{D},\qquad
+ |B|<\frac{|e_y|+|f_y|}{D}.
+\]
+
+`good_triangle_parameter_bounds` proves this over the reals, including
+closed segment boundaries. `TorusCertificate.lean` combines it with an
+executable finite-rectangle grid checker. Its soundness theorem covers
+**all** primitive parameter directions; dividing a common parameter factor
+extends a lower bound to every proper direction.
+
+The committed complete application is
+$C(A,B)=(B,2B,A-2B,A-B,A+B,2A+B)$. The triangle
+$(0,5/12),(0,1/6),(2/9,7/18)$ gives $|A|<4$, $|B|<5$ for any
+near-tight primitive direction. Kernel evaluation checks a good grid time
+for every proper direction in that rectangle, using moduli from
+$\{7,11,13,17,19,23,29,31\}$. Consequently every proper direction in
+this unbounded family has loneliness at least $1/6$.
+
+## Fourier and grid interfaces for the remaining global proof
+
+`Modular.lean` proves that exact inequalities
+$p\le6(tv_i\bmod p)\le5p$, for $p>0$, supply an ordinary real-time
+loneliness lower bound of $1/6$. Thus a genuinely verified modular
+certificate can be applied to a near-tight tuple.
+
+For a finite cosine polynomial
+$F(x)=\sum_m c_m\cos(2\pi m\cdot x)$, `Fourier.lean` proves
+
+\[
+ \int_0^1F(tv)\,dt=\sum_{m\cdot v=0}c_m.
+\]
+
+A nonpositive orbit polynomial with positive constant coefficient therefore
+forces a negative nonconstant resonant coefficient. The specific Riesz
+polynomial expansions and full relation-space enumerations are not yet
+connected to this interface.
+
+## Remaining obligations for the unrestricted theorem
+
+`Question66` in `CriticalFamilies.lean` records the precise unrestricted
+proposition. **It is a definition, not a proved theorem.** The current
+critical-family membership hypothesis cannot be removed from the proved
+bound without additional work:
+
+1. Formalize the global geometric or Fourier reduction that covers every
+   primitive near-tight sextuple, including its published mathematical inputs.
+2. Convert the complete modular exclusions, relation-space coverage and
+   finite direction classification into kernel-checked certificates with
+   proved coverage. A digest, a successful Python replay or a finite search
+   summary does not discharge this step.
+3. Connect the resulting exhaustive critical-or-sporadic classification to
+   the critical-family bounds above and the existing nine exact values.
+
+The conditional prime-capacity lemmas below remain supporting statements.
+Their modular hypotheses have not been globally discharged. This revision
+is development toward the requested global theorem, not a completed global
+formalization or a claim that Palomar's editorial requirement has been met.
+
 ## Exact maximizing times
 
 Assume every speed is positive, and let $t$ maximize the loneliness. Put

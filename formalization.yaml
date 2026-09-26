@@ -1,7 +1,14 @@
 version: v0.4
 project:
-  name: Exact Maxima and Prime Obstructions for Lonely Runners
+  name: Critical-Family Bounds and Exact Maxima for Lonely Runners
   description: >-
+    Proves max_i |v_i| < 3q on all three explicit critical families, with
+    primitive nonzero speeds, arbitrary signs and coordinate permutations,
+    unbounded parameters, and actual real-time loneliness a/q < 1/6. The
+    third-family proof uses six good points and eighteen rays with exact
+    residue arithmetic; it assumes no spectral classification. A proved
+    good-triangle checker also certifies an unbounded noncritical family.
+    The unrestricted Question 6.6 remains a target, not a proved theorem.
     Every maximizing time for positive integer speeds is rational. The
     reduced loneliness denominator divides an opposing active-pair sum
     after dividing by the pair's gcd. At a maximizing time of reduced
@@ -35,7 +42,7 @@ sources:
     note: >-
       Formalizes the nine exact values in Table 2 and adapts the candidate-time
       principle of Lemma 2.2 using sum denominators and opposing active
-      runners. The denominator, boundary-family and prime-obstruction
+      runners. The denominator, boundary-family, critical-family and prime-obstruction
       arguments are presented in PROOF.md and the Lean sources. No claim
       of literature priority is made for these extensions. Questions 6.6
       and 6.7 motivate the application; their global resolutions are not
@@ -64,12 +71,14 @@ review:
     Lean. Codex checked and formalized the included extensions, rebuilt the
     package, and ran source and axiom audits. The verification workflow runs
     sandboxed Comparator and independent NanoDa and con-ron checks on all
-    selected claims. No independent human or Palomar editorial review is
-    recorded.
+    selected claims. No independent human review is recorded. Palomar's automated
+    editorial review declined the earlier 7fa5a11 submission for insufficient
+    demonstrated research interest of its conditional prime-obstruction group.
+    The present revision has not been resubmitted or editorially approved.
 scope:
-  completed: The 45 theorems listed in comparator.json and their supporting development.
+  completed: The 51 theorems listed in comparator.json and their supporting development.
   excluded: >-
     Global resolutions of Questions 6.6 and 6.7; geometric norm and height
     estimates; completeness of the sporadic list; critical-torus classification;
-    unconditional finite-field prime assertions; classification of all
+    unconditional finite-field prime assertions; complete critical-family spectrum; classification of all
     maximizing times for the boundary family.
