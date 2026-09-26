@@ -30,3 +30,5 @@ import LonelyRunner.Question66FiniteReduction
 import LonelyRunner.PlaneCertificateControls
 import LonelyRunner.SixGlobal
 import LonelyRunner.TightFiveReduction
+import LonelyRunner.TightFivePrimeLift
+import LonelyRunner.StrictGrid

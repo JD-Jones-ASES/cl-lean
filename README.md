@@ -140,6 +140,10 @@ primitive normalization.
 
 The sharp global Question 6.6, completeness of the sporadic list, and the
 tight-five classification remain outside the proved scope.
+Supporting work now gives a [57-prime moment route](TIGHT_FIVE_MOMENTS.md)
+to the known tight-five classification: Lean proves the lifting and profile
+recovery, and two external exhaustive censuses agree on the finite data.
+The modular coverage implication still needs a Lean proof.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas

@@ -580,6 +580,14 @@ proved reduction only; it has not been exhaustively checked to identify the
 two tight-five profiles. These are supporting reduction lemmas, not additional
 selected Challenge claims.
 
+The supporting [moment route](TIGHT_FIVE_MOMENTS.md) now reduces the missing
+tight-five classification to 57 concrete modular implications. Lean proves
+the integer product bounds and prime lift, and proves that the resulting
+four homogeneous identities recover exactly the two primitive profiles.
+Two external exhaustive censuses agree on every required modular case.
+Their normalization/coverage implication remains to be formalized; the
+classification hypothesis has not been removed from any selected theorem.
+
 ## Remaining obligations for the unrestricted theorem
 
 `Question66` in `CriticalFamilies.lean` records the precise unrestricted

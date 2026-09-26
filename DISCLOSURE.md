@@ -49,6 +49,13 @@ classification hypothesis, which is not proved in this package. Conditional
 prime-capacity and assumed-height arithmetic lemmas remain supporting code but
 are no longer independently selected Challenge claims.
 
+The [tight-five moment route](TIGHT_FIVE_MOMENTS.md) is supporting development.
+Its integer lift and profile recovery are proved in Lean, while its 57-prime
+modular census is presently checked by two independent exhaustive Python
+algorithms. The finite normalization/coverage implication remains unformalized.
+The literal census is not trusted by any Lean theorem. This targets the known
+Bohman–Holzman–Kleitman tight-five classification; no novelty claim is made.
+
 The automated Palomar review of commit
 `7fa5a11b5fbb3aee56d62e87ecf9154e7c374a34` passed mechanical verification
 but declined registration: the separately advertised prime obstruction
