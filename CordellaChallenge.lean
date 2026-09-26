@@ -406,4 +406,16 @@ theorem integral_cosinePolynomial {n : ℕ} (S : Finset (Fin n → ℤ))
     (∫ t in (0 : ℝ)..1, cosinePolynomial S c (fun i => t * v i)) =
       ∑ a ∈ S, if frequency a v = 0 then c a else 0 := by sorry
 
+/-- The explicit support shape of the short Fourier obstruction. -/
+def SmallFourierVector (a : Fin 6 → ℤ) : Prop :=
+  ∃ j, |a j| ≤ 4 ∧ ∀ i, i ≠ j → |a i| ≤ 2
+
+/-- Global necessary condition for near-tightness, with no speed cutoff or
+assumed modular cover. This does not assert a complete relation-space classification. -/
+theorem near_tight_short_relation (v : Fin 6 → ℤ) (hv : loneliness v ≤ (1:ℝ)/6) :
+    ∃ a : Fin 6 → ℤ, a ≠ 0 ∧ SmallFourierVector a ∧ frequency a v=0 := by sorry
+
+theorem near_tight_relation_norm36 (v : Fin 6 → ℤ) (hv : loneliness v ≤ (1:ℝ)/6) :
+    ∃ a : Fin 6 → ℤ, a ≠ 0 ∧ (∑ i, a i^2) ≤ 36 ∧ frequency a v=0 := by sorry
+
 end LonelyRunner

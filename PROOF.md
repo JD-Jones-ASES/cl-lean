@@ -137,6 +137,59 @@ for every proper direction in that rectangle, using moduli from
 $\{7,11,13,17,19,23,29,31\}$. Consequently every proper direction in
 this unbounded family has loneliness at least $1/6$.
 
+## A global short-relation theorem
+
+For **every** integer sextuple with $L(v)\le1/6$, the module
+`ShortRelation.lean` proves a nonzero relation $a\cdot v=0$ with five
+coefficients bounded in absolute value by two and the remaining coefficient
+bounded by four. Thus $\sum_i a_i^2\le5\cdot4+16=36$. No primitivity,
+nonzero-coordinate, distinctness, finite speed bound, or covering assumption
+is used.
+
+Set $c_i=\cos(2\pi x_i)$ and
+
+$$g(c)=\frac{(14c+11)^2}{324},\qquad
+F(x)=\prod_i(1-c_i)^2\left(1-\sum_i g(c_i)\right).$$
+
+If $\|x_i\|\le1/6$ then $c_i\ge1/2$ and $g(c_i)\ge1$.
+All the squared factors and all $g(c_j)$ are nonnegative, so $F(x)\le0$.
+The hypothesis on $L(v)$ supplies such an index at every real time, including
+at equality. Hence the orbit integral of $F(tv)$ is nonpositive.
+
+The formal proof derives these one-variable Fourier coefficient arrays,
+indexed by the frequencies $-4,\ldots,4$:
+
+$$
+(1-\cos\theta)^2:\quad
+\frac{1}{4}(0,0,1,-4,6,-4,1,0,0),
+$$
+$$
+(1-\cos\theta)^2 g(\cos\theta):\quad
+\frac{1}{1296}(49,-42,-103,6,180,6,-103,-42,49).
+$$
+
+Complex exponential identities, finite product distributivity and exact
+integer-frequency orthogonality prove the multivariate expansion and its
+integral. If no nonzero relation of the stated shape existed, only the
+zero frequency could survive. The integral would then be
+
+$$
+\left(\frac32\right)^6
+-6\frac5{36}\left(\frac32\right)^5
+=\frac{81}{16}>0,
+$$
+
+contradicting the pointwise inequality. The proof treats the finite tensor
+sum symbolically; no numerical integration or externally supplied expansion
+is trusted. The coefficient arrays and their identities are proved directly
+in Lean.
+
+This formalizes the first analytic step of the Lab's Fourier reduction.
+It supplies **one** bounded relation, not the two/four independent relations
+or exhaustive catalogue needed for the global classification. The latter
+steps remain unformalized. No literature-priority claim is made for this
+short-relation argument.
+
 ## Fourier and grid interfaces for the remaining global proof
 
 `Modular.lean` proves that exact inequalities
@@ -152,9 +205,10 @@ $F(x)=\sum_m c_m\cos(2\pi m\cdot x)$, `Fourier.lean` proves
 \]
 
 A nonpositive orbit polynomial with positive constant coefficient therefore
-forces a negative nonconstant resonant coefficient. The specific Riesz
-polynomial expansions and full relation-space enumerations are not yet
-connected to this interface.
+forces a negative nonconstant resonant coefficient. The explicit polynomial
+in the preceding section is now expanded and integrated independently through
+complex characters. Its negative-line grouping and the full relation-space
+enumerations have not yet been formalized.
 
 ## Remaining obligations for the unrestricted theorem
 

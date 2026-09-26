@@ -8,6 +8,10 @@ project:
     third-family proof uses six good points and eighteen rays with exact
     residue arithmetic; it assumes no spectral classification. A proved
     good-triangle checker also certifies an unbounded noncritical family.
+    Every integer sextuple with loneliness at most 1/6 has a nonzero integer
+    annihilator with squared norm at most 36, proved by expanding and
+    integrating an explicit Fourier obstruction. This global necessary
+    condition has no speed cutoff or modular-cover hypothesis.
     The unrestricted Question 6.6 remains a target, not a proved theorem.
     Every maximizing time for positive integer speeds is rational. The
     reduced loneliness denominator divides an opposing active-pair sum
@@ -76,7 +80,7 @@ review:
     demonstrated research interest of its conditional prime-obstruction group.
     The present revision has not been resubmitted or editorially approved.
 scope:
-  completed: The 51 theorems listed in comparator.json and their supporting development.
+  completed: The 53 theorems listed in comparator.json and their supporting development.
   excluded: >-
     Global resolutions of Questions 6.6 and 6.7; geometric norm and height
     estimates; completeness of the sporadic list; critical-torus classification;

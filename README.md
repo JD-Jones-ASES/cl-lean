@@ -24,6 +24,13 @@ The development proves the following results.
   explicit good points and eighteen rays, followed by exact linear integer
   arithmetic in residue classes modulo six. It does not assume the family's
   spectral formula or a precomputed classification.
+- **A global short relation.** Every six-speed tuple with $L(v)\le1/6$
+  has a nonzero integer relation $a\cdot v=0$ with $\sum_i a_i^2\le36$.
+  At most one coefficient has absolute value above two, and that coefficient
+  has absolute value at most four. There are no positivity, distinctness,
+  primitivity, speed-cutoff, or modular-cover hypotheses. The proof expands
+  the explicit trigonometric obstruction and evaluates its orbit integral
+  exactly; it does not assume the Fourier coefficients or their mean.
 - **Finite certificates for infinite families.** A verified good triangle
   bounds every near-tight primitive direction in a two-torus by an explicit
   finite rectangle. A proved grid checker certifies the remaining directions.
@@ -94,7 +101,7 @@ python3 scripts/check_sources.py
 python3 scripts/verify_exports.py
 ```
 
-[CordellaChallenge.lean](CordellaChallenge.lean) states the 51 comparison
+[CordellaChallenge.lean](CordellaChallenge.lean) states the 53 comparison
 claims using Mathlib only; [CordellaSolution.lean](CordellaSolution.lean)
 imports their proofs. The [verification workflow](.github/workflows/lean.yml)
 runs the build, axiom audit, sandboxed Comparator, NanoDa and con-ron.

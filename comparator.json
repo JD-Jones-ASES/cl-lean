@@ -52,7 +52,9 @@
     "LonelyRunner.fast_families_signed_question66",
     "LonelyRunner.good_triangle_parameter_bounds",
     "LonelyRunner.example_torus_all_directions",
-    "LonelyRunner.integral_cosinePolynomial"
+    "LonelyRunner.integral_cosinePolynomial",
+    "LonelyRunner.near_tight_short_relation",
+    "LonelyRunner.near_tight_relation_norm36"
   ],
   "permitted_axioms": [
     "propext",

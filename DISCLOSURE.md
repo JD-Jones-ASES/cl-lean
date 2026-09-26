@@ -23,7 +23,7 @@ axioms are `propext`, `Quot.sound` and `Classical.choice`. Deliberate Challenge
 placeholders are isolated from the Solution.
 
 The verification workflow builds the pinned sources, audits every project
-declaration, compares all 51 declared Challenge/Solution claims with the
+declaration, compares all 53 declared Challenge/Solution claims with the
 sandboxed Comparator and Lean kernel, and checks the exported Solution
 with NanoDa and con-ron in verified mode. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
@@ -39,7 +39,8 @@ but declined registration: the separately advertised prime obstruction
 retained its modular-cover assumptions and lacked a demonstrated application.
 JD requested work toward the full global Question 6.6 theorem. The present
 revision adds actual unbounded critical-family bounds, a direct six-point
-proof for the third family, and proved finite-certificate interfaces. It does
+proof for the third family, a global norm-36 short-relation theorem derived
+from an explicit trigonometric obstruction, and proved finite-certificate interfaces. It does
 not complete the exhaustive global classification, and no new editorial
 approval or resubmission is claimed.
 
