@@ -10,7 +10,8 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307)
+SHARED_ONE_TRIAD_PRIMES = (293, 307)
 
 
 def compression_steps(slot, w):
@@ -37,6 +38,7 @@ def balanced_matrix(rows, stride):
 
 def generate(p):
     w = p // 2 + 1
+    shared_tables = p in SHARED_ONE_TRIAD_PRIMES
     split_roots = p != 179
     compact_pairs = p >= 211
     packed_counts = p >= 223
@@ -46,7 +48,7 @@ def generate(p):
     wide_k = (w-1).bit_length()
     wide_stride = 1 << wide_k
     slot = w.bit_length()
-    block_size = 8
+    block_size = 32 if shared_tables else 8
     fold = lambda n: min(n % p, -n % p)
     inv = [0] + [pow(x, -1, p) for x in range(1, w)]
     good = [sum(1 << t for t in range(w) if p < 6 * (x*t % p) < 5*p)
@@ -78,8 +80,27 @@ set_option maxRecDepth 1000000
         text = text.replace('LonelyRunner.TerminalModularSearch',
                             'LonelyRunner.WideModularSearch')
         text = text.replace('import LonelyRunner.CompressedPackedRows\n', '')
-    text += table('inv', inv) + table('good', good)
-    if wide_counts:
+    text += table('inv', inv)
+    if shared_tables:
+        text = text.replace('import LonelyRunner.WideModularSearch\n',
+                            'import LonelyRunner.CachedModularSearch\n'
+                            f'import LonelyRunner.OneTriad{p}Tables\n')
+        text += f'''abbrev good := OneTriadSearch.Prime{p}.good
+
+abbrev matrix := OneTriadSearch.Prime{p}.matrix
+
+abbrev steps := OneTriadSearch.Prime{p}.steps
+
+theorem matrix_ok : ModularSearch.wideMatrixCheck {wide_k} {w} matrix good=true :=
+  OneTriadSearch.Prime{p}.matrix_ok
+
+theorem steps_ok : ModularSearch.compressionCheck {wide_stride} {w} steps=true :=
+  OneTriadSearch.Prime{p}.steps_ok
+
+'''
+    else:
+        text += table('good', good)
+    if wide_counts and not shared_tables:
         matrix = balanced_matrix([((1 << w)-1) ^ m for m in good], wide_stride)
         text += f'def matrix : ℕ := {matrix}\n\n'
         text += 'def steps : List (ℕ × ℕ) := [\n'
@@ -92,7 +113,7 @@ set_option maxRecDepth 1000000
 theorem steps_ok : ModularSearch.compressionCheck {wide_stride} {w} steps=true := by decide +kernel
 
 '''
-    elif packed_counts:
+    elif packed_counts and not shared_tables:
         rows = [sum(1 << (slot*x) for x in range(w) if not (good[x] >> t) & 1)
                 for t in range(w)]
         text += table('badRows', rows)
@@ -125,6 +146,15 @@ def pivot := ModularSearch.bestPivot {w} good
 
 end {ns}
 '''
+    if shared_tables:
+        text = text.replace(
+            f'theorem good_ok : ModularPairCover.masksCheck {p} {w} good=true := by decide +kernel',
+            f'theorem good_ok : ModularPairCover.masksCheck {p} {w} good=true :=\n'
+            f'  OneTriadSearch.Prime{p}.good_ok')
+        text = text.replace(
+            f'theorem transpose_ok : transposeCheck {w} good=true := by decide +kernel',
+            f'theorem transpose_ok : transposeCheck {w} good=true :=\n'
+            f'  OneTriadSearch.Prime{p}.transpose_ok')
     if parallel_counts and not wide_counts:
         row_proof = f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
   apply ModularSearch.compressedRowsCheck_sound {w} {slot} ones good badRows steps
@@ -174,6 +204,28 @@ namespace {ns}.Root{r}
             text += f'''theorem pairs_ok : pairCheck {p} {w} {r} inv pairs=true := by decide +kernel
 
 '''
+        if shared_tables:
+            cand = masks[1] & masks[r]
+            for x in (1, r, fold(1+r), fold(1-r)):
+                cand &= ~(1 << x)
+            times = good[1] & good[r]
+            choices = [t for t in range(w) if (times >> t) & 1][:8]
+            pivot = min(choices, key=lambda t: (cand & ~good[t]).bit_count(), default=w)
+            branches = cand if pivot == w else cand & ~good[pivot]
+            text += f'''def C : ℕ := {hex(cand)}
+
+def G : ℕ := {hex(times)}
+
+def H : ℕ := {hex(branches)}
+
+theorem C_ok : C=ModularSearch.initialCandidates {w} {r} pairs (triples {p} {w}) := by decide +kernel
+
+theorem G_ok : G=good 1 &&& good {r} := by decide +kernel
+
+theorem H_ok : H=ModularSearch.wideBranches {wide_k} {w} 4 C G matrix
+    (ModularSearch.terminalPivot {w} good 4 C G) good steps := by decide +kernel
+
+'''
         if split_roots:
             text += f'''def child := ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot
 
@@ -181,7 +233,11 @@ namespace {ns}.Root{r}
             for b in range(w // block_size + 1):
                 text += (f'theorem block_{b} : ModularSearch.checkBlock child {block_size} {b}=true := by\n'
                          '  decide +kernel\n\n')
-        if wide_counts:
+        if shared_tables:
+            text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot',
+                f'ModularSearch.cachedWideRootChild {wide_k} {w} matrix {r} steps good pairs '
+                f'(triples {p} {w}) C G H')
+        elif wide_counts:
             text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot',
                 f'ModularSearch.wideRootChild {wide_k} {w} matrix {r} steps good pairs (triples {p} {w})')
         elif terminal_counts:
@@ -206,7 +262,12 @@ namespace {ns}.Root{r}
             text += '''  rw [← ModularSearch.fastRootCheck_eq]
   decide +kernel
 '''
-        if wide_counts:
+        if shared_tables:
+            text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
+                f'  apply ModularSearch.rootCheck_of_cached_wide_child_checks {wide_k} {w} matrix {r} steps good pairs\n'
+                f'    (triples {p} {w}) C G H (by decide) matrix_ok steps_ok\n'
+                '    (transposeCheck_sound _ good transpose_ok) C_ok G_ok H_ok')
+        elif wide_counts:
             text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
                 f'  apply ModularSearch.rootCheck_of_wide_child_checks {wide_k} {w} matrix {r} steps good pairs\n'
                 f'    (triples {p} {w}) (by decide) matrix_ok steps_ok\n'
@@ -263,6 +324,29 @@ theorem cover : SixModularCover {p} :=
 end {ns}
 '''
     files[f'SixModular{p}'] = text
+    if shared_tables:
+        # Bundle small roots without changing their theorem namespaces.
+        previous_prime = GENERATED_PRIMES[GENERATED_PRIMES.index(p)-1]
+        previous_module = f'SixModular{previous_prime}'
+        for index, start in enumerate(range(0, len(roots), 8)):
+            name = f'SixModular{p}Roots{index}'
+            bundled = (f'import LonelyRunner.{data_name}\n'
+                       'import LonelyRunner.AnchoredModularPairs\n'
+                       f'import LonelyRunner.{previous_module}\n')
+            if p == SHARED_ONE_TRIAD_PRIMES[0] and index == 0:
+                # Place new six-speed checks after the completed one-triad chain.
+                bundled += 'import LonelyRunner.OneTriad397\n'
+            bundled += ('\n-- Generated untrusted data. All checks use ordinary kernel reduction.\n'
+                        'set_option maxHeartbeats 0\nset_option maxRecDepth 1000000\n')
+            for r in roots[start:start+8]:
+                namespace = f'namespace {ns}.Root{r}\n'
+                source = files.pop(f'SixModular{p}Root{r}')
+                bundled += namespace + source.split(namespace, 1)[1]
+            files[name] = bundled
+            previous_module = name
+        files[f'SixModular{p}'] = files[f'SixModular{p}'].replace(
+            f'import LonelyRunner.SixModular{p}Root{roots[-1]}\n',
+            f'import LonelyRunner.{previous_module}\n')
     return files
 
 

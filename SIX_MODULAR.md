@@ -3,9 +3,9 @@
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
 modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223,
-227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, and 283** in the
+227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, and 307** in the
 ordinary Lean kernel.
-The other 214 selected covers and the sharp bound for tuples with triads
+The other 212 selected covers and the sharp bound for tuples with triads
 remain unproved in Lean. These are internal development results, not new
 selected Palomar claims.
 
@@ -62,7 +62,7 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-The nineteen aggregate modules prove `SixModularCover p` for these primes:
+The twenty-one aggregate modules prove `SixModularCover p` for these primes:
 
 | Prime | Normalized cases | Stored pair masks |
 |---|---:|---|
@@ -85,6 +85,8 @@ The nineteen aggregate modules prove `SixModularCover p` for these primes:
 | 277 | 69 | Two initial rows |
 | 281 | 70 | Two initial rows |
 | 283 | 70 | Two initial rows |
+| 293 | 73 | Two initial rows |
+| 307 | 76 | Two initial rows |
 
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
@@ -213,6 +215,30 @@ the 116 short-form values divisible by 179. If its coordinates are distinct
 and positive and `3 * sum(v_i^2) < 179^2`, it has an additive triad. This is a
 finite norm range, not the global triad theorem required below.
 
+## Shared tables and cached six-speed roots
+
+At primes 293 and 307, the triad-free certificates reuse the already-checked
+one-triad arithmetic tables, matrices, and compression programs. The reused
+objects describe modular arithmetic alone; their proofs assume no triad.
+The six-speed inverse and pair checks remain separate.
+
+`CachedModularSearch.lean` proves a cached first-coordinate interface for
+the six-speed search. The supplied candidate, common-time, and branch masks
+must each equal the original search expression. The remaining search still
+checks all four coordinates beyond the normalized pair, and a proved
+equality returns the original `rootCheck`. The new certificates use blocks
+of 32 branch checks and bundle eight roots per source module. The first
+new six-speed root depends on the completed one-triad chain, so these new
+heavy checks run in sequence.
+All earlier prime certificates are unchanged.
+
+`CachedModularSearchControls.lean` checks the genuine prime-181 obstruction.
+With valid arithmetic tables, a valid matrix and compression program, and
+correct candidate and time masks, an unchecked empty branch mask would
+accept every child. The required branch identity rejects it, and the
+original complete root is false. Its computation uses the proved wide-search
+equivalence; no native result is accepted as a proof.
+
 ## From finite covers to an integer triad
 
 The proved six-speed norm bound is
@@ -236,13 +262,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Nineteen
+sharp denominator bound for tuples possessing an additive triad. Twenty-one
 covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 214 members. Its theorem
+remaining subset of `sixTriadPrimes` has 212 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.
@@ -358,26 +384,27 @@ verification cost without changing the global Question 6.6 target.
 ### Complete smaller-prime covers
 
 Lean now proves `OneTriadModularCover p` at **223, 227, 233, 239, 251,
-269, 277, 281, 293, 307, 311, 313, 317, 331, 337, and 347**. These certificates check all proper minimum ratios,
+269, 277, 281, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 379, 383, 389, and 397**. These certificates
+check all proper minimum ratios,
 all three remaining coordinates, the arithmetic tables and their symmetry,
-and the complete assembly. The sixteen covers contain **750** roots in total.
+and the complete assembly. The twenty-four covers contain **1,242** roots in total.
 Each prime's remaining-ratio set is proved empty.
 The generator bundles eight roots per module and serializes the heavy
 root modules across primes to bound concurrent compiler memory use. The
 existing partial certificate at 2333 is unchanged.
 
-`OneTriadCertifiedCovers.lean` assembles the sixteen covers, checks the
+`OneTriadCertifiedCovers.lean` assembles the twenty-four covers, checks the
 cardinality, primality, and lower bound of this certified set, and inserts
 them into the smaller-prime reduction. Its remaining covers are explicit
-hypotheses. Sixteen covers alone do not supply the required set of 231.
+hypotheses. Twenty-four covers alone do not supply the required set of 231.
 
 `OneTriadSmallPrimes.lean` fixes **231 distinct primes from 223 through
 1867**, selected by a complete native feasibility search. Lean independently
 checks the list's cardinality, primality, lower bound, and inclusion of the
-sixteen certified primes. It proves that **215** cover obligations remain
+twenty-four certified primes. It proves that **207** cover obligations remain
 and inserts the certified subset into the second-relation reduction. The
 native search is a candidate-selection tool; it does not discharge any of
-those 215 Lean cover hypotheses.
+those 207 Lean cover hypotheses.
 
 `OneTriadApplications.lean` supplies a concrete integer consequence with
 no assumed modular cover. Any integer six-tuple with `L≤1/6` and a prescribed

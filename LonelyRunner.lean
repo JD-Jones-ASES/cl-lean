@@ -61,6 +61,7 @@ import LonelyRunner.OneTriadOrbit
 import LonelyRunner.OneTriadSearch
 import LonelyRunner.OneTriadSearchControls
 import LonelyRunner.OneTriadCachedSearchControls
+import LonelyRunner.CachedModularSearchControls
 import LonelyRunner.ModularTableChecks
 import LonelyRunner.OneTriad2333
 import LonelyRunner.OneTriadApplications
