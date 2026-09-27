@@ -2,8 +2,8 @@
 
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
-modular covers, and proves the selected covers at **primes 179 and 191** in the
-ordinary Lean kernel. The other 231 selected covers and the sharp bound for
+modular covers, and proves the selected covers at **179, 191, 193, 197, and
+211** in the ordinary Lean kernel. The other 228 selected covers and the sharp bound for
 tuples with triads remain unproved in Lean. These are internal development
 results, not new selected Palomar claims.
 
@@ -60,8 +60,16 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-`SixModular179.lean` combines 44 kernel-checked normalized root cases to prove
-`SixModularCover 179`; `SixModular191.lean` combines 47 cases for prime 191.
+The five aggregate modules prove `SixModularCover p` for these primes:
+
+| Prime | Normalized cases | Stored pair masks |
+|---|---:|---|
+| 179 | 44 | Full table |
+| 191 | 47 | Full table |
+| 193 | 48 | Full table |
+| 197 | 49 | Full table |
+| 211 | 52 | Two initial rows |
+
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
 only one large certificate compiler runs at a time. Replay with:
@@ -73,12 +81,23 @@ lake build LonelyRunner.SixCertifiedCovers LonelyRunner.ModularSearchBlockContro
 ```
 
 `ModularSearchBlocks.lean` proves that checks split into blocks still cover
-every child of a root. The prime-191 certificates use blocks of eight children
+every child of a root. Certificates from prime 191 onward use blocks of eight children
 and sparse pivot counts, with a proof that the pivot is unchanged. On a local
 comparison using prime 179's root 4, this combination reduced checking time
 from 209 seconds to 26 seconds. This is a measured case, not a runtime bound
 for all remaining primes. The final partial block is included, and the block
 controls check that a failing final child is detected.
+
+`AnchoredModularPairs.lean` proves that only the rows for the initial speeds
+`1,r` need to be stored: all other rows may retain every candidate. This
+weakens pruning but preserves every tuple covered by the existing soundness
+theorem. Both stored rows have their own arithmetic checks. Removing a
+required compatible pair from either row is rejected by the kernel controls.
+At prime 211, this reduces generated source from 619,110 to 156,298 bytes.
+A prime-179 kernel comparison took 29.61 seconds with these rows versus
+26.01 seconds with the full table. The smaller format is used from 211 onward;
+earlier certificates are preserved. These are local measurements, not a
+runtime guarantee for the remaining primes.
 
 `SixModularApplications.lean` supplies concrete integer consequences with no
 assumed finite cover. Every sextuple with loneliness at most `1/6` has one of
@@ -109,13 +128,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. The first
-two covers are now supplied; the remaining covers and the triad bound remain
+sharp denominator bound for tuples possessing an additive triad. Five
+covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 231 members. Its theorem
+remaining subset of `sixTriadPrimes` has 228 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.

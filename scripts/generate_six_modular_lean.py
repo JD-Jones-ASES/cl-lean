@@ -10,12 +10,13 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191)
+GENERATED_PRIMES = (179, 191, 193, 197, 211)
 
 
 def generate(p):
     w = p // 2 + 1
     split_roots = p != 179
+    compact_pairs = p >= 211
     block_size = 8
     fold = lambda n: min(n % p, -n % p)
     inv = [0] + [pow(x, -1, p) for x in range(1, w)]
@@ -50,12 +51,15 @@ end {ns}
     files = {data_name: text}
     previous = None
     for r in roots:
-        masks = [sum(1 << y for y in range(1, w)
-                     if x != y and r <= fold(x*inv[y]) and r <= fold(y*inv[x]))
-                 for x in range(w)]
+        def mask(x):
+            return sum(1 << y for y in range(1, w)
+                       if x != y and r <= fold(x*inv[y]) and r <= fold(y*inv[x]))
+        masks = {x: mask(x) for x in (1, r)} if compact_pairs else [mask(x) for x in range(w)]
         name = f'SixModular{p}Root{r}'
         text = (f'import LonelyRunner.{data_name}\n'
                 'import LonelyRunner.SparseModularSearch\n')
+        if compact_pairs:
+            text += 'import LonelyRunner.AnchoredModularPairs\n'
         if previous is not None:
             text += f'import LonelyRunner.{previous}\n'
         elif split_roots:
@@ -68,8 +72,17 @@ set_option maxHeartbeats 0
 set_option maxRecDepth 1000000
 namespace {ns}.Root{r}
 '''
-        text += table('pairs', masks)
-        text += f'''theorem pairs_ok : pairCheck {p} {w} {r} inv pairs=true := by decide +kernel
+        if compact_pairs:
+            text += f'def pairs := anchoredPairs {w} {r} {masks[1]} {masks[r]}\n\n'
+            text += f'''theorem pairs_ok : pairCheck {p} {w} {r} inv pairs=true := by
+  apply pairCheck_of_anchored_rows
+  · decide +kernel
+  · decide +kernel
+
+'''
+        else:
+            text += table('pairs', masks)
+            text += f'''theorem pairs_ok : pairCheck {p} {w} {r} inv pairs=true := by decide +kernel
 
 '''
         if split_roots:

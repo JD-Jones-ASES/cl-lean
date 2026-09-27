@@ -48,3 +48,4 @@ import LonelyRunner.SixModularApplications
 import LonelyRunner.SixModularSearchControls
 import LonelyRunner.SixCertifiedCovers
 import LonelyRunner.ModularSearchBlockControls
+import LonelyRunner.AnchoredModularPairControls

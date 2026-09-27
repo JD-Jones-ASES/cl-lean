@@ -31,6 +31,15 @@ not consume another checker's time allowance. Verification logs identify the
 exact commit checked. These checks establish the stated formal claims;
 they are not human mathematical review or Palomar editorial approval.
 
+A [local con-ron run](verification/local-conron-da3a127.json), with its
+[complete log](verification/local-conron-da3a127.log), accepted 59,862
+declarations in verified mode using one worker. It took 7,014 seconds on the
+local host while other proof work was running. Its exact selected Solution
+export was generated at `da3a127` and is byte-identical at `9e0255c`;
+the report records the export and verifier hashes. This checks the selected
+export, not every later supporting module, and is not a new Linux preflight
+or editorial acceptance. No GitHub Actions run was used for this check.
+
 The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
