@@ -1,0 +1,1948 @@
+{
+  "scope": "Native candidate selection only; all unproved Lean covers remain hypotheses",
+  "selected_primes": [
+    [
+      251,
+      257,
+      277,
+      311,
+      347,
+      353,
+      359,
+      367,
+      379,
+      383,
+      389,
+      401,
+      409,
+      419,
+      431,
+      439,
+      443,
+      449,
+      457,
+      461,
+      463,
+      467,
+      479,
+      487,
+      491,
+      499,
+      503,
+      509,
+      521,
+      523,
+      541,
+      557,
+      563,
+      569,
+      571,
+      577,
+      587,
+      593,
+      599,
+      601,
+      607,
+      613,
+      617,
+      619,
+      631,
+      641,
+      643,
+      647,
+      653,
+      659,
+      661,
+      673,
+      677,
+      683,
+      691,
+      701,
+      709,
+      719,
+      727,
+      733,
+      739,
+      743,
+      751,
+      757,
+      761,
+      769,
+      773,
+      787,
+      797,
+      809,
+      811,
+      821,
+      823,
+      827,
+      829,
+      839,
+      853,
+      857,
+      859,
+      863,
+      877,
+      881,
+      883,
+      887,
+      907,
+      911,
+      919,
+      929,
+      937,
+      941,
+      947,
+      953,
+      967,
+      971,
+      977,
+      983,
+      991,
+      997,
+      1009,
+      1013,
+      1019,
+      1021,
+      1031,
+      1033,
+      1039,
+      1049,
+      1051,
+      1061,
+      1063,
+      1069,
+      1087,
+      1091,
+      1093,
+      1097,
+      1103,
+      1109,
+      1117,
+      1123,
+      1129,
+      1151,
+      1153,
+      1163,
+      1171,
+      1181,
+      1187,
+      1193,
+      1201,
+      1213,
+      1217,
+      1223,
+      1229,
+      1231,
+      1237
+    ],
+    [
+      263,
+      307,
+      347,
+      353,
+      383,
+      389,
+      401,
+      431,
+      433,
+      439,
+      443,
+      449,
+      479,
+      487,
+      491,
+      499,
+      503,
+      521,
+      523,
+      541,
+      547,
+      563,
+      569,
+      571,
+      577,
+      587,
+      593,
+      599,
+      613,
+      617,
+      619,
+      631,
+      641,
+      643,
+      647,
+      653,
+      659,
+      661,
+      673,
+      677,
+      683,
+      691,
+      701,
+      709,
+      719,
+      727,
+      733,
+      739,
+      743,
+      751,
+      757,
+      761,
+      769,
+      773,
+      787,
+      797,
+      809,
+      811,
+      821,
+      823,
+      827,
+      829,
+      839,
+      853,
+      857,
+      859,
+      863,
+      877,
+      881,
+      883,
+      887,
+      907,
+      911,
+      919,
+      929,
+      937,
+      941,
+      947,
+      953,
+      967,
+      971,
+      977,
+      983,
+      991,
+      997,
+      1009,
+      1013,
+      1019,
+      1021,
+      1031,
+      1033,
+      1039,
+      1049,
+      1051,
+      1061,
+      1063,
+      1069,
+      1087,
+      1091,
+      1093,
+      1097,
+      1103,
+      1109,
+      1117,
+      1123,
+      1129,
+      1151,
+      1153,
+      1163,
+      1171,
+      1181,
+      1187,
+      1193,
+      1201,
+      1213,
+      1217,
+      1223,
+      1229,
+      1231,
+      1237,
+      1249,
+      1259,
+      1277,
+      1279,
+      1283,
+      1289,
+      1291,
+      1297,
+      1301
+    ]
+  ],
+  "records": [
+    {
+      "p": 179,
+      "parent": 0,
+      "survivors": 432
+    },
+    {
+      "p": 179,
+      "parent": 1,
+      "survivors": 128
+    },
+    {
+      "p": 181,
+      "parent": 0,
+      "survivors": 1152
+    },
+    {
+      "p": 181,
+      "parent": 1,
+      "survivors": 240
+    },
+    {
+      "p": 191,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 191,
+      "parent": 1,
+      "survivors": 80
+    },
+    {
+      "p": 193,
+      "parent": 0,
+      "survivors": 1152
+    },
+    {
+      "p": 193,
+      "parent": 1,
+      "survivors": 224
+    },
+    {
+      "p": 197,
+      "parent": 0,
+      "survivors": 576
+    },
+    {
+      "p": 197,
+      "parent": 1,
+      "survivors": 96
+    },
+    {
+      "p": 199,
+      "parent": 0,
+      "survivors": 1296
+    },
+    {
+      "p": 199,
+      "parent": 1,
+      "survivors": 192
+    },
+    {
+      "p": 211,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 211,
+      "parent": 1,
+      "survivors": 112
+    },
+    {
+      "p": 223,
+      "parent": 0,
+      "survivors": 720
+    },
+    {
+      "p": 223,
+      "parent": 1,
+      "survivors": 112
+    },
+    {
+      "p": 227,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 227,
+      "parent": 1,
+      "survivors": 48
+    },
+    {
+      "p": 229,
+      "parent": 0,
+      "survivors": 1008
+    },
+    {
+      "p": 229,
+      "parent": 1,
+      "survivors": 96
+    },
+    {
+      "p": 233,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 233,
+      "parent": 1,
+      "survivors": 96
+    },
+    {
+      "p": 239,
+      "parent": 0,
+      "survivors": 576
+    },
+    {
+      "p": 239,
+      "parent": 1,
+      "survivors": 48
+    },
+    {
+      "p": 241,
+      "parent": 0,
+      "survivors": 312
+    },
+    {
+      "p": 241,
+      "parent": 1,
+      "survivors": 96
+    },
+    {
+      "p": 251,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 251,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 257,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 257,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 263,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 263,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 269,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 269,
+      "parent": 1,
+      "survivors": 64
+    },
+    {
+      "p": 271,
+      "parent": 0,
+      "survivors": 336
+    },
+    {
+      "p": 271,
+      "parent": 1,
+      "survivors": 48
+    },
+    {
+      "p": 277,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 277,
+      "parent": 1,
+      "survivors": 80
+    },
+    {
+      "p": 281,
+      "parent": 0,
+      "survivors": 432
+    },
+    {
+      "p": 281,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 283,
+      "parent": 0,
+      "survivors": 192
+    },
+    {
+      "p": 283,
+      "parent": 1,
+      "survivors": 64
+    },
+    {
+      "p": 293,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 293,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 307,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 307,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 311,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 311,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 313,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 313,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 317,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 317,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 331,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 331,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 337,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 337,
+      "parent": 1,
+      "survivors": 48
+    },
+    {
+      "p": 347,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 347,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 349,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 349,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 353,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 353,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 359,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 359,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 367,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 367,
+      "parent": 1,
+      "survivors": 64
+    },
+    {
+      "p": 373,
+      "parent": 0,
+      "survivors": 336
+    },
+    {
+      "p": 373,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 379,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 379,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 383,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 383,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 389,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 389,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 397,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 397,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 401,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 401,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 409,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 409,
+      "parent": 1,
+      "survivors": 64
+    },
+    {
+      "p": 419,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 419,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 421,
+      "parent": 0,
+      "survivors": 48
+    },
+    {
+      "p": 421,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 431,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 431,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 433,
+      "parent": 0,
+      "survivors": 144
+    },
+    {
+      "p": 433,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 439,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 439,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 443,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 443,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 449,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 449,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 457,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 457,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 461,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 461,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 463,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 463,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 467,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 467,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 479,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 479,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 487,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 487,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 491,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 491,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 499,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 499,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 503,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 503,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 509,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 509,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 521,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 521,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 523,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 523,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 541,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 541,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 547,
+      "parent": 0,
+      "survivors": 48
+    },
+    {
+      "p": 547,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 557,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 557,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 563,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 563,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 569,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 569,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 571,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 571,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 577,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 577,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 587,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 587,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 593,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 593,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 599,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 599,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 601,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 601,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 607,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 607,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 613,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 613,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 617,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 617,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 619,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 619,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 631,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 631,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 641,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 641,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 643,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 643,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 647,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 647,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 653,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 653,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 659,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 659,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 661,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 661,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 673,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 673,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 677,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 677,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 683,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 683,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 691,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 691,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 701,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 701,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 709,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 709,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 719,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 719,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 727,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 727,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 733,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 733,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 739,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 739,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 743,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 743,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 751,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 751,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 757,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 757,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 761,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 761,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 769,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 769,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 773,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 773,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 787,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 787,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 797,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 797,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 809,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 809,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 811,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 811,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 821,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 821,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 823,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 823,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 827,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 827,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 829,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 829,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 839,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 839,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 853,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 853,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 857,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 857,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 859,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 859,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 863,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 863,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 877,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 877,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 881,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 881,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 883,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 883,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 887,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 887,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 907,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 907,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 911,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 911,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 919,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 919,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 929,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 929,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 937,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 937,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 941,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 941,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 947,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 947,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 953,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 953,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 967,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 967,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 971,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 971,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 977,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 977,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 983,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 983,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 991,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 991,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 997,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 997,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1009,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1009,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1013,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1013,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1019,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1019,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1021,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1021,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1031,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1031,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1033,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1033,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1039,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1039,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1049,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1049,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1051,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1051,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1061,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1061,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1063,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1063,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1069,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1069,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1087,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1087,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1091,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1091,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1093,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1093,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1097,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1097,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1103,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1103,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1109,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1109,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1117,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1117,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1123,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1123,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1129,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1129,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1151,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1151,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1153,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1153,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1163,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1163,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1171,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1171,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1181,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1181,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1187,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1187,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1193,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1193,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1201,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1201,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1213,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1213,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1217,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1217,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1223,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1223,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1229,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1229,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1231,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1231,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1237,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1237,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1249,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1259,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1277,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1279,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1283,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1289,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1291,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1297,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 1301,
+      "parent": 1,
+      "survivors": 0
+    }
+  ]
+}

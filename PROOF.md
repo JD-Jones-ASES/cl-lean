@@ -708,18 +708,23 @@ The unrestricted bound still requires additional work:
    distinct positive speeds. This small norm range does not discharge the
    global obligation. See [the search and reduction](SIX_MODULAR.md).
 2. Complete the one-triad modular exclusions and the classification inside
-   the multiple-triad parents. Lean supplies 40 of the fixed 189 one-triad
-   covers; 149 remain explicit assumptions. It also proves that every pair
+   the multiple-triad parents. Lean supplies 40 of the fixed 183 one-triad
+   covers; 143 remain explicit assumptions. The 94 projected forms reduce
+   to 91 primitive forms after removing common factors two and three. It also proves that every pair
    of independent triad relations on a proper integer tuple reduces to
    one of three signed-coordinate parent configurations. The relation-space
    coverage and finite direction classification inside these parents still
    require kernel-checked certificates with proved coverage. A digest, a
    Python replay or a search summary is insufficient.
    An alternative modular route is now formalized for the first two parents:
-   their 72 and 69 distinct projected forms make 145 and 139 prime covers
-   sufficient, respectively, at the proved norm cutoff. Those parent covers
-   are still hypotheses. A kernel-checked sporadic obstruction shows why
-   the third parent needs exceptions.
+   removing common factors leaves 66 and 64 primitive projected forms,
+   making 133 and 129 prime covers sufficient, respectively, at the proved
+   norm cutoff. Actual covers at 251 and 263 are now kernel-checked, so
+   132 and 128 further distinct-prime covers suffice. The remaining covers
+   are explicit hypotheses. The first certificates already force a new
+   integer relation in their respective finite norm ranges. A
+   kernel-checked sporadic obstruction shows why the third parent needs
+   exceptions.
 3. Connect the resulting exhaustive critical-or-sporadic classification to
    the critical-family bounds above and the existing nine exact values.
 

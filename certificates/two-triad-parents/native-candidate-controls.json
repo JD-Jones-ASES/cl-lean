@@ -1,0 +1,85 @@
+{
+  "scope": "Native controls only; not Lean certificates",
+  "records": [
+    {
+      "p": 31,
+      "parent": 0,
+      "survivors": 48
+    },
+    {
+      "p": 31,
+      "parent": 1,
+      "survivors": 144
+    },
+    {
+      "p": 179,
+      "parent": 0,
+      "survivors": 432
+    },
+    {
+      "p": 179,
+      "parent": 1,
+      "survivors": 128
+    },
+    {
+      "p": 223,
+      "parent": 0,
+      "survivors": 720
+    },
+    {
+      "p": 223,
+      "parent": 1,
+      "survivors": 112
+    },
+    {
+      "p": 251,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 251,
+      "parent": 1,
+      "survivors": 16
+    },
+    {
+      "p": 263,
+      "parent": 0,
+      "survivors": 288
+    },
+    {
+      "p": 263,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 443,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 443,
+      "parent": 1,
+      "survivors": 0
+    },
+    {
+      "p": 607,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 607,
+      "parent": 1,
+      "survivors": 32
+    },
+    {
+      "p": 1009,
+      "parent": 0,
+      "survivors": 0
+    },
+    {
+      "p": 1009,
+      "parent": 1,
+      "survivors": 0
+    }
+  ]
+}

@@ -116,7 +116,7 @@ No new editorial approval or resubmission is claimed.
 
 The continuing six-speed work supplies 25 complete triad-free modular covers
 and 40 complete one-triad covers in the ordinary Lean kernel. Their fixed
-prime sets still have 208 and 149 cover obligations, respectively. The
+prime sets still have 208 and 143 cover obligations, respectively. The
 two-triad support-intersection classification from the Lab's RT-015 proof is
 now formalized: arbitrary independent triad rows on a proper integer tuple
 normalize to three parent pairs. The parent kernels have explicit integer
@@ -126,15 +126,23 @@ the subsequent Fourier and finite-direction classification inside the
 parents is not yet formalized. These supporting additions do not change the
 67 selected claims or assert full Question 6.6.
 
-The 94 projected one-triad forms lower its cover requirement to 189; all
-forty supplied covers are reused. The projected two-triad form counts,
-their prime-capacity reduction, and the
-three-parameter modular normalization are now proved too. Native searches
-propose covers for the first two parents and a ratio exception set for the
-third; none of that search output is a Lean certificate. A separate kernel
-proof uses the known `4/25` sporadic to refute the third parent's cover at
-223 when no exceptions are permitted. The precise hypotheses and candidate
-search records are described in [the modular development](SIX_MODULAR.md).
+The 94 projected one-triad forms reduce to 91 primitive forms, lowering
+its cover requirement to 183; all forty supplied covers are reused. The
+projected two-triad form counts similarly reduce to 66, 64, and 68. Their
+factorizations, unit coefficients, value bounds, modular transfer,
+prime-capacity reductions, and three-parameter normalization are proved.
+The first two parent covers, at 251 and 263, now have separate ordinary-
+kernel certificates, proved finite checkers, and finite norm applications.
+The generator's output is untrusted data: Lean checks every mask, inverse,
+projected form, row block, and final assembly. Negative controls reject
+forged inputs and prove an actual prime-31 obstruction.
+
+The native search records are not imported by Lean. The third-parent ratio
+exception proposals remain unformalized. A separate kernel proof uses the
+known `4/25` sporadic to refute the third parent's cover at 223 when no
+exceptions are permitted. These supporting results do not change the
+selected export closure or establish full Question 6.6. Precise hypotheses
+and replay instructions are in [the modular development](SIX_MODULAR.md).
 
 Exploratory exact arithmetic and numerical linear programming helped identify
 the six good points and eighteen directions. Every point, endpoint, residue

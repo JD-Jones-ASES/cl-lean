@@ -71,3 +71,6 @@ import LonelyRunner.TwoTriadPrimeReduction
 import LonelyRunner.TwoTriadParametrization
 import LonelyRunner.TwoTriadModularControls
 import LonelyRunner.TwoTriadModularNormalization
+import LonelyRunner.TwoTriadCoverApplications
+import LonelyRunner.TwoTriadCoverControls
+import LonelyRunner.TwoTriadCandidatePrimes

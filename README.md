@@ -51,9 +51,11 @@ The development proves the following results.
   certifies covers at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241,
   251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, and 331 in the Lean kernel.
   There are 208 covers left in this set. A separate one-triad reduction has
-  40 complete covers and 149 left. Two independent triad relations are now
-  proved to reduce to three parent configurations; the subsequent classification
-  inside those parents remains unformalized.
+  40 complete covers and 143 left. Two independent triad relations are now
+  proved to reduce to three parent configurations. The first modular covers
+  inside these parents are certified at 251 (disjoint) and 263 (one overlap),
+  with proved finite norm consequences. The global classification inside the
+  parents remains unfinished.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
@@ -168,7 +170,7 @@ It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
 at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269,
 271, 277, 281, 283, 293, 307, 311, 313, 317, and 331 are proved in Lean; the other 208 covers
 and the remaining finite classifications are not yet proved. The one-triad
-route has 40 of its 189 covers, with the reduction of two independent triads
+route has 40 of its 183 covers, with the reduction of two independent triads
 to three parent configurations now proved.
 The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
 with the coarse all-tuples denominator bound.
