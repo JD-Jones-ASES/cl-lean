@@ -10,15 +10,19 @@ from explore_two_triad_parents import forms
 from generate_one_triad_lean import chunked_table, HEADER
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = ((0,251), (1,263))
+CASES = ((0,251), (1,263), (1,307), (1,347))
 BLOCK_SIZE = 8
 
 
 def generate(k, p):
     family = 'Disjoint' if k == 0 else 'Overlap'
-    checker = family.lower()
+    representative = k == 1 and p != 263
+    checker = 'representativeOverlap' if representative else family.lower()
     assembly = 'disjointCover_of_clipped_blocks' if k == 0 else 'overlapCover_of_blocks'
     base = 'TwoTriadFastCover' if k == 0 else 'TwoTriadCoverSearch'
+    if representative:
+        assembly = 'overlapCover_of_representative_blocks'
+        base = 'TwoTriadOverlapSearch'
     stem = f'TwoTriad{family}{p}'
     ns = f'LonelyRunner.TwoTriadCoverSearch.{family}{p}'
     good = [sum(1 << t for t in range(p) if p < 6*(a*t % p) < 5*p)
@@ -43,12 +47,15 @@ theorem forms_ok : formsCheck {p} {k} projectedForms=true := by decide +kernel
 end {ns}
 '''
     files[stem+'Tables'] = checks
-    count = (p+BLOCK_SIZE-1)//BLOCK_SIZE
+    width = p//2+1 if representative else p
+    count = (width+BLOCK_SIZE-1)//BLOCK_SIZE
     for q in range(count):
-        block_count = min(BLOCK_SIZE, p-q*BLOCK_SIZE) if k == 0 else BLOCK_SIZE
+        block_count = min(BLOCK_SIZE, width-q*BLOCK_SIZE) if k == 0 or representative else BLOCK_SIZE
         prior = stem+'Tables' if q == 0 else stem+f'Block{q-1}'
         # Serialize heavy proof blocks across the two parent certificates.
         barrier = 'import LonelyRunner.TwoTriadOverlap263\n' if k == 0 and q == 0 else ''
+        if representative and q == 0 and p == 347:
+            barrier = 'import LonelyRunner.TwoTriadOverlap307\n'
         shortcut = '  rw [← fastDisjointBlockCheck_eq]\n' if k == 0 else ''
         files[stem+f'Block{q}'] = f'import LonelyRunner.{prior}\n' + barrier + HEADER + f'''namespace {ns}
 

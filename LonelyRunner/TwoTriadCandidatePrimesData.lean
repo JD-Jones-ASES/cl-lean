@@ -51,21 +51,19 @@ theorem twoTriadPrimeSets_facts : ∀ k,
       simpa only [Bool.and_eq_true,decide_eq_true_eq,beq_iff_eq] using hh
     exact ⟨Nat.prime_def_minFac.mpr ⟨by omega,hh'.2⟩,hh'.1⟩
 
+def certifiedTwoTriadPrimeSets : Fin 2 → Finset ℕ := ![{251},{263,307,347}]
+
 def remainingTwoTriadPrimeSets (k : Fin 2) : Finset ℕ :=
-  (twoTriadPrimeSets k).erase ((![251,263] : Fin 2 → ℕ) k)
+  twoTriadPrimeSets k \ certifiedTwoTriadPrimeSets k
 
 theorem remainingTwoTriadPrimeSets_facts : ∀ k,
-    (remainingTwoTriadPrimeSets k).card=(![132,128] : Fin 2 → ℕ) k ∧
+    (remainingTwoTriadPrimeSets k).card=(![132,126] : Fin 2 → ℕ) k ∧
     (![251,263] : Fin 2 → ℕ) k∉remainingTwoTriadPrimeSets k ∧
     remainingTwoTriadPrimeSets k⊆twoTriadPrimeSets k := by
   intro k
   refine ⟨?_,?_,?_⟩
-  · rw [remainingTwoTriadPrimeSets,
-      Finset.card_erase_of_mem (twoTriadPrimeSets_facts k).2.1,
-      (twoTriadPrimeSets_facts k).1]
-    fin_cases k <;> decide
-  · simp [remainingTwoTriadPrimeSets]
-  · intro p hp
-    exact (Finset.mem_erase.mp hp).2
+  · fin_cases k <;> decide +kernel
+  · fin_cases k <;> decide +kernel
+  · exact Finset.sdiff_subset
 
 end LonelyRunner

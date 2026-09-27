@@ -73,4 +73,5 @@ import LonelyRunner.TwoTriadModularControls
 import LonelyRunner.TwoTriadModularNormalization
 import LonelyRunner.TwoTriadCoverApplications
 import LonelyRunner.TwoTriadCoverControls
+import LonelyRunner.TwoTriadOverlapControls
 import LonelyRunner.TwoTriadCandidatePrimes
