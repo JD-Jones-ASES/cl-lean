@@ -298,11 +298,11 @@ at any of the 116 required primes.
 `OneTriadRatioCertificates.lean` proves that every minimum ratio satisfies
 `r.val≤p/2` and connects the complete filtered ratio list to a prime cover.
 At **2333**, `OneTriad2333Ratios.lean` identifies all **388** proper minimum
-ratios by kernel computation. The eight root modules for `r=2,…,9` certify
+ratios by kernel computation. The 32 root modules for `r=2,…,33` certify
 the folded cores `(1,r,r+1)`, including every completion of their three
 remaining coordinates. This is a partial certificate at a required prime,
 not a complete prime cover. `OneTriad2333.lean` inserts these roots into the
-assembly theorem and verifies that **380** ratio checks remain.
+assembly theorem and verifies that **356** ratio checks remain.
 
 The data uses small lookup and matrix declarations to bound elaboration
 cost. `DoublingModularTables.lean` certifies exact arithmetic rows using
@@ -318,9 +318,22 @@ is trusted. Controls reject an incorrect seed, a wrong transition, and
 an omitted row.
 
 The earlier clipped-block table-checking interface remains available in
-`ModularTableChecks.lean`. Each root uses blocks of eight branches. The
-block assembly and all individual checks are kernel-proved.
-No native search output is a proof input. Replay this partial certificate with:
+`ModularTableChecks.lean`. The first eight roots retain their original
+eight-branch blocks. From `r=10`, `OneTriadCachedSearch.lean` reuses three
+supplied initial masks: candidates, common core times, and first-coordinate
+branches. Each mask must equal its original definition, checked in the
+kernel, and a proved equivalence connects the resulting child checks to
+the complete original root. These roots use 32-branch blocks. A control at
+the genuine modulus-43 obstruction demonstrates that an empty branch mask
+would accept vacuously if unchecked, and that the required identity rejects it.
+
+A complete local root-2 comparison took 34.84 seconds with the checked
+cached state and eight-branch blocks, and 16.96 seconds with 32-branch
+blocks, compared with 56 seconds for the preceding uncached certificate.
+The 32-branch run used about 3.93 GiB peak resident memory. These are
+measurements of one root, not bounds on all remaining cases.
+The block assembly and all individual checks are kernel-proved. Native
+proposals are never trusted without those checks. Replay this partial certificate with:
 
 ```bash
 python3 -O scripts/generate_one_triad_lean.py --check
@@ -330,6 +343,17 @@ lake build LonelyRunner.OneTriad2333
 This route avoids assuming the earlier Fourier rank classification. All
 116 complete prime covers and the subsequent multiple-triad classification
 remain unproved. It adds no selected Palomar claim.
+
+`OneTriadCapacityReduction.lean` also proves a route using smaller primes.
+The sharp norm bound makes every short-form value smaller than `179³`.
+After removing the prescribed relation, the other 115 nonzero values can
+each contain at most two distinct prime divisors at least 179. Therefore
+**231 checked one-triad covers at distinct primes at least 179** suffice to
+force a second independent integer relation. The theorem accepts an explicit
+prime set and a cover at every member; it supplies none of those covers.
+It does not claim that all primes above 179 work, and the multiple-triad
+classification remains a separate obligation. This alternative may reduce
+verification cost without changing the global Question 6.6 target.
 
 ## Negative controls
 

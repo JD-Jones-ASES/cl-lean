@@ -10,8 +10,10 @@ from generate_tight_five_lean import table
 from generate_six_modular_lean import balanced_matrix, compression_steps
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_ROOTS = {2333: tuple(range(2, 10))}
+GENERATED_ROOTS = {2333: tuple(range(2, 34))}
 BLOCK_SIZE = 8
+CACHED_FROM = 10
+CACHED_BLOCK_SIZE = 32
 HEADER = '''
 -- Generated untrusted data. Every claimed fact is checked by the ordinary Lean kernel.
 set_option maxHeartbeats 0
@@ -153,27 +155,65 @@ end {ns}
     for r in roots:
         a, b, c = 1, fold(r), fold(-1-r)
         name = f'OneTriad{p}Root{r}'
+        cached = r >= CACHED_FROM
+        block_size = CACHED_BLOCK_SIZE if cached else BLOCK_SIZE
         text = f'import LonelyRunner.{tables_name}\n'
+        if cached:
+            text += 'import LonelyRunner.OneTriadCachedSearch\n'
         if previous:
             text += f'import LonelyRunner.{previous}\n'
         text += HEADER + f'namespace {ns}.Root{r}\n'
-        text += f'''def child := wideRootChild {p} {k} {w} matrix steps {a} {b} {c} good
+        if cached:
+            cand = (1 << w)-1
+            for x in (0, a, b, c):
+                cand &= ~(1 << x)
+            for x, y in ((a, b), (a, c), (b, c)):
+                cand &= ~((1 << fold(x+y)) | (1 << fold(x-y)))
+            times = good[a] & good[b] & good[c]
+            choices = [t for t in range(w) if (times >> t) & 1][:8]
+            pivot = min(choices, key=lambda t: (cand & ~good[t]).bit_count(), default=w)
+            branches = cand if pivot == w else cand & ~good[pivot]
+            text += f'''def C : ℕ := {hex(cand)}
+
+def G : ℕ := {hex(times)}
+
+def H : ℕ := {hex(branches)}
+
+theorem C_ok : C=initialCandidates {p} {w} {a} {b} {c} := by decide +kernel
+
+theorem G_ok : G=good {a} &&& good {b} &&& good {c} := by decide +kernel
+
+theorem H_ok : H=ModularSearch.wideBranches {k} {w} 3 C G matrix
+    (ModularSearch.terminalPivot {w} good 3 C G) good steps := by decide +kernel
+
+def child := cachedRootChild {p} {k} {w} matrix steps {a} {b} {c} good C G H
 
 '''
-        for block in range(w // BLOCK_SIZE + 1):
-            text += f'''theorem block_{block} : ModularSearch.checkBlock child {BLOCK_SIZE} {block}=true := by
+        else:
+            text += f'''def child := wideRootChild {p} {k} {w} matrix steps {a} {b} {c} good
+
+'''
+        for block in range(w // block_size + 1):
+            text += f'''theorem block_{block} : ModularSearch.checkBlock child {block_size} {block}=true := by
   decide +kernel
 
 '''
         text += f'''theorem search_ok : rootCheck {p} {w} {a} {b} {c} good
     (ModularSearch.terminalPivot {w} good)=true := by
-  apply rootCheck_of_wide_child_checks {p} {k} {w} matrix steps {a} {b} {c} good
+'''
+        if cached:
+            text += f'''  apply rootCheck_of_cached_child_checks {p} {k} {w} matrix steps {a} {b} {c} good C G H
+    (by decide) matrix_ok steps_ok transpose_ok C_ok G_ok H_ok
+'''
+        else:
+            text += f'''  apply rootCheck_of_wide_child_checks {p} {k} {w} matrix steps {a} {b} {c} good
     (by decide) matrix_ok steps_ok transpose_ok
-  apply ModularSearch.all_of_checkBlocks _ _ {BLOCK_SIZE} (by decide)
+'''
+        text += f'''  apply ModularSearch.all_of_checkBlocks _ _ {block_size} (by decide)
   intro b hb
   interval_cases b
 '''
-        text += ''.join(f'  · exact block_{block}\n' for block in range(w // BLOCK_SIZE + 1))
+        text += ''.join(f'  · exact block_{block}\n' for block in range(w // block_size + 1))
         text += f'''
 /-- Every completion at this ratio has a strictly good time unless an
 additional short relation exists. This is one ratio, not a prime cover. -/

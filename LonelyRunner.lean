@@ -55,9 +55,11 @@ import LonelyRunner.ParallelPackedControls
 import LonelyRunner.TerminalCoverControls
 import LonelyRunner.WideModularSearch
 import LonelyRunner.OneTriadPrimeReduction
+import LonelyRunner.OneTriadCapacityReduction
 import LonelyRunner.OneTriadNormalization
 import LonelyRunner.OneTriadOrbit
 import LonelyRunner.OneTriadSearch
 import LonelyRunner.OneTriadSearchControls
+import LonelyRunner.OneTriadCachedSearchControls
 import LonelyRunner.ModularTableChecks
 import LonelyRunner.OneTriad2333
