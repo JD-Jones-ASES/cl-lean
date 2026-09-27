@@ -44,3 +44,5 @@ import LonelyRunner.MinimumBasis
 import LonelyRunner.SixSharpBounds
 import LonelyRunner.SixPrimeReduction
 import LonelyRunner.SixModularControls
+import LonelyRunner.SixModularApplications
+import LonelyRunner.SixModularSearchControls

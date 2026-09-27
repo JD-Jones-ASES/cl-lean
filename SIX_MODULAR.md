@@ -2,9 +2,10 @@
 
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
-modular covers, but does **not** yet prove those covers for the 233 selected
-primes. These reduction lemmas are internal development results, not new
-selected Palomar claims.
+modular covers, and proves the first selected cover, at **prime 179**, in the
+ordinary Lean kernel. The other 232 selected covers and the sharp bound for
+tuples with triads remain unproved in Lean. These are internal development
+results, not new selected Palomar claims.
 
 For a tuple over `ZMod p`, `HasShortRelation` means that one of the 116
 canonical signed forms on one, two, or three distinct coordinates vanishes.
@@ -42,6 +43,39 @@ A certificate for `SortedSixCover p` therefore proves `SixModularCover p`.
 Sorting retains all six coordinates; injectivity follows from the absence of
 pair relations. The minimum is over both orders of every distinct pair.
 
+## Verified search and the first cover
+
+`ModularSearch.lean` proves a recursive bit-mask search sound. At each step,
+any completion covering the remaining good times must contain an eligible
+branch candidate. When two candidates remain, one must cover at least half
+the remaining times; at other depths, a pivot time supplies the candidates.
+Branch ordering removes only earlier eligible candidates, retaining smaller
+ineligible ones. Pair and signed-triad masks preserve every possible
+short-relation-free completion.
+
+`SixModularSearch.lean` connects this abstract search to the actual modular
+arithmetic. It checks inverses, valid good-time bits, matrix symmetry, and
+completeness of pair masks. `SparseModularSearch.lean` proves that clearing
+successive lowest set bits and stopping size checks early gives exactly the
+same Boolean result as the reference search. Neither optimization introduces
+an assumption or uses native evaluation as proof.
+
+`SixModular179.lean` combines 44 kernel-checked normalized root cases to prove
+`SixModularCover 179`. The generator emits untrusted tables; generation alone
+does not prove anything. Root modules form a sequential import chain so that
+only one certificate compiler runs at a time. Replay with:
+
+```bash
+python3 -O scripts/generate_six_modular_lean.py --check
+lake build LonelyRunner.SixModular179 LonelyRunner.SixModularSearchControls
+```
+
+`SixModularApplications.lean` supplies concrete integer consequences with no
+assumed finite cover. Every sextuple with loneliness at most `1/6` has one of
+the 116 short-form values divisible by 179. If its coordinates are distinct
+and positive and `3 * sum(v_i^2) < 179^2`, it has an additive triad. This is a
+finite norm range, not the global triad theorem required below.
+
 ## From finite covers to an integer triad
 
 The proved six-speed norm bound is
@@ -65,7 +99,8 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Both remain
+sharp denominator bound for tuples possessing an additive triad. The first
+cover is now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
@@ -83,6 +118,13 @@ particular, `SixModularCover 181` and `SixModularCover 199` are false. These
 are finite-field obstructions, not integer near-tight examples. They prevent
 replacing the selected-prime obligation by an unsupported assertion about
 every prime at least 179.
+
+`SixModularSearchControls.lean` checks that a wrong inverse, an invalid good
+time, and a missing compatible pair are rejected. Removing one valid good-time
+bit still passes the one-sided arithmetic check but fails the transpose check,
+confirming why that separate search hypothesis is necessary. The generic
+search also checks the odd-cardinality half-cover threshold and preservation
+of smaller ineligible candidates.
 
 All source proofs can be replayed locally with `lake build`. This stage does
 not require a GitHub Actions run. No result from the external census is

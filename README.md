@@ -47,7 +47,8 @@ The development proves the following results.
   Neither reduced-basis existence nor the scalar estimate is assumed.
   The [six-speed modular reduction](SIX_MODULAR.md) now connects this bound
   to a specific 233-prime cover obligation, with normalization, sorting,
-  sign invariance, and integer lifting proved. The covers themselves and
+  sign invariance, and integer lifting proved. A proved recursive checker
+  certifies the cover at 179 in the Lean kernel. The other 232 covers and
   the classification of tuples with triads remain unformalized.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
@@ -159,8 +160,9 @@ censuses independently agree with the 40 kernel-checked modular certificates;
 their output is not used as a proof.
 For six speeds, the selected off-critical cutoff is now $21870175/7$.
 It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
-233-prime obstruction using primes at least 179. Those six-speed modular
-covers and the remaining finite classifications are not yet proved in Lean.
+233-prime obstruction using primes at least 179. The six-speed modular cover
+at 179 is proved in Lean; the other 232 covers and the remaining finite
+classifications are not yet proved.
 The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
 with the coarse all-tuples denominator bound.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas

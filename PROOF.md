@@ -699,8 +699,12 @@ The unrestricted bound still requires additional work:
 1. Instantiate the finite-prime obstruction at the now-proved cutoff. Exact
    arithmetic gives $3(21870175/7)^2<179^6$, so each nonzero short form
    can have at most two prime divisors at least 179. The existing research
-   census has 233 successful primes in that range, but their covers must
-   still be proved in Lean.
+   census has 233 successful primes in that range. A proved recursive
+   search now supplies the cover at 179, including all 44 normalized cases;
+   the other 232 covers must still be proved in Lean. The first cover already
+   gives an integer triad when $3\sum_i v_i^2<179^2$ and $L(v)\le1/6$ for
+   distinct positive speeds. This small norm range does not discharge the
+   global obligation. See [the search and reduction](SIX_MODULAR.md).
 2. Convert the modular exclusions, relation-space coverage and off-critical
    finite direction classification into kernel-checked certificates with
    proved coverage. A digest, a Python replay or a search summary is insufficient.
