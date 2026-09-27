@@ -701,14 +701,20 @@ The unrestricted bound still requires additional work:
    can have at most two prime divisors at least 179. The existing research
    census has 233 successful primes in that range. A proved recursive
    search now supplies the covers at 179, 191, 193, 197, 211, 223, 227, 229, 233,
-   239, 241, 251, 257, 263, 269, 271, 277, 281, and 283, including all 1,119
-   normalized cases; the other 214 covers must still be proved in Lean. The first cover already
+   239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, and 313,
+   including all 1,423 normalized cases; the other 210 covers must still be
+   proved in Lean. The first cover already
    gives an integer triad when $3\sum_i v_i^2<179^2$ and $L(v)\le1/6$ for
    distinct positive speeds. This small norm range does not discharge the
    global obligation. See [the search and reduction](SIX_MODULAR.md).
-2. Convert the modular exclusions, relation-space coverage and off-critical
-   finite direction classification into kernel-checked certificates with
-   proved coverage. A digest, a Python replay or a search summary is insufficient.
+2. Complete the one-triad modular exclusions and the classification inside
+   the multiple-triad parents. Lean supplies 32 of the fixed 231 one-triad
+   covers; 199 remain explicit assumptions. It also proves that every pair
+   of independent triad relations on a proper integer tuple reduces to
+   one of three signed-coordinate parent configurations. The relation-space
+   coverage and finite direction classification inside these parents still
+   require kernel-checked certificates with proved coverage. A digest, a
+   Python replay or a search summary is insufficient.
 3. Connect the resulting exhaustive critical-or-sporadic classification to
    the critical-family bounds above and the existing nine exact values.
 

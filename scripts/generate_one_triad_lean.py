@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 GENERATED_ROOTS = {p: None for p in (
     223, 227, 233, 239, 251, 269, 277, 281,
     293, 307, 311, 313, 317, 331, 337, 347,
-    349, 353, 359, 367, 379, 383, 389, 397)}
+    349, 353, 359, 367, 379, 383, 389, 397,
+    401, 409, 419, 421, 431, 433, 439, 443)}
 GENERATED_ROOTS[2333] = tuple(range(2, 34))
 COMPLETE_ROOTS_PER_MODULE = 8
 BLOCK_SIZE = 8

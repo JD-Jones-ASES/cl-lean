@@ -1,16 +1,16 @@
-import LonelyRunner.OneTriad397
+import LonelyRunner.OneTriad443
 import LonelyRunner.OneTriadCapacityReduction
 
 namespace LonelyRunner
 
 /-- Each member has a complete, kernel-checked one-triad cover. -/
 def certifiedOneTriadPrimes : Finset ℕ :=
-  {223,227,233,239,251,269,277,281,293,307,311,313,317,331,337,347,349,353,359,367,379,383,389,397}
+  {223,227,233,239,251,269,277,281,293,307,311,313,317,331,337,347,349,353,359,367,379,383,389,397,401,409,419,421,431,433,439,443}
 
 theorem certifiedOneTriadPrimes_cover (p : ℕ) (hp : p∈certifiedOneTriadPrimes) :
     OneTriadModularCover p := by
   simp only [certifiedOneTriadPrimes,Finset.mem_insert,Finset.mem_singleton] at hp
-  rcases hp with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
+  rcases hp with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
   · exact OneTriadSearch.Prime223.cover
   · exact OneTriadSearch.Prime227.cover
   · exact OneTriadSearch.Prime233.cover
@@ -35,9 +35,17 @@ theorem certifiedOneTriadPrimes_cover (p : ℕ) (hp : p∈certifiedOneTriadPrime
   · exact OneTriadSearch.Prime383.cover
   · exact OneTriadSearch.Prime389.cover
   · exact OneTriadSearch.Prime397.cover
+  · exact OneTriadSearch.Prime401.cover
+  · exact OneTriadSearch.Prime409.cover
+  · exact OneTriadSearch.Prime419.cover
+  · exact OneTriadSearch.Prime421.cover
+  · exact OneTriadSearch.Prime431.cover
+  · exact OneTriadSearch.Prime433.cover
+  · exact OneTriadSearch.Prime439.cover
+  · exact OneTriadSearch.Prime443.cover
 
 theorem certifiedOneTriadPrimes_facts :
-    certifiedOneTriadPrimes.card=24 ∧
+    certifiedOneTriadPrimes.card=32 ∧
       ∀ p∈certifiedOneTriadPrimes, Nat.Prime p ∧ 179≤p := by
   decide +kernel
 

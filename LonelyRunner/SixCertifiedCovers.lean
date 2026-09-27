@@ -19,17 +19,19 @@ import LonelyRunner.SixModular281
 import LonelyRunner.SixModular283
 import LonelyRunner.SixModular293
 import LonelyRunner.SixModular307
+import LonelyRunner.SixModular311
+import LonelyRunner.SixModular313
 import LonelyRunner.SixPrimeReduction
 
 namespace LonelyRunner
 
 /-- Every cover in this set is supplied by a kernel-checked certificate. -/
-def certifiedSixPrimes : Finset ℕ := {179,191,193,197,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307}
+def certifiedSixPrimes : Finset ℕ := {179,191,193,197,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313}
 
 theorem certifiedSixPrimes_sorted_cover (p : ℕ) (hp : p ∈ certifiedSixPrimes) :
     SortedSixCover p := by
   simp only [certifiedSixPrimes,Finset.mem_insert,Finset.mem_singleton] at hp
-  rcases hp with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
+  rcases hp with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
   · exact SixModularSearch.Prime179.sorted_cover
   · exact SixModularSearch.Prime191.sorted_cover
   · exact SixModularSearch.Prime193.sorted_cover
@@ -51,6 +53,8 @@ theorem certifiedSixPrimes_sorted_cover (p : ℕ) (hp : p ∈ certifiedSixPrimes
   · exact SixModularSearch.Prime283.sorted_cover
   · exact SixModularSearch.Prime293.sorted_cover
   · exact SixModularSearch.Prime307.sorted_cover
+  · exact SixModularSearch.Prime311.sorted_cover
+  · exact SixModularSearch.Prime313.sorted_cover
 
 set_option maxRecDepth 16384 in
 theorem certifiedSixPrimes_subset : certifiedSixPrimes ⊆ sixTriadPrimes := by
@@ -60,7 +64,7 @@ theorem certifiedSixPrimes_subset : certifiedSixPrimes ⊆ sixTriadPrimes := by
 def remainingSixTriadPrimes : Finset ℕ := sixTriadPrimes \ certifiedSixPrimes
 
 set_option maxRecDepth 16384 in
-theorem remainingSixTriadPrimes_card : remainingSixTriadPrimes.card=212 := by
+theorem remainingSixTriadPrimes_card : remainingSixTriadPrimes.card=210 := by
   decide +kernel
 
 /-- Insert the proved covers into the global reduction. This theorem still

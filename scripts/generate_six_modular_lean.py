@@ -10,8 +10,9 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307)
-SHARED_ONE_TRIAD_PRIMES = (293, 307)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313)
+SHARED_ONE_TRIAD_PRIMES = (293, 307, 311, 313)
+ONE_TRIAD_BARRIERS = {293: 397, 311: 443}
 
 
 def compression_steps(slot, w):
@@ -333,9 +334,9 @@ end {ns}
             bundled = (f'import LonelyRunner.{data_name}\n'
                        'import LonelyRunner.AnchoredModularPairs\n'
                        f'import LonelyRunner.{previous_module}\n')
-            if p == SHARED_ONE_TRIAD_PRIMES[0] and index == 0:
+            if p in ONE_TRIAD_BARRIERS and index == 0:
                 # Place new six-speed checks after the completed one-triad chain.
-                bundled += 'import LonelyRunner.OneTriad397\n'
+                bundled += f'import LonelyRunner.OneTriad{ONE_TRIAD_BARRIERS[p]}\n'
             bundled += ('\n-- Generated untrusted data. All checks use ordinary kernel reduction.\n'
                         'set_option maxHeartbeats 0\nset_option maxRecDepth 1000000\n')
             for r in roots[start:start+8]:

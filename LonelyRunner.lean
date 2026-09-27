@@ -67,3 +67,5 @@ import LonelyRunner.OneTriad2333
 import LonelyRunner.OneTriadApplications
 import LonelyRunner.OneTriadCertifiedCovers
 import LonelyRunner.OneTriadSmallPrimes
+import LonelyRunner.TwoTriadPrimeReduction
+import LonelyRunner.TwoTriadParametrization
