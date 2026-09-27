@@ -59,4 +59,5 @@ import LonelyRunner.OneTriadNormalization
 import LonelyRunner.OneTriadOrbit
 import LonelyRunner.OneTriadSearch
 import LonelyRunner.OneTriadSearchControls
+import LonelyRunner.ModularTableChecks
 import LonelyRunner.OneTriad2333

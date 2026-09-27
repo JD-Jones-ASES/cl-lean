@@ -298,17 +298,28 @@ at any of the 116 required primes.
 `OneTriadRatioCertificates.lean` proves that every minimum ratio satisfies
 `r.val≤p/2` and connects the complete filtered ratio list to a prime cover.
 At **2333**, `OneTriad2333Ratios.lean` identifies all **388** proper minimum
-ratios by kernel computation. `OneTriad2333Root2.lean` certifies the first
-root, `r=2`, with folded core `(1,2,3)`, including every completion of its
-three remaining coordinates. This is a partial certificate at a required
-prime, not a complete prime cover. `OneTriad2333.lean` inserts it into the
-assembly theorem and verifies that **387** ratio checks remain.
+ratios by kernel computation. The eight root modules for `r=2,…,9` certify
+the folded cores `(1,r,r+1)`, including every completion of their three
+remaining coordinates. This is a partial certificate at a required prime,
+not a complete prime cover. `OneTriad2333.lean` inserts these roots into the
+assembly theorem and verifies that **380** ratio checks remain.
 
 The data uses small lookup and matrix declarations to bound elaboration
-cost. `ModularTableChecks.lean` proves that clipped row blocks check every
-row in the specified domain, including the final partial block. Arithmetic
-and symmetry checks use blocks of 32 rows; the root uses blocks of eight
-branches. Their assembly and all individual checks are kernel-proved.
+cost. `DoublingModularTables.lean` certifies exact arithmetic rows using
+checked doubling paths: for odd modulus, doubling the speed reads the even
+time bits followed by the odd time bits. A checked compression program
+implements that permutation. Every path has a directly checked seed; every
+transition, full-row equality, and the bit mask of all covered row indices
+is kernel-checked. Clipping to the half-time table is checked too. Exact
+row semantics imply both arithmetic validity and transpose symmetry.
+At 2333, the nonzero half-speed representatives form one path with 1,166
+entries; zero is checked separately. No path length or orbit assumption
+is trusted. Controls reject an incorrect seed, a wrong transition, and
+an omitted row.
+
+The earlier clipped-block table-checking interface remains available in
+`ModularTableChecks.lean`. Each root uses blocks of eight branches. The
+block assembly and all individual checks are kernel-proved.
 No native search output is a proof input. Replay this partial certificate with:
 
 ```bash

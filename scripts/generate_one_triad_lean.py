@@ -7,12 +7,11 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 from generate_tight_five_lean import table
-from generate_six_modular_lean import balanced_matrix
+from generate_six_modular_lean import balanced_matrix, compression_steps
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_ROOTS = {2333: (2,)}
+GENERATED_ROOTS = {2333: tuple(range(2, 10))}
 BLOCK_SIZE = 8
-TABLE_BLOCK_SIZE = 32
 HEADER = '''
 -- Generated untrusted data. Every claimed fact is checked by the ordinary Lean kernel.
 set_option maxHeartbeats 0
@@ -73,30 +72,58 @@ theorem steps_ok : ModularSearch.compressionCheck {stride} {w} steps=true := by 
 
 end {ns}
 '''
+    # Full time rows can be certified along folded doubling paths. Every
+    # arithmetic seed, transition, row, and coverage assertion is checked in Lean.
+    full_rows = [sum(1 << t for t in range(p) if p < 6*(x*t % p) < 5*p)
+                 for x in range(w)]
+    seen, paths = set(), []
+    for seed in range(w):
+        if seed in seen:
+            continue
+        path, a = [], seed
+        while a not in seen:
+            seen.add(a)
+            path.append(a)
+            a = min(2*a % p, -2*a % p)
+        paths.append(path)
+    rows_name = f'OneTriad{p}Rows'
+    text = ('import LonelyRunner.DoublingModularTables\n' + HEADER + f'namespace {ns}\n')
+    text += chunked_table('fullRows', full_rows)
+    text += f'def evenSlots : ℕ := {hex(sum(1 << (2*t) for t in range(w)))}\n\n'
+    text += 'def doublingSteps : List (ℕ × ℕ) := [\n'
+    text += ',\n'.join(f'  ({shift},{hex(mask)})' for shift, mask in compression_steps(2, w)) + ']\n\n'
+    for i, path in enumerate(paths):
+        literal = '[\n' + ',\n'.join('  ' + ','.join(map(str, path[j:j+20]))
+                                      for j in range(0, len(path), 20)) + ']'
+        text += f'def rowPath{i} : List ℕ := {literal}\n\n'
+    text += 'def rowPaths : List (List ℕ) := [' + ','.join(f'rowPath{i}' for i in range(len(paths))) + ']\n'
+    files[rows_name] = text + f'\nend {ns}\n'
     tables_name = f'OneTriad{p}Tables'
-    text = (f'import LonelyRunner.{checks_name}\n'
-            'import LonelyRunner.ModularTableChecks\n' + HEADER + f'namespace {ns}\n')
-    for label, function in [('good', f'ModularSearch.goodRow {p} {w} good'),
-                            ('transpose', f'ModularSearch.transposeRow {w} good')]:
-        for block in range(w // TABLE_BLOCK_SIZE + 1):
-            text += f'''theorem {label}_block_{block} :
-    ModularSearch.clippedBlock ({function}) {w} {TABLE_BLOCK_SIZE} {block}=true := by
+    files[tables_name] = (f'import LonelyRunner.{checks_name}\n'
+        f'import LonelyRunner.{rows_name}\n' + HEADER + f'''namespace {ns}
+
+theorem evenSlots_ok : evenSlots=ModularSearch.slotMask 2 {w} := by decide +kernel
+
+theorem doublingSteps_ok : ModularSearch.compressionCheck 2 {w} doublingSteps=true := by decide +kernel
+
+theorem rowPaths_ok : ModularSearch.rowPathsCheck {w-1} evenSlots doublingSteps fullRows rowPaths=true := by
   decide +kernel
 
-'''
-        goal = (f'ModularPairCover.masksCheck {p} {w} good' if label == 'good'
-                else f'SixModularSearch.transposeCheck {w} good')
-        tactic = (f'ModularSearch.masksCheck_of_blocks {p} {w} {TABLE_BLOCK_SIZE} good'
-                  if label == 'good' else
-                  f'ModularSearch.transposeCheck_of_blocks {w} {TABLE_BLOCK_SIZE} good')
-        text += f'''theorem {label}_ok : {goal}=true := by
-  apply {tactic} (by decide)
-  intro b hb
-  interval_cases b
-'''
-        text += ''.join(f'  · exact {label}_block_{block}\n'
-                        for block in range(w // TABLE_BLOCK_SIZE + 1)) + '\n'
-    files[tables_name] = text + f'end {ns}\n'
+theorem rowCoverage_ok : ModularSearch.rowsCoverageCheck {w-1} rowPaths=true := by decide +kernel
+
+theorem clippedRows_ok : ModularSearch.clippedRowsCheck {w-1} fullRows good=true := by decide +kernel
+
+private theorem tables_ok : ModularPairCover.masksCheck {p} {w} good=true ∧
+    SixModularSearch.transposeCheck {w} good=true := by
+  exact ModularSearch.tables_of_paths {w-1} evenSlots doublingSteps fullRows good rowPaths
+    evenSlots_ok doublingSteps_ok rowPaths_ok rowCoverage_ok clippedRows_ok
+
+theorem good_ok : ModularPairCover.masksCheck {p} {w} good=true := tables_ok.1
+
+theorem transpose_ok : SixModularSearch.transposeCheck {w} good=true := tables_ok.2
+
+end {ns}
+''')
     # This untrusted list is independently identified by kernel computation.
     ratios = []
     for r in range(p//2+1):
