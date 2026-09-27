@@ -10,7 +10,7 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257)
 
 
 def compression_steps(slot, w):
@@ -32,6 +32,7 @@ def generate(p):
     compact_pairs = p >= 211
     packed_counts = p >= 223
     parallel_counts = p >= 229
+    terminal_counts = p >= 239
     slot = w.bit_length()
     block_size = 8
     fold = lambda n: min(n % p, -n % p)
@@ -58,6 +59,9 @@ set_option maxRecDepth 1000000
         text = text.replace('import LonelyRunner.PackedModularSearch\n',
                             'import LonelyRunner.ParallelModularSearch\n'
                             'import LonelyRunner.CompressedPackedRows\n')
+    if terminal_counts:
+        text = text.replace('LonelyRunner.ParallelModularSearch',
+                            'LonelyRunner.TerminalModularSearch')
     text += table('inv', inv) + table('good', good)
     if packed_counts:
         rows = [sum(1 << (slot*x) for x in range(w) if not (good[x] >> t) & 1)
@@ -148,7 +152,10 @@ namespace {ns}.Root{r}
             for b in range(w // block_size + 1):
                 text += (f'theorem block_{b} : ModularSearch.checkBlock child {block_size} {b}=true := by\n'
                          '  decide +kernel\n\n')
-        if parallel_counts:
+        if terminal_counts:
+            text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot',
+                f'ModularSearch.terminalRootChild {w} {slot} ones {r} steps good badRows pairs (triples {p} {w})')
+        elif parallel_counts:
             text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs',
                 f'ModularSearch.parallelRootChild {w} {slot} ones {r} steps good badRows pairs')
         elif packed_counts:
@@ -167,7 +174,12 @@ namespace {ns}.Root{r}
             text += '''  rw [← ModularSearch.fastRootCheck_eq]
   decide +kernel
 '''
-        if parallel_counts:
+        if terminal_counts:
+            text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
+                f'  apply ModularSearch.rootCheck_of_terminal_child_checks {w} {slot} ones {r} steps good badRows pairs\n'
+                f'    (triples {p} {w}) (by decide) (by decide) ones_mask_ok ones_count_ok bad_rows_ok steps_ok\n'
+                '    (transposeCheck_sound _ good transpose_ok)')
+        elif parallel_counts:
             text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
                 f'  apply ModularSearch.rootCheck_of_parallel_child_checks {w} {slot} ones {r} steps good badRows pairs\n'
                 f'    (triples {p} {w}) pivot (by decide) (by decide) ones_mask_ok ones_count_ok bad_rows_ok steps_ok')

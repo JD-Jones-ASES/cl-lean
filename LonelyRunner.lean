@@ -52,3 +52,6 @@ import LonelyRunner.AnchoredModularPairControls
 import LonelyRunner.PackedModularSearchControls
 import LonelyRunner.FastPackedRows
 import LonelyRunner.ParallelPackedControls
+import LonelyRunner.TerminalCoverControls
+import LonelyRunner.WideModularSearch
+import LonelyRunner.OneTriadPrimeReduction
