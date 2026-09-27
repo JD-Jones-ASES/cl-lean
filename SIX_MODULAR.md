@@ -2,8 +2,8 @@
 
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
-modular covers, and proves the selected covers at **179, 191, 193, 197, and
-211** in the ordinary Lean kernel. The other 228 selected covers and the sharp bound for
+modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223, and
+227** in the ordinary Lean kernel. The other 226 selected covers and the sharp bound for
 tuples with triads remain unproved in Lean. These are internal development
 results, not new selected Palomar claims.
 
@@ -60,7 +60,7 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-The five aggregate modules prove `SixModularCover p` for these primes:
+The seven aggregate modules prove `SixModularCover p` for these primes:
 
 | Prime | Normalized cases | Stored pair masks |
 |---|---:|---|
@@ -69,6 +69,8 @@ The five aggregate modules prove `SixModularCover p` for these primes:
 | 193 | 48 | Full table |
 | 197 | 49 | Full table |
 | 211 | 52 | Two initial rows |
+| 223 | 55 | Two initial rows |
+| 227 | 56 | Two initial rows |
 
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
@@ -99,6 +101,38 @@ A prime-179 kernel comparison took 29.61 seconds with these rows versus
 earlier certificates are preserved. These are local measurements, not a
 runtime guarantee for the remaining primes.
 
+`PackedBitCounts.lean` proves an alternative heavy-candidate computation.
+Each time has a checked integer row with one digit per candidate; the digit
+is one exactly when that candidate is bad at that time. Adding the rows for
+the remaining times computes all candidate counts together. Digit extraction
+is proved to give the reference bit count when `w < 2^slot`, which prevents
+carries. The generated rows are checked independently of the generator.
+
+`PackedModularSearch.lean` proves that these counts give exactly the same
+search result as the reference implementation for any supplied pivot. It
+also skips the branch scan when the eligible mask is zero. At the last choice,
+the new certificates use an invalid pivot deliberately, invoking the proved
+fallback that checks all candidates and avoids computing a pivot score.
+These optimizations are used at 223 and 227; the five earlier certificates
+are unchanged.
+
+A local, ordinary-kernel comparison on prime 211's root 4 took 58.64 seconds
+with the previous checker and 33.04 seconds with the new combination,
+including the new row check and root assembly. This is a measured instance,
+not an estimate for all remaining primes or an Actions runtime guarantee.
+A byte-table count was slower and is not used. The packed-count controls
+reject a corrupted row, check odd-cardinality and empty-time cases, and show
+an explicit carry error when the required digit-width bound is omitted.
+
+After the normal build, replay the timing comparison locally with:
+
+```bash
+python3 scripts/benchmark_packed_search.py
+```
+
+The script writes its Lean inputs and logs to a temporary directory and runs
+the two kernel checks sequentially. It does not dispatch GitHub Actions.
+
 `SixModularApplications.lean` supplies concrete integer consequences with no
 assumed finite cover. Every sextuple with loneliness at most `1/6` has one of
 the 116 short-form values divisible by 179. If its coordinates are distinct
@@ -128,13 +162,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Five
+sharp denominator bound for tuples possessing an additive triad. Seven
 covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 228 members. Its theorem
+remaining subset of `sixTriadPrimes` has 226 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.

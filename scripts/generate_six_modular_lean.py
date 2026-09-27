@@ -10,13 +10,15 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227)
 
 
 def generate(p):
     w = p // 2 + 1
     split_roots = p != 179
     compact_pairs = p >= 211
+    packed_counts = p >= 223
+    slot = w.bit_length()
     block_size = 8
     fold = lambda n: min(n % p, -n % p)
     inv = [0] + [pow(x, -1, p) for x in range(1, w)]
@@ -35,7 +37,19 @@ set_option maxRecDepth 1000000
         text = text.replace('import LonelyRunner.SixModularSearch\n',
                             'import LonelyRunner.SixModularSearch\n'
                             'import LonelyRunner.ModularSearchBlocks\n')
+    if packed_counts:
+        text = text.replace('import LonelyRunner.ModularSearchBlocks\n',
+                            'import LonelyRunner.PackedModularSearch\n')
     text += table('inv', inv) + table('good', good)
+    if packed_counts:
+        rows = [sum(1 << (slot*x) for x in range(w) if not (good[x] >> t) & 1)
+                for t in range(w)]
+        text += table('badRows', rows)
+        text += f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
+  decide +kernel
+
+'''
+
     text += f'''theorem inv_ok : inverseCheck {p} {w} inv=true := by decide +kernel
 
 theorem good_ok : ModularPairCover.masksCheck {p} {w} good=true := by decide +kernel
@@ -48,6 +62,8 @@ end {ns}
 '''
     if split_roots:
         text = text.replace('ModularSearch.bestPivot', 'ModularSearch.sparsePivot')
+    if packed_counts:
+        text = text.replace('ModularSearch.sparsePivot', 'ModularSearch.terminalPivot')
     files = {data_name: text}
     previous = None
     for r in roots:
@@ -92,6 +108,9 @@ namespace {ns}.Root{r}
             for b in range(w // block_size + 1):
                 text += (f'theorem block_{b} : ModularSearch.checkBlock child {block_size} {b}=true := by\n'
                          '  decide +kernel\n\n')
+        if packed_counts:
+            text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs',
+                                f'ModularSearch.packedRootChild {w} {slot} {r} good badRows pairs')
         text += f'theorem search_ok : ModularSearch.rootCheck {w} {r} good pairs (triples {p} {w}) pivot=true := by\n'
         if split_roots:
             text += f'''  apply ModularSearch.rootCheck_of_child_checks
@@ -105,6 +124,10 @@ namespace {ns}.Root{r}
             text += '''  rw [← ModularSearch.fastRootCheck_eq]
   decide +kernel
 '''
+        if packed_counts:
+            text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
+                f'  apply ModularSearch.rootCheck_of_packed_child_checks {w} {slot} {r} good badRows pairs\n'
+                f'    (triples {p} {w}) pivot (by decide) bad_rows_ok')
         text += f'''
 end {ns}.Root{r}
 '''

@@ -700,8 +700,8 @@ The unrestricted bound still requires additional work:
    arithmetic gives $3(21870175/7)^2<179^6$, so each nonzero short form
    can have at most two prime divisors at least 179. The existing research
    census has 233 successful primes in that range. A proved recursive
-   search now supplies the covers at 179, 191, 193, 197, and 211, including
-   all 240 normalized cases; the other 228 covers must still be proved
+   search now supplies the covers at 179, 191, 193, 197, 211, 223, and 227, including
+   all 351 normalized cases; the other 226 covers must still be proved
    in Lean. The first cover already
    gives an integer triad when $3\sum_i v_i^2<179^2$ and $L(v)\le1/6$ for
    distinct positive speeds. This small norm range does not discharge the
