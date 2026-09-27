@@ -27,27 +27,54 @@ def cache(p):
     return None
 
 
-def generate():
+def row_block_proofs(p, size, predicate, name):
+    """Literal complete row blocks; every generated claim still needs Lean."""
+    if size <= 0:
+        raise ValueError('Block size must be positive')
+    return ''.join(
+        f'theorem {name}{q} : {predicate} {size*q} {min(size,p-size*q)}=true := by decide +kernel\n\n'
+        for q in range((p+size-1)//size))
+
+
+def block_cases(name, count):
+    return '  intro q hq\n  interval_cases q\n'+''.join(
+        f'  · exact {name}{q}\n' for q in range(count))
+
+
+def mask_block_proofs(p, size):
+    count=(p+size-1)//size
+    source=row_block_proofs(p,size,f'ModularPairCover.maskRowsCheck {p} {p} good','good_block')
+    source+=f'theorem good_ok : ModularPairCover.masksCheck {p} {p} good=true := by\n'
+    source+=f'  apply ModularPairCover.masksCheck_of_row_blocks {p} {p} good {size} {count} (by decide) (by decide)\n'
+    return source+block_cases('good_block',count)+'\n'
+
+
+def generate_family(model, plane_forms, primes, form_bound, cache_lookup,
+                    *, block_min_prime=None, block_size=32):
+    if block_min_prime is not None and block_size <= 0:
+        raise ValueError('Block size must be positive')
+    prime_prefix="Prime" if model==3 else f"Model{model}Prime"
     files={}
-    forms='import LonelyRunner.ThreeTriadModular\n'+HEADER+f"""namespace LonelyRunner
+    plane_source='import LonelyRunner.ThreeTriadModular\n'+HEADER+f"""namespace LonelyRunner
 
-def model3Planes : Finset (Fin 3 → ℤ) := {{{','.join(vec(a) for a in FORMS)}}}
+def model{model}Planes : Finset (Fin 3 → ℤ) := {{{','.join(vec(a) for a in plane_forms)}}}
 
-theorem model3Planes_card : model3Planes.card=37 := by decide +kernel
+theorem model{model}Planes_card : model{model}Planes.card={len(plane_forms)} := by decide +kernel
 
-theorem model3Planes_first : (![1,0,0] : Fin 3 → ℤ)∈model3Planes := by decide +kernel
+theorem model{model}Planes_first : (![1,0,0] : Fin 3 → ℤ)∈model{model}Planes := by decide +kernel
 
-theorem model3Planes_bounds : ∀ a∈model3Planes, a≠0 ∧ (∑ j, a j^2)≤11 := by decide +kernel
+theorem model{model}Planes_bounds : ∀ a∈model{model}Planes, a≠0 ∧ (∑ j, a j^2)≤{form_bound} := by decide +kernel
 
 end LonelyRunner
 """
-    files['ThreeTriadModel3Planes']=forms
+    files[f'ThreeTriadModel{model}Planes']=plane_source
     predecessor=None
-    for p in PRIMES:
-        stem=f'ThreeTriadModel3Prime{p}'
-        ns=f'LonelyRunner.ThreeTriadPlaneSearch.Prime{p}'
-        cached=cache(p)
-        data='import LonelyRunner.ThreeTriadModel3Search\nimport LonelyRunner.ThreeTriadModel3Planes\n'
+    for p in primes:
+        stem=f'ThreeTriadModel{model}Prime{p}'
+        ns=f'LonelyRunner.ThreeTriadPlaneSearch.{prime_prefix}{p}'
+        cached=cache_lookup(p)
+        blocked=block_min_prime is not None and p>=block_min_prime
+        data=f'import LonelyRunner.ThreeTriadModel{model}Search\nimport LonelyRunner.ThreeTriadModel{model}Planes\n'
         if cached:data+=f'import LonelyRunner.{cached[0]}\n'
         if predecessor:data+=f'import LonelyRunner.{predecessor}\n'
         data+=HEADER+f'namespace {ns}\n\n'
@@ -55,8 +82,8 @@ end LonelyRunner
         else:
             good=[sum(1<<t for t in range(p) if p<6*(a*t%p)<5*p) for a in range(p)]
             data+=chunked_table('good',good)
-        cs=[a for a in FORMS if not a[2]]
-        roots=[(a,-a[0]*pow(a[2]%p,-1,p)%p,-a[1]*pow(a[2]%p,-1,p)%p) for a in FORMS if a[2]]
+        cs=[a for a in plane_forms if not a[2]]
+        roots=[(a,-a[0]*pow(a[2]%p,-1,p)%p,-a[1]*pow(a[2]%p,-1,p)%p) for a in plane_forms if a[2]]
         masks=[(1<<p)-1 if any((a+b*r)%p==0 for a,b,c in cs) else
                sum(1<<z for z in {(a+b*r)%p for _,a,b in roots}) for r in range(p)]
         data+=chunked_table('excluded',masks)
@@ -65,29 +92,41 @@ end LonelyRunner
         files[stem+'Data']=data+f'end {ns}\n'
         proof=f'import LonelyRunner.{stem}Data\n'
         if predecessor:proof+=f'import LonelyRunner.{predecessor}\n'
+        if blocked and not cached:proof='import LonelyRunner.ModularMaskBlocks\n'+proof
         proof+=HEADER+f'namespace {ns}\n\n'
-        proof+=f'theorem good_ok : ModularPairCover.masksCheck {p} {p} good=true := by\n'
-        proof+=(f'  exact {cached[1]}.good_ok\n\n' if cached else '  decide +kernel\n\n')
-        proof+=f'theorem exclusions_ok : exclusionsCheck {p} model3Planes exclusions=true := by decide +kernel\n\n'
+        if blocked and not cached:
+            proof+=mask_block_proofs(p,block_size)
+        else:
+            proof+=f'theorem good_ok : ModularPairCover.masksCheck {p} {p} good=true := by\n'
+            proof+=(f'  exact {cached[1]}.good_ok\n\n' if cached else '  decide +kernel\n\n')
+        proof+=f'theorem exclusions_ok : exclusionsCheck {p} model{model}Planes exclusions=true := by decide +kernel\n\n'
         files[stem+'Tables']=proof+f'end {ns}\n'
-        proof=f'import LonelyRunner.{stem}Tables\n'+HEADER+f"""namespace {ns}
-
-theorem rows_ok : model3BlockCheck {p} good exclusions 0 {p}=true := by decide +kernel
-
-/-- Complete field cover: a strict good time or one of the 37 plane equations. -/
-theorem modular_cover : ThreeTriadPlaneCover {p} 3 model3Planes := by
-  apply model3Cover_of_blocks {p} (by norm_num) model3Planes model3Planes_first
-    good exclusions {p} 1 (by decide) (by decide) good_ok exclusions_ok
-  intro q hq
-  have hq' : q=0 := by omega
-  subst q
-  simpa using rows_ok
+        proof=f'import LonelyRunner.{stem}Tables\n'+HEADER+f'namespace {ns}\n\n'
+        if blocked:
+            size=block_size
+            count=(p+size-1)//size
+            proof+=row_block_proofs(p,size,f'model{model}BlockCheck {p} good exclusions','rows_block')
+            cases=block_cases('rows_block',count)
+        else:
+            size=p
+            count=1
+            proof+=f'theorem rows_ok : model{model}BlockCheck {p} good exclusions 0 {p}=true := by decide +kernel\n\n'
+            cases="  intro q hq\n  have hq' : q=0 := by omega\n  subst q\n  simpa using rows_ok\n"
+        proof+=f"""/-- Complete field cover: a strict good time or one of the {len(plane_forms)} plane equations. -/
+theorem modular_cover : ThreeTriadPlaneCover {p} {model} model{model}Planes := by
+  apply model{model}Cover_of_blocks {p} (by norm_num) model{model}Planes model{model}Planes_first
+    good exclusions {size} {count} (by decide) (by decide) good_ok exclusions_ok
+{cases.rstrip()}
 
 end {ns}
 """
         files[stem]=proof
         predecessor=stem
     return files
+
+
+def generate():
+    return generate_family(3,FORMS,PRIMES,11,cache)
 
 
 def main():

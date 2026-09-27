@@ -21,8 +21,9 @@ and exact loneliness `3/19`, using the existing all-real-times value theorem.
 
 This is model 3 in the [six-family structural reduction](THREE_TRIADS.md).
 It completes a substantive application of the finite-prime obstruction.
-The other five families, the exceptional rank-two parent, and the remaining
-earlier-stage modular covers are still unfinished. **The unrestricted
+The [model-2 family theorem](MODEL2.md) is also complete. The other four
+families, the exceptional rank-two parent, and the remaining earlier-stage
+modular covers are still unfinished. **The unrestricted
 Question 6.6 is not yet a Lean theorem.**
 
 ## From actual covers to integer planes
@@ -90,7 +91,8 @@ below the norm cutoff.**
 
 ## Removing the norm cutoff from the sharp bound
 
-For positive speeds at most 18, time `1/36` gives $L(v)\ge1/36>0$.
+The shared [`SmallSpeedsQuestion66.lean`](LonelyRunner/SmallSpeedsQuestion66.lean)
+proves that for positive speeds at most 18, time `1/36` gives $L(v)\ge1/36>0$.
 Thus $L(v)=a/q<1/6$ forces $a\ge1$ and $q\ge7$, so $v_i\le18<3q$.
 Taking absolute speeds preserves loneliness and primitivity.
 

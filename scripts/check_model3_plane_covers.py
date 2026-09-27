@@ -11,11 +11,11 @@ from generate_model3_plane_lean import PRIMES, FORMS
 from generate_three_triad_parents import MODELS
 
 
-def check(p, literal=False):
+def check(p, literal=False, model=3, forms=FORMS):
     good=[sum(1<<t for t in range(p) if p<6*(a*t%p)<5*p) for a in range(p)]
     uncovered=[];bad=0
     for r,z in product(range(p),repeat=2):
-        speeds=[(row[0]+row[1]*r+row[2]*z)%p for row in MODELS[3]]
+        speeds=[(row[0]+row[1]*r+row[2]*z)%p for row in MODELS[model]]
         times=(1<<p)-1
         for a in speeds:times &= good[a]
         if literal:
@@ -23,7 +23,7 @@ def check(p, literal=False):
             if bool(times)!=expected:raise RuntimeError(('Literal time disagreement',p,r,z))
         if not times:
             bad+=1
-            if all((a+b*r+c*z)%p for a,b,c in FORMS):uncovered.append((r,z))
+            if all((a+b*r+c*z)%p for a,b,c in forms):uncovered.append((r,z))
     return bad,uncovered
 
 

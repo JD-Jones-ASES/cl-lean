@@ -14,9 +14,9 @@ Question 6.7 under the same lower-speed Lonely Runner hypotheses used in the
 paper's reduction lemma, and with no unproved input for six speeds. It also proves an explicit $C(n)q$ bound for every
 positive primitive near-tight tuple. The sharp unrestricted six-speed bound
 $\max_i v_i<3q$ in Question 6.6 remains unfinished; it is proved here on
-every critical six-plane, above an explicit global norm cutoff, and on the
-entire family $(A,A-B,A-C,B,C,-B-C)$ with distinct nonzero absolute speeds.
-These family theorems have no parameter cutoff.
+every critical six-plane, above an explicit global norm cutoff, and on
+two of the six three-parameter families below. These family theorems have
+no parameter cutoff.
 
 The development proves the following results.
 
@@ -61,19 +61,21 @@ The development proves the following results.
   checker too. The fixed prime sets leave 122 and 120 covers, respectively.
   Three independent short relations now reduce, without a speed cutoff, to
   [six integer families](THREE_TRIADS.md), preserving actual loneliness.
-  The sharp bound is now proved for one complete three-parameter family,
-  as described below. The other five families and the exceptional two-triad
+  The sharp bound is now proved for two complete three-parameter families,
+  as described below. The other four families and the exceptional two-triad
   parent remain unfinished.
-- **An unbounded three-parameter application of the prime obstruction.**
-  For every primitive tuple $(A,A-B,A-C,B,C,-B-C)$ with distinct nonzero
+- **Two unbounded three-parameter applications of the prime obstruction.**
+  For every primitive tuple in either $(A,A-B,A+B,B,C,-B-C)$ or
+  $(A,A-B,A-C,B,C,-B-C)$ with distinct nonzero
   absolute speeds and $L(v)=a/q<1/6$, $q>0$, Lean proves $|v_i|<3q$.
-  Below the global norm cutoff, **75 actual modular covers** force one of
-  37 integer plane equations. Complete integer kernels, exact good triangles,
+  Below the global norm cutoff, **85 actual modular covers** force one of
+  42 integer plane equations for the first family, and **75 covers** force
+  one of 37 planes for the second. Complete integer kernels, exact good triangles,
   and finite witness tables prove that all speeds then have absolute value
   at most 18. Above the cutoff, the existing global theorem supplies $3q$.
   All modular and geometric inputs are proved; no norm bound remains in
   the family theorem. Signed coordinate permutations are included.
-  See [the model-3 proof and replay commands](MODEL3.md).
+  See the proofs and replay commands for [model 2](MODEL2.md) and [model 3](MODEL3.md).
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or

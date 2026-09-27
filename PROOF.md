@@ -733,11 +733,13 @@ The unrestricted bound still requires additional work:
    their transport identities are kernel-checked. The integer parameters
    recover every solution and have exactly the same gcd as the speeds.
    This supplies global structural coverage. The sharp bound is now proved
-   for the entire model-3 family $(A,A-B,A-C,B,C,-B-C)$, with no speed cutoff.
-   Its [complete proof](MODEL3.md) uses 75 actual modular covers, exhaustive
-   integer kernels for 37 parameter planes, and exact geometric and finite
-   checks on every plane, then joins the global large-speed theorem. The
-   other five families and the exceptional rank-two parent remain unfinished.
+   for both the model-2 family $(A,A-B,A+B,B,C,-B-C)$ and the model-3 family
+   $(A,A-B,A-C,B,C,-B-C)$, with no speed cutoff. Their complete proofs use
+   [85 covers and 42 parameter planes](MODEL2.md), and
+   [75 covers and 37 parameter planes](MODEL3.md), respectively. Exhaustive
+   integer kernels and exact geometric and finite checks cover every plane;
+   the global large-speed theorem supplies the complementary norm region.
+   The other four families and the exceptional rank-two parent remain unfinished.
 3. Connect the resulting exhaustive critical-or-sporadic classification to
    the critical-family bounds above and the existing nine exact values.
 

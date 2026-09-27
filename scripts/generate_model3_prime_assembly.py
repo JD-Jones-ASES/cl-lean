@@ -5,40 +5,45 @@ from generate_model3_plane_lean import PRIMES
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def generate():
- data='import LonelyRunner.ThreeTriadPlaneReduction\n\nnamespace LonelyRunner\n\n'
- data+='def model3PrimeList : List ℕ := ['+','.join(map(str,PRIMES))+']\n\n'
- data+='''def model3Primes : Finset ℕ := model3PrimeList.toFinset
+def generate_family(model,primes,lower,reduction):
+ prefix="Prime" if model==3 else f"Model{model}Prime"
+ data=f'import LonelyRunner.{reduction}\n\nnamespace LonelyRunner\n\n'
+ data+=f'def model{model}PrimeList : List ℕ := ['+','.join(map(str,primes))+']\n\n'
+ data+=f'''def model{model}Primes : Finset ℕ := model{model}PrimeList.toFinset
 
 set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 0 in
-theorem model3Primes_facts : model3Primes.card=75 ∧
-    ∀ p∈model3Primes, Nat.Prime p ∧ 223≤p := by decide +kernel
+theorem model{model}Primes_facts : model{model}Primes.card={len(primes)} ∧
+    ∀ p∈model{model}Primes, Nat.Prime p ∧ {lower}≤p := by decide +kernel
 
 end LonelyRunner
 '''
- assembly='import LonelyRunner.ThreeTriadModel3PrimesData\n'+f'import LonelyRunner.ThreeTriadModel3Prime{PRIMES[-1]}\n\nnamespace LonelyRunner\n\n'
- assembly+='''/-- Every member of the fixed set has a complete ordinary-kernel cover. -/
-theorem model3Primes_covers : ∀ p∈model3Primes, ThreeTriadPlaneCover p 3 model3Planes := by
+ assembly=f'import LonelyRunner.ThreeTriadModel{model}PrimesData\n'+f'import LonelyRunner.ThreeTriadModel{model}Prime{primes[-1]}\n\nnamespace LonelyRunner\n\n'
+ assembly+=f'''/-- Every member of the fixed set has a complete ordinary-kernel cover. -/
+theorem model{model}Primes_covers : ∀ p∈model{model}Primes, ThreeTriadPlaneCover p {model} model{model}Planes := by
   intro p hp
-  simp only [model3Primes,model3PrimeList,List.mem_toFinset,List.mem_cons,List.not_mem_nil,or_false] at hp
-  rcases hp with '''+'|'.join('rfl' for p in PRIMES)+'\n'
- assembly+=''.join(f'  · exact ThreeTriadPlaneSearch.Prime{p}.modular_cover\n' for p in PRIMES)
- assembly+='''
-/-- The 75 proved covers force an integer plane equation, with no modular
+  simp only [model{model}Primes,model{model}PrimeList,List.mem_toFinset,List.mem_cons,List.not_mem_nil,or_false] at hp
+  rcases hp with '''+'|'.join('rfl' for p in primes)+'\n'
+ assembly+=''.join(f'  · exact ThreeTriadPlaneSearch.{prefix}{p}.modular_cover\n' for p in primes)
+ assembly+=f'''
+/-- The {len(primes)} proved covers force an integer plane equation, with no modular
 hypothesis left in the theorem. The norm cutoff is explicit. -/
-theorem model3_plane_below_cutoff (x : Fin 3 → ℤ)
-    (hnorm : speedNorm (threeTriadTuple 3 x)<21870175/7)
-    (hl : loneliness (threeTriadTuple 3 x)≤(1:ℝ)/6) :
-    ∃ a∈model3Planes, (∑ j, a j*x j)=0 := by
-  apply model3_plane_of_prime_covers x hnorm hl model3Primes
-    (by rw [model3Primes_facts.1])
-    (fun p hp => (model3Primes_facts.2 p hp).1)
-    (fun p hp => (model3Primes_facts.2 p hp).2) model3Primes_covers
+theorem model{model}_plane_below_cutoff (x : Fin 3 → ℤ)
+    (hnorm : speedNorm (threeTriadTuple {model} x)<21870175/7)
+    (hl : loneliness (threeTriadTuple {model} x)≤(1:ℝ)/6) :
+    ∃ a∈model{model}Planes, (∑ j, a j*x j)=0 := by
+  apply model{model}_plane_of_prime_covers x hnorm hl model{model}Primes
+    (by rw [model{model}Primes_facts.1])
+    (fun p hp => (model{model}Primes_facts.2 p hp).1)
+    (fun p hp => (model{model}Primes_facts.2 p hp).2) model{model}Primes_covers
 
 end LonelyRunner
 '''
- return {'ThreeTriadModel3PrimesData':data,'ThreeTriadModel3Primes':assembly}
+ return {f'ThreeTriadModel{model}PrimesData':data,f'ThreeTriadModel{model}Primes':assembly}
+
+
+def generate():
+ return generate_family(3,PRIMES,223,"ThreeTriadPlaneReduction")
 
 def main():
  parser=ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true');args=parser.parse_args()

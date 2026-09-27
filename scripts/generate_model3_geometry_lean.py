@@ -43,20 +43,22 @@ def triangles(c,d):
   if best:return best
  raise RuntimeError(('No strict good triangle',c,d))
 
-def witness(v):
- for p in (7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,127,149,179,223,257,263,269):
+GRID_DENOMINATORS=(7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,127,149,179,223,257,263,269)
+
+def witness(v,denominators=GRID_DENOMINATORS):
+ for p in denominators:
   for t in range(1,p):
    if all(p<=6*(t*a%p)<=5*p for a in v):return p,t
  return None
 
 
-def records():
+def records(model=3,forms=FORMS,denominators=GRID_DENOMINATORS):
  records=[]
- for idx,f in enumerate(FORMS):
+ for idx,f in enumerate(forms):
   pivot=next(i for i in range(3) if abs(f[i])==1);free=[j for j in range(3) if j!=pivot]
   mat=[[0,0] for _ in range(3)]
   for j,k in enumerate(free):mat[k][j]=1;mat[pivot][j]=-f[k]*f[pivot]
-  speeds=[[sum(row[j]*mat[j][k] for j in range(3)) for k in range(2)] for row in MODELS[3]]
+  speeds=[[sum(row[j]*mat[j][k] for j in range(3)) for k in range(2)] for row in MODELS[model]]
   c,d=zip(*speeds)
   improper=next(((i,i,0) for i in range(6) if speeds[i]==[0,0]),None)
   if improper is None:improper=next(((i,j,s) for i,j in combinations(range(6),2) for s in (-1,1) if speeds[i]==[s*a for a in speeds[j]]),None)
@@ -67,7 +69,7 @@ def records():
    for A,B in product(range(-a,a+1),range(-b,b+1)):
     v=tuple(c[i]*A+d[i]*B for i in range(6))
     if gcd(A,B)!=1 or 0 in v or len(set(map(abs,v)))!=6 or max(map(abs,v))<=18:ws.append([0,0]);continue
-    w=witness(v)
+    w=witness(v,denominators)
     if w is None:near.append((A,B,v));ws.append([0,0])
     else:ws.append(w)
    if near:raise RuntimeError(('Unresolved',idx,near))
@@ -82,38 +84,38 @@ def rational(a):
  n,d=a
  return str(n) if d==1 else f'({n}/{d})'
 
-def generate():
- rs=records()
- s='import LonelyRunner.ThreeTriadModel3Planes\nimport LonelyRunner.TorusSmallCertificate\n'+HEADER+'namespace LonelyRunner\n\n'
- s+='def model3PlaneRow : Fin 37 → Fin 3 → ℤ := '+vec([vec(r['form']) for r in rs])+'\n\n'
- s+='def model3PlaneFree : Fin 37 → Fin 2 → Fin 3 := '+vec([vec(r['free']) for r in rs])+'\n\n'
+def generate_family(model,forms,denominators):
+ rs=records(model,forms,denominators)
+ s=f'import LonelyRunner.ThreeTriadModel{model}Planes\nimport LonelyRunner.TorusSmallCertificate\n'+HEADER+'namespace LonelyRunner\n\n'
+ s+=f'def model{model}PlaneRow : Fin {len(forms)} → Fin 3 → ℤ := '+vec([vec(r['form']) for r in rs])+'\n\n'
+ s+=f'def model{model}PlaneFree : Fin {len(forms)} → Fin 2 → Fin 3 := '+vec([vec(r['free']) for r in rs])+'\n\n'
  for name in ('c','d'):
-  s+=f'def model3Plane{name.upper()} : Fin 37 → Fin 6 → ℤ := '+vec([vec(r[name]) for r in rs])+'\n\n'
- s+='''
-theorem model3Planes_coverage : ∀ a∈model3Planes, ∃ q, a=model3PlaneRow q := by decide +kernel
+  s+=f'def model{model}Plane{name.upper()} : Fin {len(forms)} → Fin 6 → ℤ := '+vec([vec(r[name]) for r in rs])+'\n\n'
+ s+=f'''
+theorem model{model}Planes_coverage : ∀ a∈model{model}Planes, ∃ q, a=model{model}PlaneRow q := by decide +kernel
 
 /-- An actual parameter coordinate is eliminated by a unit coefficient.
 Every integer solution, with no divisibility assumption, is represented. -/
-theorem model3Plane_exhaustive (q : Fin 37) (x : Fin 3 → ℤ)
-    (hz : (∑ j, model3PlaneRow q j*x j)=0) :
-    threeTriadTuple 3 x=torusSpeeds (model3PlaneC q) (model3PlaneD q)
-      (x (model3PlaneFree q 0)) (x (model3PlaneFree q 1)) := by
-  fin_cases q <;> simp [model3PlaneRow,Fin.sum_univ_succ] at hz <;>
+theorem model{model}Plane_exhaustive (q : Fin {len(forms)}) (x : Fin 3 → ℤ)
+    (hz : (∑ j, model{model}PlaneRow q j*x j)=0) :
+    threeTriadTuple {model} x=torusSpeeds (model{model}PlaneC q) (model{model}PlaneD q)
+      (x (model{model}PlaneFree q 0)) (x (model{model}PlaneFree q 1)) := by
+  fin_cases q <;> simp [model{model}PlaneRow,Fin.sum_univ_succ] at hz <;>
     funext i <;> fin_cases i <;>
-    simp [threeTriadTuple,threeTriadMatrix,model3PlaneC,model3PlaneD,model3PlaneFree,
+    simp [threeTriadTuple,threeTriadMatrix,model{model}PlaneC,model{model}PlaneD,model{model}PlaneFree,
       torusSpeeds,Fin.sum_univ_succ] <;> omega
 
 end LonelyRunner
 '''
- files={'ThreeTriadModel3PlaneKernels':s}
- s='import LonelyRunner.ThreeTriadModel3PlaneKernels\n'+HEADER+'namespace LonelyRunner.Model3PlaneBounds\n\n'
+ files={f'ThreeTriadModel{model}PlaneKernels':s}
+ s=f'import LonelyRunner.ThreeTriadModel{model}PlaneKernels\n'+HEADER+f'namespace LonelyRunner.Model{model}PlaneBounds\n\n'
  for r in rs:
-  q=r['index'];c=f'(model3PlaneC {q})';d=f'(model3PlaneD {q})'
+  q=r['index'];c=f'(model{model}PlaneC {q})';d=f'(model{model}PlaneD {q})'
   if r['improper'] is not None:
    i,j,sign=r['improper']
    s+=f'theorem improper{q} (A B : ℤ) (h : ProperSpeeds (torusSpeeds {c} {d} A B)) : False := by\n'
    if sign==0:
-    s+=f'  have hh := h.1 {i}\n  apply hh\n  simp [torusSpeeds,model3PlaneC,model3PlaneD]\n\n'
+    s+=f'  have hh := h.1 {i}\n  apply hh\n  simp [torusSpeeds,model{model}PlaneC,model{model}PlaneD]\n\n'
    else:
     side=1 if sign==1 else 2
     lhs=f'({r["c"][i]}:ℤ)*A+({r["d"][i]}:ℤ)*B'
@@ -136,30 +138,34 @@ end LonelyRunner
     {xs} {ys} {cell} ?_ ?_ ?_ ?_ ?_ finite{q} A B
     (primitive_torus_parameters _ _ _ _ hp) hproper hn
   · intro j i
-    fin_cases j <;> fin_cases i <;> norm_num [model3PlaneC,model3PlaneD]
+    fin_cases j <;> fin_cases i <;> norm_num [model{model}PlaneC,model{model}PlaneD]
   · intro j i
-    fin_cases j <;> fin_cases i <;> norm_num [model3PlaneC,model3PlaneD]
+    fin_cases j <;> fin_cases i <;> norm_num [model{model}PlaneC,model{model}PlaneD]
   · norm_num
   · norm_num
   · norm_num
 
 """
- s+='''
-/-- Every proper primitive near-tight direction in all 37 planes has
+ s+=f'''
+/-- Every proper primitive near-tight direction in all {len(forms)} planes has
 maximum absolute speed at most 18. All integer parameters are covered. -/
-theorem all_planes_small (q : Fin 37) (A B : ℤ)
-    (hp : PrimitiveSpeeds (torusSpeeds (model3PlaneC q) (model3PlaneD q) A B))
-    (hproper : ProperSpeeds (torusSpeeds (model3PlaneC q) (model3PlaneD q) A B))
-    (hn : loneliness (torusSpeeds (model3PlaneC q) (model3PlaneD q) A B)<(1:ℝ)/6) :
-    ∀ i, |torusSpeeds (model3PlaneC q) (model3PlaneD q) A B i|≤18 := by
+theorem all_planes_small (q : Fin {len(forms)}) (A B : ℤ)
+    (hp : PrimitiveSpeeds (torusSpeeds (model{model}PlaneC q) (model{model}PlaneD q) A B))
+    (hproper : ProperSpeeds (torusSpeeds (model{model}PlaneC q) (model{model}PlaneD q) A B))
+    (hn : loneliness (torusSpeeds (model{model}PlaneC q) (model{model}PlaneD q) A B)<(1:ℝ)/6) :
+    ∀ i, |torusSpeeds (model{model}PlaneC q) (model{model}PlaneD q) A B i|≤18 := by
   fin_cases q
 '''
  for r in rs:
   q=r['index']
   s+=(f'  · exact (improper{q} A B hproper).elim\n' if r['improper'] is not None else f'  · exact small{q} A B hp hproper hn\n')
- s+='\nend LonelyRunner.Model3PlaneBounds\n'
- files['ThreeTriadModel3PlaneBounds']=s
+ s+=f'\nend LonelyRunner.Model{model}PlaneBounds\n'
+ files[f'ThreeTriadModel{model}PlaneBounds']=s
  return files
+
+
+def generate():
+ return generate_family(3,FORMS,GRID_DENOMINATORS)
 
 
 def main():
