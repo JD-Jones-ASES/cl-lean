@@ -1,9 +1,9 @@
 """Replay the ordinary-kernel comparison on prime 211's normalized root 4.
 
 This local benchmark does not dispatch Actions or certify any additional prime.
-Run `lake build LonelyRunner.SixModular211Root4 LonelyRunner.PackedModularSearch`
-first. Each timed run checks all root blocks; the packed run also checks its
-row data and assembles the reference root theorem. Host load affects timings.
+Run `lake build` first. Each timed run checks all root blocks; the packed
+and parallel runs also check their data and assemble the reference root
+theorem. Host load affects timings.
 """
 from argparse import ArgumentParser
 import json
@@ -14,6 +14,7 @@ import tempfile
 import time
 
 from generate_tight_five_lean import table
+from generate_six_modular_lean import compression_steps
 
 ROOT = Path(__file__).resolve().parents[1]
 HEADER = '''import LonelyRunner.SixModular211Root4
@@ -50,7 +51,34 @@ def child := packedRootChild 106 7 4 Prime211.good rows Prime211.Root4.pairs
 '''
     packed += ''.join(f'  · exact block_{b}\n' for b in range(14))
     packed += 'end PackedBalancedTrial\n'
-    return {'BaselineTrial': baseline, 'PackedBalancedTrial': packed}
+    parallel = HEADER.replace('ModularSearchBlocks', 'ParallelModularSearch')
+    parallel = parallel.replace('set_option maxHeartbeats',
+                                'import LonelyRunner.CompressedPackedRows\nset_option maxHeartbeats')
+    parallel += 'namespace ParallelTrial\n' + table('rows', rows)
+    parallel += f'def ones : ℕ := {hex(sum(1 << (7*x) for x in range(106)))}\n'
+    parallel += 'def steps : List (ℕ × ℕ) := ['
+    parallel += ','.join(f'({s},{hex(m)})' for s, m in compression_steps(7, 106)) + ']\n'
+    parallel += '''theorem ones_mask_ok : ones=slotMask 7 106 := by decide +kernel
+theorem ones_count_ok : ones=packCounts (2^7) (fun _ => 1) 106 := by decide +kernel
+theorem steps_ok : compressionCheck 7 106 steps=true := by decide +kernel
+theorem rows_ok : packedRowsCheck 106 7 Prime211.good rows=true := by
+  apply compressedRowsCheck_sound 106 7 ones Prime211.good rows steps
+    (by decide) ones_mask_ok steps_ok (transposeCheck_sound _ _ Prime211.transpose_ok)
+  decide +kernel
+def child := parallelRootChild 106 7 ones 4 steps Prime211.good rows Prime211.Root4.pairs
+  (triples 211 106) (terminalPivot 106 Prime211.good)
+''' + blocks + '''theorem root_ok : rootCheck 106 4 Prime211.good Prime211.Root4.pairs
+    (triples 211 106) (terminalPivot 106 Prime211.good)=true := by
+  apply rootCheck_of_parallel_child_checks 106 7 ones 4 steps Prime211.good rows
+    Prime211.Root4.pairs (triples 211 106) (terminalPivot 106 Prime211.good)
+    (by decide) (by decide) ones_mask_ok ones_count_ok rows_ok steps_ok
+  apply all_of_checkBlocks _ _ 8 (by decide)
+  intro b hb
+  interval_cases b
+'''
+    parallel += ''.join(f'  · exact block_{b}\n' for b in range(14))
+    parallel += 'end ParallelTrial\n'
+    return {'BaselineTrial': baseline, 'PackedBalancedTrial': packed, 'ParallelTrial': parallel}
 
 
 def main():

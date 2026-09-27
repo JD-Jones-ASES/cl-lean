@@ -48,8 +48,8 @@ The development proves the following results.
   The [six-speed modular reduction](SIX_MODULAR.md) now connects this bound
   to a specific 233-prime cover obligation, with normalization, sorting,
   sign invariance, and integer lifting proved. A proved recursive checker
-  certifies covers at 179, 191, 193, 197, 211, 223, and 227 in the Lean kernel. The
-  other 226 covers and the classification of tuples with triads remain
+  certifies covers at 179, 191, 193, 197, 211, 223, 227, 229, and 233 in the
+  Lean kernel. The other 224 covers and the classification of tuples with triads remain
   unformalized.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
@@ -162,7 +162,8 @@ their output is not used as a proof.
 For six speeds, the selected off-critical cutoff is now $21870175/7$.
 It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
 233-prime obstruction using primes at least 179. The six-speed modular covers
-at 179, 191, 193, 197, 211, 223, and 227 are proved in Lean; the other 226 covers and
+at 179, 191, 193, 197, 211, 223, 227, 229, and 233 are proved in Lean; the other
+224 covers and
 the remaining finite classifications are not yet proved.
 The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
 with the coarse all-tuples denominator bound.

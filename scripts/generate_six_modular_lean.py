@@ -10,7 +10,20 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233)
+
+
+def compression_steps(slot, w):
+    """Propose a shift/mask program; Lean checks every supported basis bit."""
+    padded_width = 1 << (w-1).bit_length()
+    steps = []
+    block = 1
+    while block < padded_width:
+        mask = sum(((1 << (2*block))-1) << (slot*2*block*i)
+                   for i in range(padded_width//(2*block)))
+        steps.append(((slot-1)*block, mask))
+        block *= 2
+    return steps
 
 
 def generate(p):
@@ -18,6 +31,7 @@ def generate(p):
     split_roots = p != 179
     compact_pairs = p >= 211
     packed_counts = p >= 223
+    parallel_counts = p >= 229
     slot = w.bit_length()
     block_size = 8
     fold = lambda n: min(n % p, -n % p)
@@ -40,13 +54,31 @@ set_option maxRecDepth 1000000
     if packed_counts:
         text = text.replace('import LonelyRunner.ModularSearchBlocks\n',
                             'import LonelyRunner.PackedModularSearch\n')
+    if parallel_counts:
+        text = text.replace('import LonelyRunner.PackedModularSearch\n',
+                            'import LonelyRunner.ParallelModularSearch\n'
+                            'import LonelyRunner.CompressedPackedRows\n')
     text += table('inv', inv) + table('good', good)
     if packed_counts:
         rows = [sum(1 << (slot*x) for x in range(w) if not (good[x] >> t) & 1)
                 for t in range(w)]
         text += table('badRows', rows)
-        text += f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
+        if not parallel_counts:
+            text += f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
   decide +kernel
+
+'''
+        else:
+            ones = sum(1 << (slot*x) for x in range(w))
+            steps = compression_steps(slot, w)
+            text += f'def ones : ℕ := {hex(ones)}\n\n'
+            text += 'def steps : List (ℕ × ℕ) := [\n'
+            text += ',\n'.join(f'  ({shift},{hex(mask)})' for shift, mask in steps) + ']\n\n'
+            text += f'''theorem ones_mask_ok : ones=ModularSearch.slotMask {slot} {w} := by decide +kernel
+
+theorem ones_count_ok : ones=ModularSearch.packCounts (2^{slot}) (fun _ => 1) {w} := by decide +kernel
+
+theorem steps_ok : ModularSearch.compressionCheck {slot} {w} steps=true := by decide +kernel
 
 '''
 
@@ -60,6 +92,14 @@ def pivot := ModularSearch.bestPivot {w} good
 
 end {ns}
 '''
+    if parallel_counts:
+        row_proof = f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
+  apply ModularSearch.compressedRowsCheck_sound {w} {slot} ones good badRows steps
+    (by decide) ones_mask_ok steps_ok (transposeCheck_sound _ good transpose_ok)
+  decide +kernel
+
+'''
+        text = text.replace('def pivot :=', row_proof + 'def pivot :=')
     if split_roots:
         text = text.replace('ModularSearch.bestPivot', 'ModularSearch.sparsePivot')
     if packed_counts:
@@ -108,7 +148,10 @@ namespace {ns}.Root{r}
             for b in range(w // block_size + 1):
                 text += (f'theorem block_{b} : ModularSearch.checkBlock child {block_size} {b}=true := by\n'
                          '  decide +kernel\n\n')
-        if packed_counts:
+        if parallel_counts:
+            text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs',
+                f'ModularSearch.parallelRootChild {w} {slot} ones {r} steps good badRows pairs')
+        elif packed_counts:
             text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs',
                                 f'ModularSearch.packedRootChild {w} {slot} {r} good badRows pairs')
         text += f'theorem search_ok : ModularSearch.rootCheck {w} {r} good pairs (triples {p} {w}) pivot=true := by\n'
@@ -124,7 +167,11 @@ namespace {ns}.Root{r}
             text += '''  rw [← ModularSearch.fastRootCheck_eq]
   decide +kernel
 '''
-        if packed_counts:
+        if parallel_counts:
+            text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
+                f'  apply ModularSearch.rootCheck_of_parallel_child_checks {w} {slot} ones {r} steps good badRows pairs\n'
+                f'    (triples {p} {w}) pivot (by decide) (by decide) ones_mask_ok ones_count_ok bad_rows_ok steps_ok')
+        elif packed_counts:
             text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
                 f'  apply ModularSearch.rootCheck_of_packed_child_checks {w} {slot} {r} good badRows pairs\n'
                 f'    (triples {p} {w}) pivot (by decide) bad_rows_ok')

@@ -51,3 +51,4 @@ import LonelyRunner.ModularSearchBlockControls
 import LonelyRunner.AnchoredModularPairControls
 import LonelyRunner.PackedModularSearchControls
 import LonelyRunner.FastPackedRows
+import LonelyRunner.ParallelPackedControls
