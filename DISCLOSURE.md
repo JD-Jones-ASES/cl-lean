@@ -35,13 +35,17 @@ The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
 explicit in the general theorem and are not imported as axioms. The cases
-through five speeds are now formalized here, following Renault's
-[constrained-maximum method](https://doi.org/10.1016/j.disc.2004.06.008). Exact
-closed-cell inequalities and ordinary kernel reduction cover all real inputs,
-boundary points, signs and gcd normalization. The five-speed proof uses an
-independently generated uniform certificate with 29 actions, 792 residue
-patterns and 22,596,480 mask triples. It proves a known theorem; no priority
-claim is made. The six-speed global off-critical and coarse denominator
+through five speeds are now formalized here. Through four speeds the proofs
+follow Renault's [constrained-maximum method](https://doi.org/10.1016/j.disc.2004.06.008),
+with exact closed-cell inequalities and ordinary kernel reduction. The selected
+five-speed proof reuses the 40 modular covers below: the norm bound and profile
+recovery hold for $L(v)\le1/6$, and both resulting profiles attain $1/6$.
+This argument depends only on the lower-speed results through four speeds.
+The full project also retains an independent five-speed proof following
+Renault's method, with 29 actions, 792 residue patterns and 22,596,480 checked
+mask triples. It is not a dependency of the selected claims. Both proofs cover
+all zero-free integer tuples, including signs and repeated absolute speeds.
+They prove a known theorem; no priority claim is made. The six-speed global off-critical and coarse denominator
 bounds now have no unproved input. The sharp unrestricted six-speed Question
 6.6 and completeness of the sporadic list remain outside the proved scope.
 The tight-five classification and resulting critical-plane classification

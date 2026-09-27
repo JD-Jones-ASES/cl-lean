@@ -68,16 +68,17 @@ The development proves the following results.
   the finite region below this coarse cutoff remains outstanding.
 - **Lower-speed inputs proved through five speeds.** The package proves the
   Lonely Runner theorem for every zero-free integer tuple of one through five
-  speeds, including repeated absolute speeds. The proofs follow Renault's
-  constrained-maximum argument. The five-speed proof uses 29 time actions and
-  exact interval certificates covering 792 residue patterns and 22,596,480 mask
-  triples. Integer endpoint inequalities cover every real position, including
-  boundaries; ordinary kernel reduction checks the finite data. Thus the global
-  six-speed off-critical bound and the coarse denominator bound are unconditional.
-  A separate [modular moment proof](TIGHT_FIVE_MOMENTS.md) classifies every
-  primitive zero-free tight quintuple as a signed permutation of $(1,2,3,4,5)$
-  or $(1,3,4,5,9)$. All 40 required prime covers, arbitrary residue normalization,
-  integer lifting, and algebraic profile recovery are kernel-checked.
+  speeds, including repeated absolute speeds. Through four speeds the proofs
+  follow Renault's constrained-maximum argument. The selected five-speed proof
+  shares the [40 modular moment certificates](TIGHT_FIVE_MOMENTS.md) that classify
+  every primitive zero-free tight quintuple as a signed permutation of
+  $(1,2,3,4,5)$ or $(1,3,4,5,9)$. The same norm bound and modular argument apply
+  whenever $L(v)\le1/6$; both surviving profiles have a good time at $1/6$.
+  This proves the lower bound without a prior five-speed theorem. Arbitrary
+  residue normalization, integer lifting and algebraic profile recovery are
+  kernel-checked. The global six-speed off-critical and coarse denominator
+  bounds are therefore unconditional. The full project also retains the
+  independent Renault proof with 22,596,480 checked interval-mask triples.
 - **A global short relation.** Every six-speed tuple with $L(v)\le1/6$
   has a nonzero integer relation $a\cdot v=0$ with $\sum_i a_i^2\le36$.
   At most one coefficient has absolute value above two, and that coefficient

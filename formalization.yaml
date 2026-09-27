@@ -17,7 +17,10 @@ project:
     zero-free integer quintuple of loneliness 1/6 is a signed permutation
     of (1,2,3,4,5) or (1,3,4,5,9). A geometric norm bound, forty finite
     modular covers, normalization, integer lifting and algebraic profile
-    recovery are all kernel-checked. Combining this with a complete
+    recovery are all kernel-checked. The same covers prove the five-speed
+    lower bound without assuming it: the argument classifies all primitive
+    tuples with loneliness at most 1/6, and both profiles attain 1/6.
+    Combining this with a complete
     1,152,000-pair repeat-plane certificate classifies every critical
     six-plane. The sharp max_i |v_i| < 3q bound holds on every such plane,
     with unbounded parameters, signs and permutations, and for all positive
@@ -67,9 +70,11 @@ sources:
     relationship: adapts
     author_endorsement: not-contacted
     note: >-
-      Source of the constrained-maximum proof through five speeds. The
-      formalization supplies exact closed-cell certificates in place of
-      the published five-speed residue casework.
+      Source of the selected proofs through four speeds and the retained
+      alternative five-speed proof lonely_runner_five_renault. The latter
+      supplies exact closed-cell certificates in place of the published
+      residue casework. The selected five-speed proof instead shares the
+      forty modular covers used for the tight-five classification.
   - title: Six Lonely Runners
     authors: [Tom Bohman, Ron Holzman, Daniel Kleitman]
     type: paper
@@ -81,6 +86,18 @@ sources:
       This development proves the classification by a geometric norm
       bound and finite modular moment identities, rather than importing
       the published theorem as an axiom. No priority claim is made.
+  - title: Fourteen and fifteen lonely runners
+    authors: [Jaan Allikvere]
+    type: paper
+    url: https://arxiv.org/abs/2609.02604v2
+    relationship: adapts
+    author_endorsement: not-contacted
+    note: >-
+      Sections 3.3 and 3.4 motivate the supporting nearest-plane and
+      adjacent-length lemmas for the sharper six-speed reduction.
+      The rounding estimate is proved directly for arbitrary finite
+      Gram-Schmidt families. The high-runner claims and computational
+      artifacts of this paper are not inputs to this formalization.
 automation:
   methods:
     - method: agent

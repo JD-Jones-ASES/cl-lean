@@ -1,4 +1,5 @@
 import LonelyRunner.ModularNormalization
+import Mathlib.Data.Nat.Bitwise
 
 /-!
 Finite modular coverage by Cartesian-square bit masks. The checker covers

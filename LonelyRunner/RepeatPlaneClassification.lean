@@ -1,4 +1,5 @@
 import LonelyRunner.TightFiveModular
+import LonelyRunner.FiveSpeeds
 import LonelyRunner.RepeatFiniteCheck
 import LonelyRunner.PlaneSymmetry
 import LonelyRunner.CriticalPlaneDirections

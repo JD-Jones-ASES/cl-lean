@@ -81,6 +81,25 @@ four moments divisible by `p`, for every tight integer tuple.
 The theorem `tight_five_classification_of_normalized_covers` connects the
 40 finite normalized covers directly to the full tight-five classification.
 
+## The same covers prove the five-speed lower bound
+
+The norm estimate and modular normalization also hold when $L(v)\le1/6$.
+A strict grid witness would contradict this weaker hypothesis just as it
+contradicts equality. Consequently `FiveModularBound.lean` proves that every
+primitive zero-free quintuple with $L(v)\le1/6$ has one of the two absolute
+profiles. This step uses only the three- and four-speed Lonely Runner theorems.
+
+Both positive profiles have a good time at $t=1/6$: their coordinates have
+residues in $\{1,2,3,4,5\}$ modulo six. Signs preserve distance, and gcd
+normalization rescales time. A hypothetical failure of the five-speed lower
+bound would have $L(v)<1/6$, so the profile conclusion is a contradiction.
+`FiveSpeeds.lean` uses this argument for `lonely_runner_five`, sharing all forty
+finite covers with the classification. There is no circular five-speed input.
+
+The full project retains `lonely_runner_five_renault` in
+`FiveSpeedsRenault.lean` as an independent proof. Its separate interval-mask
+certificate is not required by the selected Palomar claims.
+
 ## Kernel-checkable pair covers
 
 `ModularPairCover.lean` proves the finite checker's soundness. A bit mask
@@ -117,14 +136,15 @@ to arbitrary tight integer tuples. The aggregate theorem
 ## A sharper norm bound cuts the finite workload
 
 `FiveHeight.lean` proves `||v||<500000` for every primitive zero-free tight
-quintuple, without assuming its classification. This replaces the earlier
+quintuple, and more generally whenever $L(v)\le1/6$, without assuming its
+classification or the five-speed lower bound. This replaces the earlier
 coarse bound `375000000` and reduces the required prime set from 57 to 40.
 The omitted larger primes are unnecessary for the new product inequality.
 
 Write `V=||v||` and let `lambda` be a shortest nonzero integer projection onto
 `v`'s perpendicular space. The three-speed theorem supplies a point of safety
 at least `1/4` in any independent three-dimensional span. Rounding the two
-projection coefficients and using `L(v)=1/6` gives
+projection coefficients and using `L(v)<=1/6` gives
 
 ```
 (lambda + ||projection(x)||)/2 >= 1/12 > delta = 2/25

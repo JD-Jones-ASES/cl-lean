@@ -1,4 +1,5 @@
-import LonelyRunner.SixGlobal
+import LonelyRunner.EffectiveGlobal
+import LonelyRunner.FourSpeeds
 
 namespace LonelyRunner
 
@@ -154,10 +155,10 @@ theorem exists_tight_five_planeHeight_lt (v : Fin 5 → ℤ) (hv : ∀ i, 0<v i)
   refine ⟨z,minor_of_projectionNorm_pos v z hv0 hz,?_⟩
   linarith
 
-/-- The sharper geometry reduces the finite modular lifting bound by a factor
-of 750, without assuming the tight-five classification. -/
-theorem tight_five_speedNorm_bound_refined (v : Fin 5 → ℤ)
-    (hp : PrimitiveSpeeds v) (hv : ∀ i, v i≠0) (hl : loneliness v=(1:ℝ)/6) :
+/-- The norm reduction also holds for hypothetical sub-threshold quintuples;
+it uses only the proved three- and four-speed lower bounds. -/
+theorem five_le_sixth_speedNorm_bound (v : Fin 5 → ℤ)
+    (hp : PrimitiveSpeeds v) (hv : ∀ i, v i≠0) (hl : loneliness v≤(1:ℝ)/6) :
     speedNorm v<500000 := by
   let w : Fin 5 → ℤ := fun i => |v i|
   have hw (i : Fin 5) : 0<w i := abs_pos.mpr (hv i)
@@ -169,16 +170,22 @@ theorem tight_five_speedNorm_bound_refined (v : Fin 5 → ℤ)
   have hwN : speedNorm w=speedNorm v := by simp [speedNorm,w,Int.cast_abs,sq_abs]
   have hw0 : w≠0 := by intro he; have hh := hw 0; simp [he] at hh
   obtain ⟨z,⟨i,j,hij⟩,hH⟩ := exists_tight_five_planeHeight_lt w hw hwp
-    (by rw [hwL,hl])
+    (by rw [hwL]; exact hl)
   have hplane : (1:ℝ)/5≤planeLoneliness w z := by
     convert planeLoneliness_lower_bound_of_lrc lonely_runner_four w z
       (fun i => (hw i).ne') i j hij using 1 <;> norm_num
   have hclose := planeLoneliness_le_add_height w z hw0
-  rw [hwL,hl] at hclose
+  rw [hwL] at hclose
   have hgap : (1:ℝ)/30≤planeHeight w z/(2*speedNorm w) := by linarith
   have hV : 0<speedNorm w := speedNorm_pos w hw0
   have hh := (le_div_iff₀ (by positivity : 0<2*speedNorm w)).mp hgap
   rw [hwN] at hh
   linarith
+
+/-- Equality case of the sharper norm reduction. -/
+theorem tight_five_speedNorm_bound_refined (v : Fin 5 → ℤ)
+    (hp : PrimitiveSpeeds v) (hv : ∀ i, v i≠0) (hl : loneliness v=(1:ℝ)/6) :
+    speedNorm v<500000 :=
+  five_le_sixth_speedNorm_bound v hp hv hl.le
 
 end LonelyRunner

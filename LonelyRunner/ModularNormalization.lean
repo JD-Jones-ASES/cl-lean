@@ -90,9 +90,9 @@ def NormalizedFiveCover (p : ℕ) : Prop :=
 
 /-- Scaling by the inverse of one residue, taking absolute half-residues,
 and sorting connect the finite normalized check to arbitrary integer speeds. -/
-theorem moment_cover_of_normalized (p : ℕ) (hpp : Nat.Prime p)
+theorem moment_cover_of_normalized_le (p : ℕ) (hpp : Nat.Prime p)
     (hcover : NormalizedFiveCover p) (v : Fin 5 → ℤ)
-    (hl : loneliness v=(1:ℝ)/6) (hv : ∀ i, ¬ (p:ℤ) ∣ v i) :
+    (hl : loneliness v≤(1:ℝ)/6) (hv : ∀ i, ¬ (p:ℤ) ∣ v i) :
     ∀ j, (p:ℤ) ∣ tightFiveMoment v j := by
   classical
   letI : Fact (Nat.Prime p) := ⟨hpp⟩
@@ -132,7 +132,7 @@ theorem moment_cover_of_normalized (p : ℕ) (hpp : Nat.Prime p)
       apply (strictGoodGridTime_zmod p k v).mpr
       intro i
       simpa [k,mul_assoc] using hg i
-    exact False.elim (tight_five_no_strict_grid v hl p k hpp.pos hk)
+    exact False.elim ((not_lt_of_ge hl) (hk.sound v p k hpp.pos))
   · have hbm : TightFiveMomentEquations (fun i => (b i:ZMod p)^2) := by
       simpa only [Int.cast_natCast] using (tightFiveMoment_dvd_iff p _).mp hm
     have hs : (List.ofFn (fun i => (a i:ZMod p)^2)).Perm
@@ -145,6 +145,13 @@ theorem moment_cover_of_normalized (p : ℕ) (hpp : Nat.Prime p)
       simpa only [he] using ham
     exact (tightFiveMoment_dvd_iff p v).mpr
       (hcm.of_mul (c^2) (pow_ne_zero _ hc) _)
+
+/-- The equality case used by the tight-five prime certificates. -/
+theorem moment_cover_of_normalized (p : ℕ) (hpp : Nat.Prime p)
+    (hcover : NormalizedFiveCover p) (v : Fin 5 → ℤ)
+    (hl : loneliness v=(1:ℝ)/6) (hv : ∀ i, ¬ (p:ℤ) ∣ v i) :
+    ∀ j, (p:ℤ) ∣ tightFiveMoment v j :=
+  moment_cover_of_normalized_le p hpp hcover v hl.le hv
 
 /-- All infinite normalization and lifting steps are proved. It remains to
 check precisely the finite normalized problems for the displayed primes. -/

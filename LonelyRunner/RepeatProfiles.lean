@@ -15,8 +15,8 @@ def canonicalRepeatVectors : Fin 10 → Fin 6 → ℤ := ![
 ![5,5,1,3,4,9],
 ![9,9,1,3,4,5]]
 
-/-- The published tight-five classification, retained as an explicit unproved
-hypothesis. Both signs and arbitrary coordinate order are allowed. -/
+/-- The statement of the known tight-five classification. Its proof is supplied
+by `tight_five_classification` in `TightFiveModular.lean`. Both signs and arbitrary coordinate order are allowed. -/
 def TightFiveClassification : Prop :=
   ∀ v : Fin 5 → ℤ, PrimitiveSpeeds v → (∀ i, v i ≠ 0) → loneliness v=(1:ℝ)/6 →
     (List.ofFn (fun i => |v i|)).Perm [1,2,3,4,5] ∨

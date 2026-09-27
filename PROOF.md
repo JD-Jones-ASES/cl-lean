@@ -524,13 +524,27 @@ proves `lonely_runner_four` without a lower-speed hypothesis. The two
 six-speed sharp-bound reduction theorems now use this proved result.
 
 
+The selected `lonely_runner_five` proof in `FiveSpeeds.lean` uses the same 40
+modular covers as the tight-five classification. `FiveHeight.lean` proves the
+norm bound under the weaker assumption $L(v)\le1/6$, using only the three-
+and four-speed theorems. `ModularNormalization.lean` likewise excludes strict
+modular witnesses under this assumption. `FiveModularBound.lean` then lifts
+the four moment equations and recovers one of the two primitive profiles.
+Both have a good time at $1/6$, contradicting any proposed counterexample to
+the five-speed lower bound. Neither the norm bound nor this modular argument
+uses a prior five-speed theorem.
+
+The full project retains an independent proof, `lonely_runner_five_renault`,
+in `FiveSpeedsRenault.lean`. Its finite certificate is not a dependency of the
+selected claims. The following paragraphs describe that alternative.
+
 `FiveDivisibility.lean` proves Renault's residue restrictions: a hypothetical
 primitive bad quintuple has at least two nonmultiples of two and at least two
 nonmultiples of three. If all but one speed were divisible by either modulus,
 the proved four-speed theorem and a half- or third-period shift would give a
 good time. A bad tuple also has a multiple of six, by evaluating at time $1/6$.
 
-`FiveSpeeds.lean` maximizes the position of that multiple-of-six runner while
+`FiveSpeedsRenault.lean` maximizes the position of that multiple-of-six runner while
 keeping the other four in $[1/6,5/6]$. The distinguished position is in
 $(0,1/6)$ and another runner is at $5/6$. The finite certificate in
 `RenaultFivePatterns.lean` tests 29 actions $t\mapsto\lambda t+\mu/6$:
@@ -554,7 +568,7 @@ It is not a trusted proof oracle.
 A dilation strictly improves the distinguished runner's distance. A shift
 preserves it while placing every other runner below the upper boundary, so a
 small forward perturbation improves it. Both contradict the constrained
-maximum. This proves `lonely_runner_five` for all zero-free integer quintuples.
+maximum. This proves `lonely_runner_five_renault` for all zero-free integer quintuples.
 The proof uses Renault's analytic setup with a uniform interval certificate
 in place of the published residue casework; no novelty claim is made for
 this known theorem or for the certificate method.
@@ -563,7 +577,8 @@ this known theorem or for the certificate method.
 instances. It proves the effective off-critical norm bound $9K(6)^2$, finiteness
 of the off-critical near-tight set, and the global bound
 $\|v\|_2<3K(6)q=113{,}374{,}080{,}000q$ for every positive primitive near-tight
-sextuple. None assumes the tight-five classification. The first is a direct,
+sextuple. None retains an unproved lower-speed or classification hypothesis.
+The first is a direct,
 explicit six-speed answer to the speed-bounding question in Question 6.7;
 its coarse cutoff does not verify the exceptional region.
 
@@ -571,7 +586,8 @@ its coarse cutoff does not verify the exceptional region.
 has distinct absolute speeds, since deleting a repeated speed would give
 loneliness at least $1/5$. The squared-coordinate box argument in
 `FiveHeight.lean` proves $\|v\|_2<500{,}000$ for every primitive tight
-quintuple, in every sign and coordinate order. This proves finiteness of all signed, ordered tight quintuples
+quintuple, in every sign and coordinate order. In fact the norm bound only
+requires $L(v)\le1/6$. This proves finiteness of all signed, ordered tight quintuples
 and hence, through the repeat-basis theorem, finiteness of all proper critical
 six-planes without assuming their classification. The box itself is not
 enumerated. Instead, the norm bound makes the modular lifting argument below
@@ -588,6 +604,34 @@ the certificates and proves `tight_five_classification`. No modular-cover or
 classification hypothesis remains in the four selected six-speed consequences.
 Two external exhaustive censuses provide an independent replay of the finite
 data, but are not dependencies of any Lean proof.
+
+## Geometric ingredients for the sharper reduction
+
+`NearestPlane.lean` proves nearest-plane rounding for every finite real
+inner-product family. If $g_i$ are its Gram–Schmidt vectors, rounding the
+coefficients from last to first gives integers $k_i$ with
+
+$$\left\|\sum_i(y_i-k_i)b_i\right\|^2\le\frac14\sum_i\|g_i\|^2.$$
+
+Applied to integer lifts projected perpendicular to the speed vector, this
+proves the corresponding orbit-approximation bound. A point of safety $L$
+in their span and an orbit with loneliness below $\ell\le L$ therefore force
+$\sum_i\|g_i\|^2>4(L-\ell)^2$. The proof works in every finite rank and does
+not assume a reduced basis. It implements the nearest-plane mechanism in
+[Allikvere, Section 3.3](https://arxiv.org/html/2609.02604v2#S3.SS3).
+The adjacent inequality $\|g_{i+1}\|^2\ge3\|g_i\|^2/4$ is also proved from
+an explicit shortestness hypothesis after integer coefficient reduction.
+
+`PrimitiveBasis.lean` extends any primitive integer speed vector to an
+integer basis with that vector first. Bezout coefficients split off its
+integer line, and a basis of the kernel supplies the remaining columns.
+The basis determinant has absolute value one. A proved Gram-determinant
+identity then gives product of squared Gram–Schmidt lengths equal to one.
+
+These are supporting lemmas for the sharper cutoff. A basis satisfying all
+required adjacent inequalities, the all-rank safe-point reduction, and the
+product estimate still need to be connected. They do not establish the
+smaller six-speed norm bound or discharge any six-speed finite cover.
 
 ## Remaining obligations for the unrestricted theorem
 

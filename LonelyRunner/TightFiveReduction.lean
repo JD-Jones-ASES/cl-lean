@@ -30,14 +30,5 @@ theorem finite_tight_five :
   have hb : |v i|<500000 := by exact_mod_cast hh
   exact ⟨(abs_lt.mp hb).1.le,(abs_lt.mp hb).2.le⟩
 
-/-- Finiteness of all proper critical six-planes, without a supplied
-tight-five classification. The theorem does not enumerate those planes. -/
-theorem finite_critical_six_planes :
-    Set.Finite {U : Set (Fin 6 → ℝ) | ∃ c d : Fin 6 → ℤ,
-      (∀ i, c i≠0) ∧ (∃ a b, c a*d b-d a*c b≠0) ∧
-      planeLoneliness c d=(1:ℝ)/6 ∧ U=integerPlane c d} := by
-  have hf : Set.Finite {v : Fin 5 → ℤ | PrimitiveSpeeds v ∧ (∀ i, v i≠0) ∧
-      loneliness v=1/((5:ℝ)+1)} := by norm_num; exact finite_tight_five
-  convert finite_critical_planes_of_finite_tight lonely_runner_five hf using 1 <;> norm_num
 
 end LonelyRunner

@@ -33,3 +33,5 @@ import LonelyRunner.TightFiveReduction
 import LonelyRunner.TightFivePrimeLift
 import LonelyRunner.StrictGrid
 import LonelyRunner.TightFiveModular
+import LonelyRunner.FiveSpeedsRenault
+import LonelyRunner.PrimitiveBasis
