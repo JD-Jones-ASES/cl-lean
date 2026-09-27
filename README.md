@@ -53,12 +53,13 @@ The development proves the following results.
   There are 208 covers left in this set. A separate one-triad reduction has
   40 complete covers and 143 left. Two independent triad relations are now
   proved to reduce to three parent configurations. The first modular covers
-  inside these parents are certified at 251, 257, 277, 311, and 347 (disjoint) and
-  263, 307, and 347 (one overlap), with proved finite norm consequences.
+  inside these parents are certified at 251, 257, 277, 311, 347, 353, and 359
+  (disjoint) and 263, 307, 347, 353, and 383 (one overlap), with proved
+  finite norm consequences.
   Proved ratio and sign symmetries reduce the two searches by up to twelve
-  and eight presentations per orbit. The fixed prime sets leave 128 and
-  126 covers, respectively. The global classification inside the
-  parents remains unfinished.
+  and eight presentations per orbit. Grouped root masks now have a proved
+  checker too. The fixed prime sets leave 126 and 124 covers, respectively.
+  The global classification inside the parents remains unfinished.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or

@@ -1,11 +1,13 @@
 """Emit explicit parent-prime obligations from native candidate selection.
 
-The selected covers remain hypotheses except for the eight separately proved
-certificates. Lean checks all prime, cardinality and subset facts itself.
+The selected covers remain hypotheses except for separately proved
+certificates listed by the two certificate generators. Lean checks all prime, cardinality and subset facts itself.
 """
 from argparse import ArgumentParser
 from pathlib import Path
 import json
+from generate_two_triad_lean import CASES as CLASSIC_CASES
+from generate_grouped_two_triad_lean import CASES as GROUPED_CASES
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT/'certificates/two-triad-parents/native-candidate-primes.json'
@@ -19,6 +21,9 @@ def generate():
         ps = lists[k]
         if len(ps) != count or sorted(set(ps)) != ps or any(records.get((k,p)) != 0 for p in ps):
             raise RuntimeError('Inconsistent candidate-prime record')
+    certified = [sorted(p for j,p in (*CLASSIC_CASES,*GROUPED_CASES) if j == k) for k in range(2)]
+    if any(len(ps) != len(set(ps)) or not set(ps) <= set(lists[k]) for k,ps in enumerate(certified)):
+        raise RuntimeError('Invalid certified-prime list')
     vectors = []
     for ps in lists:
         vectors.append('[\n' + ',\n'.join('    '+','.join(map(str,ps[i:i+12]))
@@ -52,13 +57,13 @@ theorem twoTriadPrimeSets_facts : ∀ k,
       simpa only [Bool.and_eq_true,decide_eq_true_eq,beq_iff_eq] using hh
     exact ⟨Nat.prime_def_minFac.mpr ⟨by omega,hh'.2⟩,hh'.1⟩
 
-def certifiedTwoTriadPrimeSets : Fin 2 → Finset ℕ := ![{251,257,277,311,347},{263,307,347}]
+def certifiedTwoTriadPrimeSets : Fin 2 → Finset ℕ := CERTIFIED_SETS
 
 def remainingTwoTriadPrimeSets (k : Fin 2) : Finset ℕ :=
   twoTriadPrimeSets k \\ certifiedTwoTriadPrimeSets k
 
 theorem remainingTwoTriadPrimeSets_facts : ∀ k,
-    (remainingTwoTriadPrimeSets k).card=(![128,126] : Fin 2 → ℕ) k ∧
+    (remainingTwoTriadPrimeSets k).card=(REMAINING_COUNTS : Fin 2 → ℕ) k ∧
     (![251,263] : Fin 2 → ℕ) k∉remainingTwoTriadPrimeSets k ∧
     remainingTwoTriadPrimeSets k⊆twoTriadPrimeSets k := by
   intro k
@@ -69,32 +74,29 @@ theorem remainingTwoTriadPrimeSets_facts : ∀ k,
 
 end LonelyRunner
 '''
-    assembly = '''import LonelyRunner.TwoTriadCandidatePrimesData
-import LonelyRunner.TwoTriadCoverApplications
-import LonelyRunner.TwoTriadOverlap347
-import LonelyRunner.TwoTriadDisjoint347
-
+    text = text.replace('CERTIFIED_SETS', '!['+','.join('{'+','.join(map(str,ps))+'}' for ps in certified)+']')
+    text = text.replace('REMAINING_COUNTS', '!['+','.join(str(len(lists[k])-len(ps)) for k,ps in enumerate(certified))+']')
+    assembly = 'import LonelyRunner.TwoTriadCandidatePrimesData\nimport LonelyRunner.TwoTriadCoverApplications\n'
+    for k,ps in enumerate(certified):
+        family = 'Disjoint' if k == 0 else 'Overlap'
+        assembly += ''.join(f'import LonelyRunner.TwoTriad{family}{p}\n' for p in ps)
+    assembly += '''
 namespace LonelyRunner
 
-/-- All eight named certificates have ordinary-kernel proofs. -/
+/-- Every named certificate has an ordinary-kernel proof. -/
 theorem certifiedTwoTriadPrimeSets_covers (k : Fin 2) (p : ℕ)
     (hp : p∈certifiedTwoTriadPrimeSets k) : TwoTriadModularCover p k.castSucc := by
   fin_cases k
-  · have he : p=251 ∨ p=257 ∨ p=277 ∨ p=311 ∨ p=347 := by
-      simpa [certifiedTwoTriadPrimeSets] using hp
-    rcases he with rfl|rfl|rfl|rfl|rfl
-    · exact TwoTriadCoverSearch.Disjoint251.modular_cover
-    · exact TwoTriadCoverSearch.Disjoint257.modular_cover
-    · exact TwoTriadCoverSearch.Disjoint277.modular_cover
-    · exact TwoTriadCoverSearch.Disjoint311.modular_cover
-    · exact TwoTriadCoverSearch.Disjoint347.modular_cover
-  · have he : p=263 ∨ p=307 ∨ p=347 := by simpa [certifiedTwoTriadPrimeSets] using hp
-    rcases he with rfl|rfl|rfl
-    · exact TwoTriadCoverSearch.Overlap263.modular_cover
-    · exact TwoTriadCoverSearch.Overlap307.modular_cover
-    · exact TwoTriadCoverSearch.Overlap347.modular_cover
+'''
+    for k,ps in enumerate(certified):
+        family = 'Disjoint' if k == 0 else 'Overlap'
+        assembly += '  · have he : '+' ∨ '.join(f'p={p}' for p in ps)+' := by\n'
+        assembly += '      simpa [certifiedTwoTriadPrimeSets] using hp\n'
+        assembly += '    rcases he with '+'|'.join('rfl' for _ in ps)+'\n'
+        assembly += ''.join(f'    · exact TwoTriadCoverSearch.{family}{p}.modular_cover\n' for p in ps)
+    assembly += '''
 
-/-- Insert the eight actual parent certificates into fixed, explicit
+/-- Insert all actual parent certificates into fixed, explicit
 remaining-prime sets. Native success does not discharge these hypotheses. -/
 theorem third_relation_of_fixed_remaining_parent_covers (k : Fin 2) (x : Fin 4 → ℤ)
     (hnorm : speedNorm (twoTriadTuple k.castSucc x)<21870175/7)
@@ -133,6 +135,24 @@ theorem disjoint347_has_third_relation (x : Fin 4 → ℤ)
 
 end LonelyRunner
 '''
+    assembly = assembly.removesuffix('end LonelyRunner\n')
+    for k,ps in enumerate(certified):
+        family = 'Disjoint' if k == 0 else 'Overlap'
+        p = max(ps)
+        if p <= 347:
+            continue
+        assembly += f'''/-- The largest supplied {family.lower()}-parent prime gives an unconditional
+finite norm application. No modular cover is an input. -/
+theorem {family.lower()}{p}_has_third_relation (x : Fin 4 → ℤ)
+    (hbound : 3*(∑ i, (twoTriadTuple {k} x i)^2)<({p}:ℤ)^2)
+    (hl : loneliness (twoTriadTuple {k} x)≤(1:ℝ)/6) :
+    ∃ c∈shortForms, twoTriadProjection {k} (shortCoeff c)≠0 ∧
+      shortValue c (twoTriadTuple {k} x)=0 :=
+  third_relation_of_small_parent_cover {p} (by norm_num) {k}
+    TwoTriadCoverSearch.{family}{p}.modular_cover x hbound hl
+
+'''
+    assembly += 'end LonelyRunner\n'
     return {'TwoTriadCandidatePrimesData':text, 'TwoTriadCandidatePrimes':assembly}
 
 

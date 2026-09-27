@@ -1,29 +1,45 @@
 import LonelyRunner.TwoTriadCandidatePrimesData
 import LonelyRunner.TwoTriadCoverApplications
-import LonelyRunner.TwoTriadOverlap347
+import LonelyRunner.TwoTriadDisjoint251
+import LonelyRunner.TwoTriadDisjoint257
+import LonelyRunner.TwoTriadDisjoint277
+import LonelyRunner.TwoTriadDisjoint311
 import LonelyRunner.TwoTriadDisjoint347
+import LonelyRunner.TwoTriadDisjoint353
+import LonelyRunner.TwoTriadDisjoint359
+import LonelyRunner.TwoTriadOverlap263
+import LonelyRunner.TwoTriadOverlap307
+import LonelyRunner.TwoTriadOverlap347
+import LonelyRunner.TwoTriadOverlap353
+import LonelyRunner.TwoTriadOverlap383
 
 namespace LonelyRunner
 
-/-- All eight named certificates have ordinary-kernel proofs. -/
+/-- Every named certificate has an ordinary-kernel proof. -/
 theorem certifiedTwoTriadPrimeSets_covers (k : Fin 2) (p : ℕ)
     (hp : p∈certifiedTwoTriadPrimeSets k) : TwoTriadModularCover p k.castSucc := by
   fin_cases k
-  · have he : p=251 ∨ p=257 ∨ p=277 ∨ p=311 ∨ p=347 := by
+  · have he : p=251 ∨ p=257 ∨ p=277 ∨ p=311 ∨ p=347 ∨ p=353 ∨ p=359 := by
       simpa [certifiedTwoTriadPrimeSets] using hp
-    rcases he with rfl|rfl|rfl|rfl|rfl
+    rcases he with rfl|rfl|rfl|rfl|rfl|rfl|rfl
     · exact TwoTriadCoverSearch.Disjoint251.modular_cover
     · exact TwoTriadCoverSearch.Disjoint257.modular_cover
     · exact TwoTriadCoverSearch.Disjoint277.modular_cover
     · exact TwoTriadCoverSearch.Disjoint311.modular_cover
     · exact TwoTriadCoverSearch.Disjoint347.modular_cover
-  · have he : p=263 ∨ p=307 ∨ p=347 := by simpa [certifiedTwoTriadPrimeSets] using hp
-    rcases he with rfl|rfl|rfl
+    · exact TwoTriadCoverSearch.Disjoint353.modular_cover
+    · exact TwoTriadCoverSearch.Disjoint359.modular_cover
+  · have he : p=263 ∨ p=307 ∨ p=347 ∨ p=353 ∨ p=383 := by
+      simpa [certifiedTwoTriadPrimeSets] using hp
+    rcases he with rfl|rfl|rfl|rfl|rfl
     · exact TwoTriadCoverSearch.Overlap263.modular_cover
     · exact TwoTriadCoverSearch.Overlap307.modular_cover
     · exact TwoTriadCoverSearch.Overlap347.modular_cover
+    · exact TwoTriadCoverSearch.Overlap353.modular_cover
+    · exact TwoTriadCoverSearch.Overlap383.modular_cover
 
-/-- Insert the eight actual parent certificates into fixed, explicit
+
+/-- Insert all actual parent certificates into fixed, explicit
 remaining-prime sets. Native success does not discharge these hypotheses. -/
 theorem third_relation_of_fixed_remaining_parent_covers (k : Fin 2) (x : Fin 4 → ℤ)
     (hnorm : speedNorm (twoTriadTuple k.castSucc x)<21870175/7)
@@ -59,5 +75,25 @@ theorem disjoint347_has_third_relation (x : Fin 4 → ℤ)
       shortValue c (twoTriadTuple 0 x)=0 :=
   third_relation_of_small_parent_cover 347 (by norm_num) 0
     TwoTriadCoverSearch.Disjoint347.modular_cover x hbound hl
+
+/-- The largest supplied disjoint-parent prime gives an unconditional
+finite norm application. No modular cover is an input. -/
+theorem disjoint359_has_third_relation (x : Fin 4 → ℤ)
+    (hbound : 3*(∑ i, (twoTriadTuple 0 x i)^2)<(359:ℤ)^2)
+    (hl : loneliness (twoTriadTuple 0 x)≤(1:ℝ)/6) :
+    ∃ c∈shortForms, twoTriadProjection 0 (shortCoeff c)≠0 ∧
+      shortValue c (twoTriadTuple 0 x)=0 :=
+  third_relation_of_small_parent_cover 359 (by norm_num) 0
+    TwoTriadCoverSearch.Disjoint359.modular_cover x hbound hl
+
+/-- The largest supplied overlap-parent prime gives an unconditional
+finite norm application. No modular cover is an input. -/
+theorem overlap383_has_third_relation (x : Fin 4 → ℤ)
+    (hbound : 3*(∑ i, (twoTriadTuple 1 x i)^2)<(383:ℤ)^2)
+    (hl : loneliness (twoTriadTuple 1 x)≤(1:ℝ)/6) :
+    ∃ c∈shortForms, twoTriadProjection 1 (shortCoeff c)≠0 ∧
+      shortValue c (twoTriadTuple 1 x)=0 :=
+  third_relation_of_small_parent_cover 383 (by norm_num) 1
+    TwoTriadCoverSearch.Overlap383.modular_cover x hbound hl
 
 end LonelyRunner

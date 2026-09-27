@@ -719,10 +719,12 @@ The unrestricted bound still requires additional work:
    An alternative modular route is now formalized for the first two parents:
    removing common factors leaves 66 and 64 primitive projected forms,
    making 133 and 129 prime covers sufficient, respectively, at the proved
-   norm cutoff. Actual covers at 251 and 263 are now kernel-checked, so
-   132 and 128 further distinct-prime covers suffice. The remaining covers
-   are explicit hypotheses. The first certificates already force a new
-   integer relation in their respective finite norm ranges. A
+   norm cutoff. Seven disjoint-parent covers (251, 257, 277, 311, 347, 353,
+   359) and five one-overlap covers (263, 307, 347, 353, 383) are now
+   kernel-checked, leaving 126 and 124 fixed-prime cover hypotheses. Proved
+   symmetries and grouped root masks reduce the certificate work. The
+   supplied certificates force a new integer relation when respectively
+   $3\sum_i v_i^2<359^2$ or $<383^2$ and $L(v)\le1/6$. A
    kernel-checked sporadic obstruction shows why the third parent needs
    exceptions.
 3. Connect the resulting exhaustive critical-or-sporadic classification to

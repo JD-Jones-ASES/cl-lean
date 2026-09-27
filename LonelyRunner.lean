@@ -75,4 +75,5 @@ import LonelyRunner.TwoTriadCoverApplications
 import LonelyRunner.TwoTriadCoverControls
 import LonelyRunner.TwoTriadOverlapControls
 import LonelyRunner.TwoTriadDisjointControls
+import LonelyRunner.TwoTriadGroupedControls
 import LonelyRunner.TwoTriadCandidatePrimes

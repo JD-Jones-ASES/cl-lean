@@ -568,22 +568,68 @@ norm cutoff. These remaining covers are explicit hypotheses.
 `TwoTriadCandidatePrimesData.lean` records fixed sets selected by native
 search: 133 primes from 251 through 1237 for the disjoint parent, and 129
 from 263 through 1301 for the one-overlap parent. Lean checks their
-cardinality, primality, lower bound, and inclusion of the certified prime.
-`TwoTriadCandidatePrimes.lean` inserts those certificates and leaves exactly
-the remaining 132 and 128 prime covers as hypotheses. The native record
-contains 335 parent-prime checks. Native grouping and parameter symmetries
-were compared with the original search on 16 positive and negative controls;
-these optimizations are not used by the Lean certificate checker.
+cardinality, primality, lower bound, and the remaining-set arithmetic.
+There are now **seven disjoint certificates** at 251, 257, 277, 311, 347,
+353, 359, and **five one-overlap certificates** at 263, 307, 347, 353, 383.
+`TwoTriadCandidatePrimes.lean` inserts all twelve, leaving exactly **126
+and 124 covers** as explicit hypotheses. The native record's 335 checks
+only select candidates; they do not discharge any of these hypotheses.
+
+### Symmetries and grouped root masks
+
+The disjoint-parent search uses the least of the six ordered first-triad
+ratios and folds the first coordinate of the second triad by sign. The
+one-overlap search uses `0 ≤ r ≤ x ≤ p/2`. The symmetry proofs transport
+both good times and additional forms, include repetitions and smaller
+orbits, and explicitly handle zero coordinates. The full target mask
+continues to check every final-parameter residue.
+
+`TwoTriadGroupedRoots.lean` and `TwoTriadGroupedFixed.lean` prove a grouped
+exclusion-mask checker. A form `A+B*r+C*x+D*y` carries its original
+catalogue entry and proposed coefficients for `y=a+b*r-s*x`. Lean checks
+`A+D*a=0`, `B+D*b=0`, and `C-D*s=0` modulo the prime. It then checks each
+cached seed mask exactly and proves that rotation by `s*x` preserves the
+root interpretation. Forms sharing a slope use a single rotation. Forms
+independent of `y` have separately checked affine `x` roots; a constant
+form may exclude a whole row only after its congruence is checked.
+
+`TwoTriadGroupedDisjointSearch.lean` and
+`TwoTriadGroupedOverlapSearch.lean` connect these masks to the full parent
+cover. The new certificates at disjoint 353/359 and overlap 353/383 use
+this format. The generator emits 89 new source modules; every time mask,
+root identity, catalogue membership, cached mask, representative list,
+and finite block is checked by the ordinary kernel. No certificate assumes
+its native candidate search succeeded. Heavy arithmetic modules compile
+sequentially across primes.
+
+`TwoTriadGroupedControls.lean` rejects forged slopes, roots, zero forms,
+and cached full masks. It also proves that neither genuine prime-31
+obstruction can pass the grouped checker with valid inputs. A separate
+Python control compares all cached-mask proposals with ungrouped direct
+roots, and at prime 31 checks every bit by literal form evaluation. The same
+Lean control module proves that the one-overlap cover at **359 is false**,
+using parameters `(1,4,175,168)`. Success at 353 therefore gives no
+monotonicity principle in the prime. This is a finite-field obstruction,
+not a counterexample to the integer loneliness conjecture. The control
+module also proves a real-time lower witness of `1/5` at time `9/20`
+for that tuple, above the near-tight threshold.
+
+The largest supplied primes give unconditional additional integer
+relations for `L≤1/6` and `3*sum(v_i^2)<359^2` (disjoint) or `<383^2`
+(one overlap). These finite norm applications are not the complete parent
+classification.
 
 ```bash
 python3 -O scripts/generate_two_triad_lean.py --check
+python3 -O scripts/generate_grouped_two_triad_lean.py --check
 python3 -O scripts/generate_two_triad_prime_lists.py --check
-lake build LonelyRunner.TwoTriadCandidatePrimes LonelyRunner.TwoTriadCoverControls
+python3 -O scripts/check_grouped_two_triad_masks.py
+lake build LonelyRunner.TwoTriadCandidatePrimes LonelyRunner.TwoTriadGroupedControls
 ```
 
 The committed [native search proposals](certificates/two-triad-parents/README.md)
-remain feasibility records. Their first two proposals now have separate
-kernel certificates as described above. For the two-overlap parent,
+remain feasibility records; the twelve covers above have separate kernel
+certificates. For the two-overlap parent,
 searches at 1009, 1013, and 1019 succeed outside six proposed rational ratio
 orbits; these searches remain unformalized and do not give an integer
 classification. The global Question 6.6 remains unfinished.
