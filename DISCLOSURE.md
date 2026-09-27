@@ -83,7 +83,16 @@ Cramer certificates identify every survivor with a known family. This uses
 an independently written generator based on the mathematical profiles in
 Cordella's Section 3. With the tight-five classification now proved, the sharp
 bound applies to all critical planes and, combined with the effective global result,
-to all near-tight sextuples above its coarse cutoff. The finite region below
+to all near-tight sextuples above the improved norm cutoff $21870175/7$.
+The six-speed reduction now proves an integer minimum-potential basis with
+adjacent Gram–Schmidt squared-length ratios at least $3/4$, all prefix lower
+bounds, and the exact covolume product. A rational certificate with 85
+nonnegative products proves the required scalar estimate. An exploratory
+linear program found its coefficients; the committed standard-library
+generator checks the polynomial identity exactly, and Lean independently
+proves the identity and all signs. No LP or KZ-basis existence result is
+assumed. The scalar target follows Allikvere, Lemma 3.6, specialized to these
+six-speed bounds. The finite region below
 that cutoff remains unverified; this does not complete the exhaustive
 six-speed classification.
 No new editorial approval or resubmission is claimed.

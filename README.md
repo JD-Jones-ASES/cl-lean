@@ -13,7 +13,7 @@ The development now proves an **effective global off-critical bound** addressing
 Question 6.7 under the same lower-speed Lonely Runner hypotheses used in the
 paper's reduction lemma, and with no unproved input for six speeds. It also proves an explicit $C(n)q$ bound for every
 positive primitive near-tight tuple. The sharp unrestricted six-speed bound
-$\max_i v_i<3q$ in Question 6.6 remains unfinished; it is proved here on the
+$\max_i v_i<3q$ in Question 6.6 remains unfinished; it is proved here on
 every critical six-plane and above an explicit global norm cutoff, without
 parameter cutoffs on the critical families.
 
@@ -40,6 +40,11 @@ The development proves the following results.
   lower-speed Lonely Runner assertions are **explicit hypotheses** in this
   dimension-general theorem; the cases through five speeds are proved here. In particular, the six-speed
   bound and finiteness theorem have no unproved input. Distinctness of speeds is unnecessary.
+- **Sharper six-speed reduction.** Every primitive zero-free off-critical
+  sextuple with $L(v)<1/6$ satisfies $\|v\|_2<21870175/7<3124311$.
+  The proof constructs a reduced projected integer basis, proves all four
+  Gram–Schmidt prefix bounds, and checks an exact 85-term product certificate.
+  Neither reduced-basis existence nor the scalar estimate is assumed.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
@@ -61,11 +66,11 @@ The development proves the following results.
   by the ordinary kernel. The 190 surviving pairs have exact plane-equality
   certificates. This removes the supplied family-membership hypothesis from
   the critical-plane `3q` theorem.
-  Combining this classification with the global height bound proves `3q`
+  Combining this classification with the sharpened global bound proves `3q`
   for every positive primitive near-tight sextuple with
-  $\|v\|_2\ge9K(6)^2$. Both lower-speed inputs and the tight-five
-  classification are proved in the package. Verifying
-  the finite region below this coarse cutoff remains outstanding.
+  $\|v\|_2\ge21870175/7$. All lower-speed and classification inputs are
+  proved in the package. The finite region below this cutoff still needs
+  verification.
 - **Lower-speed inputs proved through five speeds.** The package proves the
   Lonely Runner theorem for every zero-free integer tuple of one through five
   speeds, including repeated absolute speeds. Through four speeds the proofs
@@ -148,14 +153,12 @@ outside the proved scope. The known tight-five classification and the resulting
 critical-plane classification are fully formalized. Two external exhaustive
 censuses independently agree with the 40 kernel-checked modular certificates;
 their output is not used as a proof.
-For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
-it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
-Supporting geometry now proves the arbitrary-rank separated-point reduction,
-nearest-plane rounding, and the exact projected-basis product. For six speeds,
-every integer basis beginning with the primitive speed vector satisfies four
-explicit Gram-Schmidt prefix bounds. The required adjacent-length reduction
-and sharper norm estimate are still unfinished; these additions do not change
-the selected cutoff.
+For six speeds, the selected off-critical cutoff is now $21870175/7$.
+It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
+233-prime obstruction using primes at least 179. Those six-speed modular
+covers and the remaining finite classifications are not yet proved in Lean.
+The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
+with the coarse all-tuples denominator bound.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas
 remain supporting code, with their assumptions unchanged; they are no longer
 separately selected submission claims. [Proof](PROOF.md) gives the arguments

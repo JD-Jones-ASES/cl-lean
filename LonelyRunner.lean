@@ -40,3 +40,5 @@ import LonelyRunner.GramSchmidtBounds
 import LonelyRunner.ProjectedBasis
 import LonelyRunner.SixBasisBounds
 import LonelyRunner.BasisPotential
+import LonelyRunner.MinimumBasis
+import LonelyRunner.SixSharpBounds

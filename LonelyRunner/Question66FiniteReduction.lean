@@ -6,7 +6,7 @@ namespace LonelyRunner
 
 /-- The sharp constant three holds for every sufficiently large primitive
 near-tight sextuple, with all lower-speed and classification inputs proved. -/
-theorem large_six_question66
+theorem large_six_question66_coarse
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6)
@@ -24,13 +24,13 @@ theorem large_six_question66
 
 /-- Every possible violation of the sharp bound lies in an explicit finite
 speed box. This is a reduction theorem, not a verification of that box. -/
-theorem question66_violation_speed_bound
+theorem question66_violation_speed_bound_coarse
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :
     speedNorm v<9*boxHeightConstant 6^2 := by
   by_contra! hh
   obtain ⟨i,hi⟩ := hbad
-  exact (not_lt_of_ge hi) (large_six_question66 v hv hprim p q hq hval hnear hh i)
+  exact (not_lt_of_ge hi) (large_six_question66_coarse v hv hprim p q hq hval hnear hh i)
 
 end LonelyRunner

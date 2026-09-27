@@ -495,13 +495,13 @@ theorem large_six_question66
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6)
-    (hlarge : 9*boxHeightConstant 6^2 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
+    (hlarge : 21870175/7 ≤ speedNorm v) : ∀ i, v i<3*(q:ℤ) := by sorry
 
 theorem question66_violation_speed_bound
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
     (p q : ℕ) (hq : 0<q) (hval : loneliness v=(p:ℝ)/q)
     (hnear : loneliness v<(1:ℝ)/6) (hbad : ∃ i, 3*(q:ℤ) ≤ v i) :
-    speedNorm v<9*boxHeightConstant 6^2 := by sorry
+    speedNorm v<21870175/7 := by sorry
 
 theorem lonely_runner_four : LonelyRunnerConjecture 4 := by sorry
 
@@ -513,7 +513,7 @@ lower-speed input. The off-critical assumption is the domain of the question. -/
 theorem six_offCritical_speedNorm_bound
     (v : Fin 6 → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
     (hnear : loneliness v < (1:ℝ)/6) (hoff : OffCritical v) :
-    speedNorm v < 9*boxHeightConstant 6^2 := by sorry
+    speedNorm v < 21870175/7 := by sorry
 
 /-- The six-speed off-critical near-tight exceptions form a finite set. -/
 theorem six_finite_offCritical_near_tight :

@@ -5,7 +5,7 @@ namespace LonelyRunner
 
 /-- Question 6.7 for six speeds: the global effective bound has no unproved
 lower-speed input. The off-critical assumption is the domain of the question. -/
-theorem six_offCritical_speedNorm_bound
+theorem six_offCritical_speedNorm_bound_coarse
     (v : Fin 6 → ℤ) (hv : ∀ i, 0 < v i) (hprim : PrimitiveSpeeds v)
     (hnear : loneliness v < (1:ℝ)/6) (hoff : OffCritical v) :
     speedNorm v < 9*boxHeightConstant 6^2 := by
