@@ -56,3 +56,6 @@ import LonelyRunner.TerminalCoverControls
 import LonelyRunner.WideModularSearch
 import LonelyRunner.OneTriadPrimeReduction
 import LonelyRunner.OneTriadNormalization
+import LonelyRunner.OneTriadOrbit
+import LonelyRunner.OneTriadSearch
+import LonelyRunner.OneTriadSearchControls

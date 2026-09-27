@@ -10,7 +10,7 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283)
 
 
 def compression_steps(slot, w):

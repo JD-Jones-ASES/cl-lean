@@ -49,8 +49,8 @@ The development proves the following results.
   to a specific 233-prime cover obligation, with normalization, sorting,
   sign invariance, and integer lifting proved. A proved recursive checker
   certifies covers at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241,
-  251, 257, 263, and 269 in the Lean kernel. The other 218 covers and the
-  classification of tuples with triads remain unformalized.
+  251, 257, 263, 269, 271, 277, 281, and 283 in the Lean kernel. The other
+  214 covers and the classification of tuples with triads remain unformalized.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
@@ -162,8 +162,8 @@ their output is not used as a proof.
 For six speeds, the selected off-critical cutoff is now $21870175/7$.
 It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
 233-prime obstruction using primes at least 179. The six-speed modular covers
-at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, and 269
-are proved in Lean; the other 218 covers and the remaining finite
+at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269,
+271, 277, 281, and 283 are proved in Lean; the other 214 covers and the remaining finite
 classifications are not yet proved.
 The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
 with the coarse all-tuples denominator bound.

@@ -3,8 +3,9 @@
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
 modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223,
-227, 229, 233, 239, 241, 251, 257, 263, and 269** in the ordinary Lean kernel.
-The other 218 selected covers and the sharp bound for tuples with triads
+227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, and 283** in the
+ordinary Lean kernel.
+The other 214 selected covers and the sharp bound for tuples with triads
 remain unproved in Lean. These are internal development results, not new
 selected Palomar claims.
 
@@ -61,7 +62,7 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-The fifteen aggregate modules prove `SixModularCover p` for these primes:
+The nineteen aggregate modules prove `SixModularCover p` for these primes:
 
 | Prime | Normalized cases | Stored pair masks |
 |---|---:|---|
@@ -80,6 +81,10 @@ The fifteen aggregate modules prove `SixModularCover p` for these primes:
 | 257 | 64 | Two initial rows |
 | 263 | 65 | Two initial rows |
 | 269 | 67 | Two initial rows |
+| 271 | 67 | Two initial rows |
+| 277 | 69 | Two initial rows |
+| 281 | 70 | Two initial rows |
+| 283 | 70 | Two initial rows |
 
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
@@ -187,7 +192,7 @@ geometric sums give compact masks. The final packed counts equal the original
 bad-time counts. Matrix and compression-program checks remain explicit.
 `WideModularSearch.lean` proves that this backend, together with the terminal
 shortcut, has exactly the reference search result. The certificates at 263
-and 269 use it, with balanced matrix expressions and compact geometric masks.
+through 283 use it, with balanced matrix expressions and compact geometric masks.
 Every matrix and compression program is kernel-checked. Earlier certificates
 are preserved. Its controls reject missing and padding bits in
 the matrix and cover odd, even, empty, and clipped time sets.
@@ -231,13 +236,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Fifteen
+sharp denominator bound for tuples possessing an additive triad. Nineteen
 covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 218 members. Its theorem
+remaining subset of `sixTriadPrimes` has 214 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.
@@ -268,12 +273,30 @@ line excludes zero coordinates and repeated coordinates up to sign.
 normalized cover to `OneTriadModularCover p`. A signed triad becomes
 `(1,r,-1-r)`; the other three coordinates become strictly increasing positive
 half residues `a<b<c≤p/2`. Every strictly good time is carried back through
-the transformations. The normalized obligation includes every field ratio
-`r`; reducing these ratios further under the six triad permutations is not
-yet implemented.
+the transformations. `OneTriadOrbit.lean` then chooses the least residue
+among the six ordered ratios of the prescribed triad. The permutation and
+rescaling proof includes smaller orbits with nontrivial stabilizers; no
+external orbit catalogue is assumed.
+
+[OneTriadSearch.lean](LonelyRunner/OneTriadSearch.lean) connects the normalized obligation to a Boolean
+finite search. The three folded core values are retained, and the triple
+mask exempts precisely that core. The initial candidate mask excludes zero,
+the core values, and completions of every pair from the core. Uniqueness of
+the prescribed line proves that every other signed triad is absent. The
+existing recursive search therefore checks all three remaining coordinates;
+its wide-count implementation is proved equivalent. Checked good-time masks,
+checked symmetry, and accepted checks at every proper minimum ratio imply
+`OneTriadModularCover p`, with no further semantic assumptions.
+
+The controls include a nonvacuous accepted root `(1,2,3)` at modulus 31,
+with admissible tuple `(1,2,3,6,10,14)`, and a rejected root at modulus 43.
+The latter contains `(1,2,3,11,15,21)`, which has exactly the prescribed short
+line and no strictly good modular time. Both statements and the checker
+outcomes are kernel-proved. These are small-modulus controls, not certificates
+at any of the 116 required primes.
 
 This route avoids assuming the earlier Fourier rank classification. The
-finite certificates and subsequent multiple-triad classification remain
+prime-specific certificates and subsequent multiple-triad classification remain
 unproved. It adds no selected Palomar claim.
 
 ## Negative controls

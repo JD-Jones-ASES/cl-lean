@@ -701,8 +701,8 @@ The unrestricted bound still requires additional work:
    can have at most two prime divisors at least 179. The existing research
    census has 233 successful primes in that range. A proved recursive
    search now supplies the covers at 179, 191, 193, 197, 211, 223, 227, 229, 233,
-   239, 241, 251, 257, 263, and 269, including all 843 normalized cases; the other
-   218 covers must still be proved in Lean. The first cover already
+   239, 241, 251, 257, 263, 269, 271, 277, 281, and 283, including all 1,119
+   normalized cases; the other 214 covers must still be proved in Lean. The first cover already
    gives an integer triad when $3\sum_i v_i^2<179^2$ and $L(v)\le1/6$ for
    distinct positive speeds. This small norm range does not discharge the
    global obligation. See [the search and reduction](SIX_MODULAR.md).
