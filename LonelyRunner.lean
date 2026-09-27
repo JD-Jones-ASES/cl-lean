@@ -46,3 +46,5 @@ import LonelyRunner.SixPrimeReduction
 import LonelyRunner.SixModularControls
 import LonelyRunner.SixModularApplications
 import LonelyRunner.SixModularSearchControls
+import LonelyRunner.SixCertifiedCovers
+import LonelyRunner.ModularSearchBlockControls

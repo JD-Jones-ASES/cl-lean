@@ -2,8 +2,8 @@
 
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
-modular covers, and proves the first selected cover, at **prime 179**, in the
-ordinary Lean kernel. The other 232 selected covers and the sharp bound for
+modular covers, and proves the selected covers at **primes 179 and 191** in the
+ordinary Lean kernel. The other 231 selected covers and the sharp bound for
 tuples with triads remain unproved in Lean. These are internal development
 results, not new selected Palomar claims.
 
@@ -43,7 +43,7 @@ A certificate for `SortedSixCover p` therefore proves `SixModularCover p`.
 Sorting retains all six coordinates; injectivity follows from the absence of
 pair relations. The minimum is over both orders of every distinct pair.
 
-## Verified search and the first cover
+## Verified search and the first covers
 
 `ModularSearch.lean` proves a recursive bit-mask search sound. At each step,
 any completion covering the remaining good times must contain an eligible
@@ -61,14 +61,24 @@ same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
 `SixModular179.lean` combines 44 kernel-checked normalized root cases to prove
-`SixModularCover 179`. The generator emits untrusted tables; generation alone
-does not prove anything. Root modules form a sequential import chain so that
-only one certificate compiler runs at a time. Replay with:
+`SixModularCover 179`; `SixModular191.lean` combines 47 cases for prime 191.
+The generator emits untrusted tables; generation alone does not prove anything.
+Root modules form a sequential import chain within and across primes so that
+only one large certificate compiler runs at a time. Replay with:
 
 ```bash
 python3 -O scripts/generate_six_modular_lean.py --check
 lake build LonelyRunner.SixModular179 LonelyRunner.SixModularSearchControls
+lake build LonelyRunner.SixCertifiedCovers LonelyRunner.ModularSearchBlockControls
 ```
+
+`ModularSearchBlocks.lean` proves that checks split into blocks still cover
+every child of a root. The prime-191 certificates use blocks of eight children
+and sparse pivot counts, with a proof that the pivot is unchanged. On a local
+comparison using prime 179's root 4, this combination reduced checking time
+from 209 seconds to 26 seconds. This is a measured case, not a runtime bound
+for all remaining primes. The final partial block is included, and the block
+controls check that a failing final child is detected.
 
 `SixModularApplications.lean` supplies concrete integer consequences with no
 assumed finite cover. Every sextuple with loneliness at most `1/6` has one of
@@ -100,9 +110,15 @@ tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
 sharp denominator bound for tuples possessing an additive triad. The first
-cover is now supplied; the remaining covers and the triad bound remain
+two covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
+
+`SixCertifiedCovers.lean` assembles the proved covers and verifies that the
+remaining subset of `sixTriadPrimes` has 231 members. Its theorem
+`question66_of_remaining_covers_and_triad_bound` inserts the certificates
+into the global reduction, leaving exactly that remaining cover set and the
+triad bound as hypotheses. It does not assert the full Question 6.6 theorem.
 
 ## Negative controls
 
