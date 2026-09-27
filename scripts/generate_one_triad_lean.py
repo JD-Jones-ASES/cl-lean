@@ -1,7 +1,7 @@
 """Generate untrusted one-triad tables and individual normalized root checks.
 
-The listed roots are a partial certificate, not a complete prime cover.
-Lean checks the tables and every branch, using only kernel reduction.
+A None entry requests every proper minimum ratio and an unconditional cover.
+Other entries remain partial certificates. Lean checks every claim in its kernel.
 """
 from argparse import ArgumentParser
 from pathlib import Path
@@ -10,7 +10,11 @@ from generate_tight_five_lean import table
 from generate_six_modular_lean import balanced_matrix, compression_steps
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_ROOTS = {2333: tuple(range(2, 34))}
+GENERATED_ROOTS = {p: None for p in (
+    223, 227, 233, 239, 251, 269, 277, 281,
+    293, 307, 311, 313, 317, 331, 337, 347)}
+GENERATED_ROOTS[2333] = tuple(range(2, 34))
+COMPLETE_ROOTS_PER_MODULE = 8
 BLOCK_SIZE = 8
 CACHED_FROM = 10
 CACHED_BLOCK_SIZE = 32
@@ -49,7 +53,25 @@ def chunked_matrix(name, rows, stride, size=16):
     return text + f'def {name} : ℕ := {join(0, len(blocks))}\n\n'
 
 
-def generate(p, roots):
+def minimum_ratios(p):
+    ratios = []
+    for r in range(p//2+1):
+        head = (1, r, (-1-r) % p)
+        if 0 in head or len({min(x % p, -x % p) for x in head}) != 3:
+            continue
+        orbit = [(x*pow(y, -1, p)) % p for i, x in enumerate(head)
+                 for j, y in enumerate(head) if i != j]
+        if r == min(orbit):
+            ratios.append(r)
+    return ratios
+
+
+def generate(p, roots, previous_complete=None):
+    ratios = minimum_ratios(p)
+    complete = roots is None
+    roots = tuple(ratios) if complete else roots
+    if not roots or not set(roots) <= set(ratios) or len(set(roots)) != len(roots):
+        raise ValueError(f"Invalid normalized root list at {p}")
     w = p // 2 + 1
     k = (w-1).bit_length()
     stride = 1 << k
@@ -127,15 +149,6 @@ theorem transpose_ok : SixModularSearch.transposeCheck {w} good=true := tables_o
 end {ns}
 ''')
     # This untrusted list is independently identified by kernel computation.
-    ratios = []
-    for r in range(p//2+1):
-        head = (1, r, (-1-r) % p)
-        if 0 in head or len({min(x % p, -x % p) for x in head}) != 3:
-            continue
-        orbit = [(x*pow(y, -1, p)) % p for i, x in enumerate(head)
-                 for j, y in enumerate(head) if i != j]
-        if r == min(orbit):
-            ratios.append(r)
     literal = '[\n' + ',\n'.join('  ' + ','.join(map(str, ratios[i:i+20]))
                                   for i in range(0, len(ratios), 20)) + ']'
     ratios_name = f'OneTriad{p}Ratios'
@@ -150,30 +163,37 @@ theorem ratios_count : ratios.length={len(ratios)} := by decide +kernel
 
 end {ns}
 '''
-    previous = None
+    # A clean build must not compile heavy certificates for different primes
+    # concurrently. Chain the first root bundle to the preceding full cover.
+    previous = previous_complete if complete else None
+    root_modules = []
     fold = lambda x: min(x % p, -x % p)
-    for r in roots:
-        a, b, c = 1, fold(r), fold(-1-r)
-        name = f'OneTriad{p}Root{r}'
-        cached = r >= CACHED_FROM
-        block_size = CACHED_BLOCK_SIZE if cached else BLOCK_SIZE
+    size = COMPLETE_ROOTS_PER_MODULE if complete else 1
+    groups = [roots[i:i+size] for i in range(0, len(roots), size)]
+    for group_index, group in enumerate(groups):
+        name = f'OneTriad{p}Roots{group_index}' if complete else f'OneTriad{p}Root{group[0]}'
         text = f'import LonelyRunner.{tables_name}\n'
-        if cached:
+        if complete or group[0] >= CACHED_FROM:
             text += 'import LonelyRunner.OneTriadCachedSearch\n'
         if previous:
             text += f'import LonelyRunner.{previous}\n'
-        text += HEADER + f'namespace {ns}.Root{r}\n'
-        if cached:
-            cand = (1 << w)-1
-            for x in (0, a, b, c):
-                cand &= ~(1 << x)
-            for x, y in ((a, b), (a, c), (b, c)):
-                cand &= ~((1 << fold(x+y)) | (1 << fold(x-y)))
-            times = good[a] & good[b] & good[c]
-            choices = [t for t in range(w) if (times >> t) & 1][:8]
-            pivot = min(choices, key=lambda t: (cand & ~good[t]).bit_count(), default=w)
-            branches = cand if pivot == w else cand & ~good[pivot]
-            text += f'''def C : ℕ := {hex(cand)}
+        text += HEADER
+        for r in group:
+            a, b, c = 1, fold(r), fold(-1-r)
+            cached = complete or r >= CACHED_FROM
+            block_size = CACHED_BLOCK_SIZE if cached else BLOCK_SIZE
+            text += f'namespace {ns}.Root{r}\n'
+            if cached:
+                cand = (1 << w)-1
+                for x in (0, a, b, c):
+                    cand &= ~(1 << x)
+                for x, y in ((a, b), (a, c), (b, c)):
+                    cand &= ~((1 << fold(x+y)) | (1 << fold(x-y)))
+                times = good[a] & good[b] & good[c]
+                choices = [t for t in range(w) if (times >> t) & 1][:8]
+                pivot = min(choices, key=lambda t: (cand & ~good[t]).bit_count(), default=w)
+                branches = cand if pivot == w else cand & ~good[pivot]
+                text += f'''def C : ℕ := {hex(cand)}
 
 def G : ℕ := {hex(times)}
 
@@ -189,32 +209,32 @@ theorem H_ok : H=ModularSearch.wideBranches {k} {w} 3 C G matrix
 def child := cachedRootChild {p} {k} {w} matrix steps {a} {b} {c} good C G H
 
 '''
-        else:
-            text += f'''def child := wideRootChild {p} {k} {w} matrix steps {a} {b} {c} good
+            else:
+                text += f'''def child := wideRootChild {p} {k} {w} matrix steps {a} {b} {c} good
 
 '''
-        for block in range(w // block_size + 1):
-            text += f'''theorem block_{block} : ModularSearch.checkBlock child {block_size} {block}=true := by
+            for block in range(w // block_size + 1):
+                text += f'''theorem block_{block} : ModularSearch.checkBlock child {block_size} {block}=true := by
   decide +kernel
 
 '''
-        text += f'''theorem search_ok : rootCheck {p} {w} {a} {b} {c} good
+            text += f'''theorem search_ok : rootCheck {p} {w} {a} {b} {c} good
     (ModularSearch.terminalPivot {w} good)=true := by
 '''
-        if cached:
-            text += f'''  apply rootCheck_of_cached_child_checks {p} {k} {w} matrix steps {a} {b} {c} good C G H
+            if cached:
+                text += f'''  apply rootCheck_of_cached_child_checks {p} {k} {w} matrix steps {a} {b} {c} good C G H
     (by decide) matrix_ok steps_ok transpose_ok C_ok G_ok H_ok
 '''
-        else:
-            text += f'''  apply rootCheck_of_wide_child_checks {p} {k} {w} matrix steps {a} {b} {c} good
+            else:
+                text += f'''  apply rootCheck_of_wide_child_checks {p} {k} {w} matrix steps {a} {b} {c} good
     (by decide) matrix_ok steps_ok transpose_ok
 '''
-        text += f'''  apply ModularSearch.all_of_checkBlocks _ _ {block_size} (by decide)
+            text += f'''  apply ModularSearch.all_of_checkBlocks _ _ {block_size} (by decide)
   intro b hb
   interval_cases b
 '''
-        text += ''.join(f'  · exact block_{block}\n' for block in range(w // block_size + 1))
-        text += f'''
+            text += ''.join(f'  · exact block_{block}\n' for block in range(w // block_size + 1))
+            text += f'''
 /-- Every completion at this ratio has a strictly good time unless an
 additional short relation exists. This is one ratio, not a prime cover. -/
 theorem good_time (b : Fin 3 → ℕ)
@@ -227,9 +247,10 @@ theorem good_time (b : Fin 3 → ℕ)
 end {ns}.Root{r}
 '''
         files[name] = text
+        root_modules.append(name)
         previous = name
     aggregate = f'import LonelyRunner.{ratios_name}\n'
-    aggregate += ''.join(f'import LonelyRunner.OneTriad{p}Root{r}\n' for r in roots)
+    aggregate += ''.join(f'import LonelyRunner.{name}\n' for name in root_modules)
     aggregate += HEADER + f'''namespace {ns}
 
 /-- Only these roots have supplied certificates; the others remain obligations. -/
@@ -257,8 +278,21 @@ theorem cover_of_remaining
     aggregate += ''.join(f'    · exact Root{r}.search_ok\n' for r in roots) if len(roots)>1 else f'    exact Root{roots[0]}.search_ok\n'
     aggregate += f'''  · exact h r (Finset.mem_sdiff.mpr ⟨by simpa using hr,hc⟩)
 
-end {ns}
 '''
+    if complete:
+        aggregate += f'''/-- Every proper minimum ratio has a supplied kernel certificate. -/
+theorem remainingRatios_empty : remainingRatios=∅ :=
+  Finset.card_eq_zero.mp remainingRatios_count
+
+/-- Complete cover of all six-tuples with a prescribed signed triad. -/
+theorem cover : OneTriadModularCover {p} := by
+  apply cover_of_remaining
+  intro r hr
+  rw [remainingRatios_empty] at hr
+  exact (Finset.notMem_empty r hr).elim
+
+'''
+    aggregate += f'end {ns}\n'
     files[f'OneTriad{p}'] = aggregate
     return files
 
@@ -268,8 +302,9 @@ def main():
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     count = 0
+    previous_complete = None
     for p, roots in GENERATED_ROOTS.items():
-        for name, text in generate(p, roots).items():
+        for name, text in generate(p, roots, previous_complete).items():
             path = ROOT / 'LonelyRunner' / (name + '.lean')
             if args.check:
                 if not path.is_file() or path.read_text() != text:
@@ -277,8 +312,10 @@ def main():
             elif not path.is_file() or path.read_text() != text:
                 path.write_text(text)
             count += 1
+        if roots is None:
+            previous_complete = f'OneTriad{p}'
     print(f'{"Checked" if args.check else "Generated"} {count} one-triad modules; '
-          'the listed roots do not constitute a complete prime cover.')
+          'kernel compilation establishes the stated full or partial certificates.')
 
 
 if __name__ == '__main__':

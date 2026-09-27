@@ -341,7 +341,7 @@ lake build LonelyRunner.OneTriad2333
 ```
 
 This route avoids assuming the earlier Fourier rank classification. All
-116 complete prime covers and the subsequent multiple-triad classification
+116 original larger-prime covers and the subsequent multiple-triad classification
 remain unproved. It adds no selected Palomar claim.
 
 `OneTriadCapacityReduction.lean` also proves a route using smaller primes.
@@ -350,10 +350,51 @@ After removing the prescribed relation, the other 115 nonzero values can
 each contain at most two distinct prime divisors at least 179. Therefore
 **231 checked one-triad covers at distinct primes at least 179** suffice to
 force a second independent integer relation. The theorem accepts an explicit
-prime set and a cover at every member; it supplies none of those covers.
+prime set and a cover at every member.
 It does not claim that all primes above 179 work, and the multiple-triad
 classification remains a separate obligation. This alternative may reduce
 verification cost without changing the global Question 6.6 target.
+
+### Complete smaller-prime covers
+
+Lean now proves `OneTriadModularCover p` at **223, 227, 233, 239, 251,
+269, 277, 281, 293, 307, 311, 313, 317, 331, 337, and 347**. These certificates check all proper minimum ratios,
+all three remaining coordinates, the arithmetic tables and their symmetry,
+and the complete assembly. The sixteen covers contain **750** roots in total.
+Each prime's remaining-ratio set is proved empty.
+The generator bundles eight roots per module and serializes the heavy
+root modules across primes to bound concurrent compiler memory use. The
+existing partial certificate at 2333 is unchanged.
+
+`OneTriadCertifiedCovers.lean` assembles the sixteen covers, checks the
+cardinality, primality, and lower bound of this certified set, and inserts
+them into the smaller-prime reduction. Its remaining covers are explicit
+hypotheses. Sixteen covers alone do not supply the required set of 231.
+
+`OneTriadSmallPrimes.lean` fixes **231 distinct primes from 223 through
+1867**, selected by a complete native feasibility search. Lean independently
+checks the list's cardinality, primality, lower bound, and inclusion of the
+sixteen certified primes. It proves that **215** cover obligations remain
+and inserts the certified subset into the second-relation reduction. The
+native search is a candidate-selection tool; it does not discharge any of
+those 215 Lean cover hypotheses.
+
+`OneTriadApplications.lean` supplies a concrete integer consequence with
+no assumed modular cover. Any integer six-tuple with `L≤1/6` and a prescribed
+triad has a different canonical short-form value divisible by 223. If also
+`3*sum(v_i^2)<223^2`, it has **two linearly independent integer short
+relations**. This is a finite norm range, not the global one-triad exclusion.
+
+Replay the complete covers and their integer application locally with:
+
+```bash
+python3 -O scripts/generate_one_triad_lean.py --check
+lake build LonelyRunner.OneTriadSmallPrimes LonelyRunner.OneTriadApplications
+```
+
+The remaining modular certificates and the multiple-triad classification
+are still needed for full global Question 6.6. No new selected Palomar claim
+or Actions run is part of this increment.
 
 ## Negative controls
 

@@ -63,3 +63,6 @@ import LonelyRunner.OneTriadSearchControls
 import LonelyRunner.OneTriadCachedSearchControls
 import LonelyRunner.ModularTableChecks
 import LonelyRunner.OneTriad2333
+import LonelyRunner.OneTriadApplications
+import LonelyRunner.OneTriadCertifiedCovers
+import LonelyRunner.OneTriadSmallPrimes

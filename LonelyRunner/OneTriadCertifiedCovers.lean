@@ -1,0 +1,57 @@
+import LonelyRunner.OneTriad347
+import LonelyRunner.OneTriadCapacityReduction
+
+namespace LonelyRunner
+
+/-- Each member has a complete, kernel-checked one-triad cover. -/
+def certifiedOneTriadPrimes : Finset ℕ :=
+  {223,227,233,239,251,269,277,281,293,307,311,313,317,331,337,347}
+
+theorem certifiedOneTriadPrimes_cover (p : ℕ) (hp : p∈certifiedOneTriadPrimes) :
+    OneTriadModularCover p := by
+  simp only [certifiedOneTriadPrimes,Finset.mem_insert,Finset.mem_singleton] at hp
+  rcases hp with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
+  · exact OneTriadSearch.Prime223.cover
+  · exact OneTriadSearch.Prime227.cover
+  · exact OneTriadSearch.Prime233.cover
+  · exact OneTriadSearch.Prime239.cover
+  · exact OneTriadSearch.Prime251.cover
+  · exact OneTriadSearch.Prime269.cover
+  · exact OneTriadSearch.Prime277.cover
+  · exact OneTriadSearch.Prime281.cover
+  · exact OneTriadSearch.Prime293.cover
+  · exact OneTriadSearch.Prime307.cover
+  · exact OneTriadSearch.Prime311.cover
+  · exact OneTriadSearch.Prime313.cover
+  · exact OneTriadSearch.Prime317.cover
+  · exact OneTriadSearch.Prime331.cover
+  · exact OneTriadSearch.Prime337.cover
+  · exact OneTriadSearch.Prime347.cover
+
+theorem certifiedOneTriadPrimes_facts :
+    certifiedOneTriadPrimes.card=16 ∧
+      ∀ p∈certifiedOneTriadPrimes, Nat.Prime p ∧ 179≤p := by
+  decide +kernel
+
+/-- Insert the checked covers into the smaller-prime reduction. The choice
+of a set of at least 231 primes and all covers outside the certified subset
+remain explicit obligations; this is not the full Question 6.6 theorem. -/
+theorem question66_violation_has_independent_relations_of_remaining_small_covers
+    (P : Finset ℕ) (hcard : 231≤P.card)
+    (hp : ∀ p∈P, Nat.Prime p) (hlarge : ∀ p∈P, 179≤p)
+    (hcover : ∀ p∈P \ certifiedOneTriadPrimes, OneTriadModularCover p)
+    (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hprim : PrimitiveSpeeds v)
+    (htriad : HasTriad v) (a q : ℕ) (hq : 0<q)
+    (hval : loneliness v=(a:ℝ)/q) (hnear : loneliness v<(1:ℝ)/6)
+    (hbad : ∃ i, 3*(q:ℤ)≤v i) :
+    ∃ c₀∈shortForms, ∃ c∈shortForms,
+      LinearIndependent ℚ ![(fun i => (shortCoeff c₀ i:ℚ)),
+        (fun i => (shortCoeff c i:ℚ))] ∧ shortValue c₀ v=0 ∧ shortValue c v=0 := by
+  apply question66_violation_has_independent_short_relations_of_small_primes
+    P hcard hp hlarge _ v hv hprim htriad a q hq hval hnear hbad
+  intro p hp'
+  by_cases hc : p∈certifiedOneTriadPrimes
+  · exact certifiedOneTriadPrimes_cover p hc
+  · exact hcover p (Finset.mem_sdiff.mpr ⟨hp',hc⟩)
+
+end LonelyRunner
