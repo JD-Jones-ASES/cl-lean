@@ -150,6 +150,12 @@ censuses independently agree with the 40 kernel-checked modular certificates;
 their output is not used as a proof.
 For six speeds, the coarse constant above is $K(6)=37{,}791{,}360{,}000$;
 it does not give the research cutoff $1{,}803{,}850$ or the desired constant three.
+Supporting geometry now proves the arbitrary-rank separated-point reduction,
+nearest-plane rounding, and the exact projected-basis product. For six speeds,
+every integer basis beginning with the primitive speed vector satisfies four
+explicit Gram-Schmidt prefix bounds. The required adjacent-length reduction
+and sharper norm estimate are still unfinished; these additions do not change
+the selected cutoff.
 The earlier conditional prime-capacity and assumed-height arithmetic lemmas
 remain supporting code, with their assumptions unchanged; they are no longer
 separately selected submission claims. [Proof](PROOF.md) gives the arguments

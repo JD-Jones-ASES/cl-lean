@@ -35,3 +35,8 @@ import LonelyRunner.StrictGrid
 import LonelyRunner.TightFiveModular
 import LonelyRunner.FiveSpeedsRenault
 import LonelyRunner.PrimitiveBasis
+import LonelyRunner.SpanGoodPoint
+import LonelyRunner.GramSchmidtBounds
+import LonelyRunner.ProjectedBasis
+import LonelyRunner.SixBasisBounds
+import LonelyRunner.BasisPotential

@@ -53,6 +53,49 @@ all at least $1/(n-1)$. This is a direct formal proof of the lower bounds needed
 from [Giri–Kravitz, Lemma 3.3](https://arxiv.org/html/2304.01462v4#S3).
 No classification of subtori is assumed.
 
+### Arbitrary rank and sharper lattice foundations
+
+`SpanGoodPoint.lean` extends coordinate deletion to every rank. If an integer
+span in $N$ coordinates has $r+1$ independent columns, its first column has
+no zero coordinate, and the Lonely Runner assertion holds for $N-r$ speeds,
+then the span contains a point with every distance at least $1/(N-r+1)$.
+The proof changes row signs, eliminates one column by the opposite-coordinate
+construction, and deletes one of the opposite rows. Linear independence and
+a zero-free first column survive. Induction supplies the point, and restoring
+the row and the original span preserves all its distances.
+
+`NearestPlane.lean` proves back-substitution rounding against a unit triangular
+matrix. Applied to Gram-Schmidt, it bounds the squared Euclidean rounding
+error by one quarter of the sum of squared orthogonal lengths. Combining this
+with the arbitrary-rank theorem, `GramSchmidtBounds.lean` proves, for independent
+projected integer lifts and $L(v)<\ell\le1/(N-r+1)$,
+
+$$4\left(\frac1{N-r+1}-\ell\right)^2
+ <\sum_{j=1}^r \|b_j^*\|^2.$$
+
+The rounding argument follows
+[Allikvere, Section 3.3](https://arxiv.org/html/2609.02604v2).
+`PrimitiveBasis.lean` completes any primitive integer vector $v$ to an integer
+basis beginning with $v$. `ProjectedBasis.lean` subtracts multiples of that
+first vector, preserving the Gram determinant. Orthogonality then gives
+
+$$\prod_{j=1}^{N-1}\|b_j^*\|^2=\|v\|_2^{-2}$$
+
+for the remaining basis vectors projected onto $v^\perp$. The projections
+are independent. `SixBasisBounds.lean` combines these results: **every** integer
+basis beginning with a zero-free six-speed tuple below $1/6$ gives positive
+squared lengths with this exact product and strict prefix bounds
+$1/225$, $1/36$, $1/9$, and $4/9$ for prefixes of lengths two through five.
+These inputs use the proved Lonely Runner assertions through four speeds.
+
+`BasisPotential.lean` proves positivity of the integer prefix Gram determinants
+and existence of a basis minimizing their product among bases beginning with
+$v$. `NearestPlane.lean` also proves the adjacent $3/4$ ratio under an explicit
+shortestness hypothesis. The basis-change argument establishing adjacent squared-length ratios,
+and the scalar product estimate needed for the sharper cutoff, remain to be
+proved. These foundations do not yet improve the selected six-speed cutoff
+or complete Question 6.6.
+
 ### A shortest projection and its gap
 
 Let $P$ be orthogonal projection onto $v^\perp$, and $V=\|v\|_2$.
@@ -604,34 +647,6 @@ the certificates and proves `tight_five_classification`. No modular-cover or
 classification hypothesis remains in the four selected six-speed consequences.
 Two external exhaustive censuses provide an independent replay of the finite
 data, but are not dependencies of any Lean proof.
-
-## Geometric ingredients for the sharper reduction
-
-`NearestPlane.lean` proves nearest-plane rounding for every finite real
-inner-product family. If $g_i$ are its Gram–Schmidt vectors, rounding the
-coefficients from last to first gives integers $k_i$ with
-
-$$\left\|\sum_i(y_i-k_i)b_i\right\|^2\le\frac14\sum_i\|g_i\|^2.$$
-
-Applied to integer lifts projected perpendicular to the speed vector, this
-proves the corresponding orbit-approximation bound. A point of safety $L$
-in their span and an orbit with loneliness below $\ell\le L$ therefore force
-$\sum_i\|g_i\|^2>4(L-\ell)^2$. The proof works in every finite rank and does
-not assume a reduced basis. It implements the nearest-plane mechanism in
-[Allikvere, Section 3.3](https://arxiv.org/html/2609.02604v2#S3.SS3).
-The adjacent inequality $\|g_{i+1}\|^2\ge3\|g_i\|^2/4$ is also proved from
-an explicit shortestness hypothesis after integer coefficient reduction.
-
-`PrimitiveBasis.lean` extends any primitive integer speed vector to an
-integer basis with that vector first. Bezout coefficients split off its
-integer line, and a basis of the kernel supplies the remaining columns.
-The basis determinant has absolute value one. A proved Gram-determinant
-identity then gives product of squared Gram–Schmidt lengths equal to one.
-
-These are supporting lemmas for the sharper cutoff. A basis satisfying all
-required adjacent inequalities, the all-rank safe-point reduction, and the
-product estimate still need to be connected. They do not establish the
-smaller six-speed norm bound or discharge any six-speed finite cover.
 
 ## Remaining obligations for the unrestricted theorem
 
