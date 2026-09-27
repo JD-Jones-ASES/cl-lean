@@ -10,19 +10,68 @@ from explore_two_triad_parents import forms
 from generate_one_triad_lean import chunked_table, HEADER
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = ((0,251), (1,263), (1,307), (1,347))
+CASES = ((0,251), (1,263), (1,307), (1,347), (0,257), (0,277), (0,311), (0,347))
 BLOCK_SIZE = 8
+
+
+def minimum_disjoint_ratios(p):
+    ratios = []
+    for r in range(1,p//2+1):
+        head = (1,r,(-1-r)%p)
+        if not all(head):
+            continue
+        orbit = {a*pow(b,-1,p)%p for i,a in enumerate(head)
+                 for j,b in enumerate(head) if i != j}
+        if r == min(orbit):
+            ratios.append(r)
+    return ratios
+
+
+def disjoint_representative_modules(p, files, stem, ns, ratios):
+    size = 4
+    blocks = [ratios[i:i+size] for i in range(0,len(ratios),size)]
+    for q, block in enumerate(blocks):
+        prior = stem+'Tables' if q == 0 else stem+f'Block{q-1}'
+        barrier = ''
+        if q == 0:
+            predecessor = {257:'TwoTriadOverlap347',277:'TwoTriadDisjoint257',
+                           311:'TwoTriadDisjoint277',347:'TwoTriadDisjoint311'}[p]
+            barrier = f'import LonelyRunner.{predecessor}\n'
+        literal = '['+','.join(map(str,block))+']'
+        files[stem+f'Block{q}'] = f'import LonelyRunner.{prior}\n'+barrier+HEADER+f'''namespace {ns}
+
+theorem block{q}_ok : representativeDisjointBlockCheck {p} good projectedForms {literal}=true := by
+  decide +kernel
+
+end {ns}
+'''
+    text = f'import LonelyRunner.{stem}Block{len(blocks)-1}\n'+HEADER+f'''namespace {ns}
+
+/-- Complete disjoint-parent cover using the proved ratio and sign symmetries. -/
+theorem modular_cover : TwoTriadModularCover {p} 0 := by
+  apply disjointCover_of_representative_rows {p} (by norm_num) good projectedForms good_ok forms_ok
+  intro r hr
+  rw [ratios_complete] at hr
+  simp only [ratios,List.mem_cons,List.not_mem_nil,or_false] at hr
+  rcases hr with '''+'|'.join('rfl' for _ in ratios)+'\n'
+    for i, r in enumerate(ratios):
+        text += f'  · exact List.all_eq_true.mp block{i//size}_ok {r} (by decide)\n'
+    files[stem] = text+f'\nend {ns}\n'
+    return files
 
 
 def generate(k, p):
     family = 'Disjoint' if k == 0 else 'Overlap'
     representative = k == 1 and p != 263
+    disjoint_rep = k == 0 and p != 251
     checker = 'representativeOverlap' if representative else family.lower()
     assembly = 'disjointCover_of_clipped_blocks' if k == 0 else 'overlapCover_of_blocks'
     base = 'TwoTriadFastCover' if k == 0 else 'TwoTriadCoverSearch'
     if representative:
         assembly = 'overlapCover_of_representative_blocks'
         base = 'TwoTriadOverlapSearch'
+    if disjoint_rep:
+        base = 'TwoTriadDisjointRepresentativeSearch'
     stem = f'TwoTriad{family}{p}'
     ns = f'LonelyRunner.TwoTriadCoverSearch.{family}{p}'
     good = [sum(1 << t for t in range(p) if p < 6*(a*t % p) < 5*p)
@@ -37,16 +86,26 @@ def generate(k, p):
     data = f'import LonelyRunner.{base}\n' + HEADER + f'namespace {ns}\n\n'
     data += chunked_table('good', good)
     data += 'def projectedForms : List RootForm := [\n' + ',\n'.join(entries) + ']\n\n'
+    if disjoint_rep:
+        ratios = minimum_disjoint_ratios(p)
+        data += 'def ratios : List ℕ := ['+','.join(map(str,ratios))+']\n\n'
     files = {stem+'Data': data + f'end {ns}\n'}
     checks = f'import LonelyRunner.{stem}Data\n' + HEADER + f'''namespace {ns}
 
 theorem good_ok : ModularPairCover.masksCheck {p} {p} good=true := by decide +kernel
 
 theorem forms_ok : formsCheck {p} {k} projectedForms=true := by decide +kernel
-
-end {ns}
 '''
+    if disjoint_rep:
+        checks += f'''
+theorem ratios_complete : disjointMinimumRatios {p}=ratios := by decide +kernel
+
+theorem representative_pair_count : ratios.length*({p}/2+1)={len(ratios)*(p//2+1)} := by decide +kernel
+'''
+    checks += f'\nend {ns}\n'
     files[stem+'Tables'] = checks
+    if disjoint_rep:
+        return disjoint_representative_modules(p, files, stem, ns, ratios)
     width = p//2+1 if representative else p
     count = (width+BLOCK_SIZE-1)//BLOCK_SIZE
     for q in range(count):

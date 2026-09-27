@@ -51,13 +51,13 @@ theorem twoTriadPrimeSets_facts : ∀ k,
       simpa only [Bool.and_eq_true,decide_eq_true_eq,beq_iff_eq] using hh
     exact ⟨Nat.prime_def_minFac.mpr ⟨by omega,hh'.2⟩,hh'.1⟩
 
-def certifiedTwoTriadPrimeSets : Fin 2 → Finset ℕ := ![{251},{263,307,347}]
+def certifiedTwoTriadPrimeSets : Fin 2 → Finset ℕ := ![{251,257,277,311,347},{263,307,347}]
 
 def remainingTwoTriadPrimeSets (k : Fin 2) : Finset ℕ :=
   twoTriadPrimeSets k \ certifiedTwoTriadPrimeSets k
 
 theorem remainingTwoTriadPrimeSets_facts : ∀ k,
-    (remainingTwoTriadPrimeSets k).card=(![132,126] : Fin 2 → ℕ) k ∧
+    (remainingTwoTriadPrimeSets k).card=(![128,126] : Fin 2 → ℕ) k ∧
     (![251,263] : Fin 2 → ℕ) k∉remainingTwoTriadPrimeSets k ∧
     remainingTwoTriadPrimeSets k⊆twoTriadPrimeSets k := by
   intro k
