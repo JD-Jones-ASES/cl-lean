@@ -55,3 +55,4 @@ import LonelyRunner.ParallelPackedControls
 import LonelyRunner.TerminalCoverControls
 import LonelyRunner.WideModularSearch
 import LonelyRunner.OneTriadPrimeReduction
+import LonelyRunner.OneTriadNormalization

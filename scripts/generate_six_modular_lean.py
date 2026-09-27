@@ -10,7 +10,7 @@ from pathlib import Path
 from generate_tight_five_lean import table
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257)
+GENERATED_PRIMES = (179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269)
 
 
 def compression_steps(slot, w):
@@ -26,6 +26,15 @@ def compression_steps(slot, w):
     return steps
 
 
+def balanced_matrix(rows, stride):
+    """Compact untrusted block concatenation; the kernel checks the matrix."""
+    if len(rows) == 1:
+        return hex(rows[0])
+    middle = len(rows) // 2
+    return (f'({balanced_matrix(rows[:middle], stride)} + '
+            f'2^{stride*middle} * {balanced_matrix(rows[middle:], stride)})')
+
+
 def generate(p):
     w = p // 2 + 1
     split_roots = p != 179
@@ -33,6 +42,9 @@ def generate(p):
     packed_counts = p >= 223
     parallel_counts = p >= 229
     terminal_counts = p >= 239
+    wide_counts = p >= 263
+    wide_k = (w-1).bit_length()
+    wide_stride = 1 << wide_k
     slot = w.bit_length()
     block_size = 8
     fold = lambda n: min(n % p, -n % p)
@@ -62,8 +74,25 @@ set_option maxRecDepth 1000000
     if terminal_counts:
         text = text.replace('LonelyRunner.ParallelModularSearch',
                             'LonelyRunner.TerminalModularSearch')
+    if wide_counts:
+        text = text.replace('LonelyRunner.TerminalModularSearch',
+                            'LonelyRunner.WideModularSearch')
+        text = text.replace('import LonelyRunner.CompressedPackedRows\n', '')
     text += table('inv', inv) + table('good', good)
-    if packed_counts:
+    if wide_counts:
+        matrix = balanced_matrix([((1 << w)-1) ^ m for m in good], wide_stride)
+        text += f'def matrix : ℕ := {matrix}\n\n'
+        text += 'def steps : List (ℕ × ℕ) := [\n'
+        text += ',\n'.join(
+            f'  ({(wide_stride-1)*b},ModularSearch.geometricOnes '
+            f'{2*wide_stride*b} {wide_stride//(2*b)} * (2^{2*b}-1))'
+            for b in (1 << i for i in range(wide_k))) + ']\n\n'
+        text += f'''theorem matrix_ok : ModularSearch.wideMatrixCheck {wide_k} {w} matrix good=true := by decide +kernel
+
+theorem steps_ok : ModularSearch.compressionCheck {wide_stride} {w} steps=true := by decide +kernel
+
+'''
+    elif packed_counts:
         rows = [sum(1 << (slot*x) for x in range(w) if not (good[x] >> t) & 1)
                 for t in range(w)]
         text += table('badRows', rows)
@@ -96,7 +125,7 @@ def pivot := ModularSearch.bestPivot {w} good
 
 end {ns}
 '''
-    if parallel_counts:
+    if parallel_counts and not wide_counts:
         row_proof = f'''theorem bad_rows_ok : ModularSearch.packedRowsCheck {w} {slot} good badRows=true := by
   apply ModularSearch.compressedRowsCheck_sound {w} {slot} ones good badRows steps
     (by decide) ones_mask_ok steps_ok (transposeCheck_sound _ good transpose_ok)
@@ -152,7 +181,10 @@ namespace {ns}.Root{r}
             for b in range(w // block_size + 1):
                 text += (f'theorem block_{b} : ModularSearch.checkBlock child {block_size} {b}=true := by\n'
                          '  decide +kernel\n\n')
-        if terminal_counts:
+        if wide_counts:
+            text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot',
+                f'ModularSearch.wideRootChild {wide_k} {w} matrix {r} steps good pairs (triples {p} {w})')
+        elif terminal_counts:
             text = text.replace(f'ModularSearch.rootChild {w} {r} good pairs (triples {p} {w}) pivot',
                 f'ModularSearch.terminalRootChild {w} {slot} ones {r} steps good badRows pairs (triples {p} {w})')
         elif parallel_counts:
@@ -174,7 +206,12 @@ namespace {ns}.Root{r}
             text += '''  rw [← ModularSearch.fastRootCheck_eq]
   decide +kernel
 '''
-        if terminal_counts:
+        if wide_counts:
+            text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
+                f'  apply ModularSearch.rootCheck_of_wide_child_checks {wide_k} {w} matrix {r} steps good pairs\n'
+                f'    (triples {p} {w}) (by decide) matrix_ok steps_ok\n'
+                '    (transposeCheck_sound _ good transpose_ok)')
+        elif terminal_counts:
             text = text.replace('  apply ModularSearch.rootCheck_of_child_checks',
                 f'  apply ModularSearch.rootCheck_of_terminal_child_checks {w} {slot} ones {r} steps good badRows pairs\n'
                 f'    (triples {p} {w}) (by decide) (by decide) ones_mask_ok ones_count_ok bad_rows_ok steps_ok\n'

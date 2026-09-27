@@ -3,9 +3,10 @@
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
 modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223,
-227, 229, 233, 239, 241, 251, and 257** in the ordinary Lean kernel. The other
-220 selected covers and the sharp bound for tuples with triads remain unproved
-in Lean. These are internal development results, not new selected Palomar claims.
+227, 229, 233, 239, 241, 251, 257, 263, and 269** in the ordinary Lean kernel.
+The other 218 selected covers and the sharp bound for tuples with triads
+remain unproved in Lean. These are internal development results, not new
+selected Palomar claims.
 
 For a tuple over `ZMod p`, `HasShortRelation` means that one of the 116
 canonical signed forms on one, two, or three distinct coordinates vanishes.
@@ -60,7 +61,7 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-The thirteen aggregate modules prove `SixModularCover p` for these primes:
+The fifteen aggregate modules prove `SixModularCover p` for these primes:
 
 | Prime | Normalized cases | Stored pair masks |
 |---|---:|---|
@@ -77,6 +78,8 @@ The thirteen aggregate modules prove `SixModularCover p` for these primes:
 | 241 | 60 | Two initial rows |
 | 251 | 62 | Two initial rows |
 | 257 | 64 | Two initial rows |
+| 263 | 65 | Two initial rows |
+| 269 | 67 | Two initial rows |
 
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
@@ -169,8 +172,8 @@ variant. It does not dispatch GitHub Actions.
 `TerminalCover.lean` proves that the last choice can be checked by covering
 the candidate mask with good-time masks. Its soundness and completeness use
 matrix symmetry and explicit clipping to the width. `TerminalModularSearch.lean`
-proves equality to the reference search and is used from 239 onward. Kernel
-controls include empty sets, a witness only at the final scan position,
+proves equality to the reference search and is used at 239, 241, 251, and 257.
+Kernel controls include empty sets, a witness only at the final scan position,
 missing witnesses, clipped inputs, and an asymmetric false-positive example
 showing that the symmetry premise is necessary. On the same root benchmark,
 this terminal shortcut checked the data, blocks, and assembly in 19.02 seconds.
@@ -183,8 +186,10 @@ proved to merge adjacent counts without carrying into the next block; exact
 geometric sums give compact masks. The final packed counts equal the original
 bad-time counts. Matrix and compression-program checks remain explicit.
 `WideModularSearch.lean` proves that this backend, together with the terminal
-shortcut, has exactly the reference search result. It is not yet used by the
-listed prime certificates. Its controls reject missing and padding bits in
+shortcut, has exactly the reference search result. The certificates at 263
+and 269 use it, with balanced matrix expressions and compact geometric masks.
+Every matrix and compression program is kernel-checked. Earlier certificates
+are preserved. Its controls reject missing and padding bits in
 the matrix and cover odd, even, empty, and clipped time sets.
 The root-211 benchmark passed with this backend in 16.35 seconds, including
 matrix and program checks and root assembly. A separate width-889 matrix and
@@ -226,13 +231,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Thirteen
+sharp denominator bound for tuples possessing an additive triad. Fifteen
 covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 220 members. Its theorem
+remaining subset of `sixTriadPrimes` has 218 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.
@@ -253,9 +258,23 @@ reduction includes this stronger conclusion.
 relation for every residue tuple with a specified canonical signed triad.
 The modular-to-integer transfer and the use of the violation norm theorem
 are proved. **None of these 116 one-triad covers is yet proved in Lean.**
-This route avoids assuming the earlier Fourier rank classification, but
-still requires one-triad normalization, the finite certificates, and the
-subsequent multiple-triad classification. It adds no selected Palomar claim.
+
+`ShortRelationLine.lean` tracks every short relation up to its two integer
+orientations. Sign changes, coordinate permutations, and nonzero scaling
+preserve the prescribed line. It also proves that uniqueness of a triad
+line excludes zero coordinates and repeated coordinates up to sign.
+
+`OneTriadNormalization.lean` now proves the complete transfer from a finite
+normalized cover to `OneTriadModularCover p`. A signed triad becomes
+`(1,r,-1-r)`; the other three coordinates become strictly increasing positive
+half residues `a<b<c≤p/2`. Every strictly good time is carried back through
+the transformations. The normalized obligation includes every field ratio
+`r`; reducing these ratios further under the six triad permutations is not
+yet implemented.
+
+This route avoids assuming the earlier Fourier rank classification. The
+finite certificates and subsequent multiple-triad classification remain
+unproved. It adds no selected Palomar claim.
 
 ## Negative controls
 
