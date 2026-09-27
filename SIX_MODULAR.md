@@ -295,9 +295,30 @@ line and no strictly good modular time. Both statements and the checker
 outcomes are kernel-proved. These are small-modulus controls, not certificates
 at any of the 116 required primes.
 
-This route avoids assuming the earlier Fourier rank classification. The
-prime-specific certificates and subsequent multiple-triad classification remain
-unproved. It adds no selected Palomar claim.
+`OneTriadRatioCertificates.lean` proves that every minimum ratio satisfies
+`r.val≤p/2` and connects the complete filtered ratio list to a prime cover.
+At **2333**, `OneTriad2333Ratios.lean` identifies all **388** proper minimum
+ratios by kernel computation. `OneTriad2333Root2.lean` certifies the first
+root, `r=2`, with folded core `(1,2,3)`, including every completion of its
+three remaining coordinates. This is a partial certificate at a required
+prime, not a complete prime cover. `OneTriad2333.lean` inserts it into the
+assembly theorem and verifies that **387** ratio checks remain.
+
+The data uses small lookup and matrix declarations to bound elaboration
+cost. `ModularTableChecks.lean` proves that clipped row blocks check every
+row in the specified domain, including the final partial block. Arithmetic
+and symmetry checks use blocks of 32 rows; the root uses blocks of eight
+branches. Their assembly and all individual checks are kernel-proved.
+No native search output is a proof input. Replay this partial certificate with:
+
+```bash
+python3 -O scripts/generate_one_triad_lean.py --check
+lake build LonelyRunner.OneTriad2333
+```
+
+This route avoids assuming the earlier Fourier rank classification. All
+116 complete prime covers and the subsequent multiple-triad classification
+remain unproved. It adds no selected Palomar claim.
 
 ## Negative controls
 
