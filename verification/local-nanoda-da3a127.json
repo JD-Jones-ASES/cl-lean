@@ -1,0 +1,39 @@
+{
+  "scope": "Selected Solution export only; not an audit of unselected supporting modules or editorial acceptance.",
+  "export_source_commit": "da3a127c6bd83256876bf6c36929e5678c5dae49",
+  "confirmed_identical_at_commit": "3b0e4511fc29f2890dde4ab6cda39b59c931fee5",
+  "comparator_sha256": "04537577bee6bf0731f6e44d492d79e401c491d42127439633ebbc0813eccfc7",
+  "toolchain": "leanprover/lean4:v4.35.0-rc3",
+  "solution_export": {
+    "bytes": 471921732,
+    "sha256": "69e86e9ba3192a5fde1fefef21e3b2ab6c41ec4cd16d5d8c4ef8231324f57b37"
+  },
+  "command": [
+    "lake",
+    "env",
+    "nanoda_bin",
+    "nanoda_config.json"
+  ],
+  "validator_config": {
+    "export_file_path": "solution_module.ndjson",
+    "permitted_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ],
+    "unpermitted_axiom_hard_error": true,
+    "nat_extension": true,
+    "string_extension": true,
+    "print_success_message": true
+  },
+  "exit_code": 0,
+  "checked_declarations": 61851,
+  "typechecker_errors": 0,
+  "pretty_printer_errors": [
+    "Unable to print axioms"
+  ],
+  "elapsed_seconds": 2931.8,
+  "binary_sha256": "85daddc584afe0d8fa28e18d4c566219bc3c8ddd8b0d43b90285a8f5b35faf2c",
+  "log_sha256": "3a59ad187da53e8ea6d9551594b5f7e5663d711b6e0259ecf337f4adb907460d",
+  "completed_at_utc": "2026-09-27T04:02:03.312180+00:00"
+}

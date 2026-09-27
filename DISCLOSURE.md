@@ -40,6 +40,14 @@ the report records the export and verifier hashes. This checks the selected
 export, not every later supporting module, and is not a new Linux preflight
 or editorial acceptance. No GitHub Actions run was used for this check.
 
+A [local NanoDa run](verification/local-nanoda-da3a127.json), with its
+[complete log](verification/local-nanoda-da3a127.log), checked 61,851 declarations
+with no typechecker errors in 2,931.8 seconds. It reported one non-fatal
+pretty-printer error, "Unable to print axioms"; rejection of unpermitted axioms
+was enabled. The same selected export is byte-identical at `3b0e451`.
+Its report preserves the configuration, verifier and export hashes. This was
+also a local check, with the same scope and publication limits as above.
+
 The effective global off-critical theorem, uniform containing-plane height,
 and all-tuples dimension-dependent denominator bound are proved under explicit
 Lonely Runner hypotheses for two lower numbers of speeds. The hypotheses are
