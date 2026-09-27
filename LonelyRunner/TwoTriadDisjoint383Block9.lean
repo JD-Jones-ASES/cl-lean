@@ -1,0 +1,11 @@
+import LonelyRunner.TwoTriadDisjoint383Block8
+
+-- Generated untrusted data. Every claimed fact is checked by the ordinary Lean kernel.
+set_option maxHeartbeats 0
+set_option maxRecDepth 1000000
+namespace LonelyRunner.TwoTriadCoverSearch.Disjoint383
+
+theorem block9_ok : groupedDisjointBlockCheck 383 good fixed groups [43,52,53,54]=true := by
+  decide +kernel
+
+end LonelyRunner.TwoTriadCoverSearch.Disjoint383

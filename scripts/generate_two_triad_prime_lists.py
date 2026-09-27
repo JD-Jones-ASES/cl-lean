@@ -1,7 +1,8 @@
 """Emit explicit parent-prime obligations from native candidate selection.
 
 The selected covers remain hypotheses except for separately proved
-certificates listed by the two certificate generators. Lean checks all prime, cardinality and subset facts itself.
+certificates listed by the two certificate generators. Lean checks all prime,
+cardinality and subset facts itself.
 """
 from argparse import ArgumentParser
 from pathlib import Path
@@ -138,10 +139,10 @@ end LonelyRunner
     assembly = assembly.removesuffix('end LonelyRunner\n')
     for k,ps in enumerate(certified):
         family = 'Disjoint' if k == 0 else 'Overlap'
-        p = max(ps)
-        if p <= 347:
-            continue
-        assembly += f'''/-- The largest supplied {family.lower()}-parent prime gives an unconditional
+        for p in ps:
+            if p <= 347:
+                continue
+            assembly += f'''/-- A supplied {family.lower()}-parent prime gives an unconditional
 finite norm application. No modular cover is an input. -/
 theorem {family.lower()}{p}_has_third_relation (x : Fin 4 → ℤ)
     (hbound : 3*(∑ i, (twoTriadTuple {k} x i)^2)<({p}:ℤ)^2)

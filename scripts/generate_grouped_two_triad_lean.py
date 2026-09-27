@@ -14,7 +14,7 @@ from generate_one_triad_lean import chunked_table, HEADER
 from generate_two_triad_lean import minimum_disjoint_ratios
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = ((0,353), (1,353), (0,359), (1,383))
+CASES = ((0, 353), (1, 353), (0, 359), (1, 383), (0, 367), (0, 379), (0, 383), (0, 389), (1, 389), (1, 401), (1, 431), (1, 433))
 
 
 def root_data(k, p):

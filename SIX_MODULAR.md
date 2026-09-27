@@ -569,10 +569,11 @@ norm cutoff. These remaining covers are explicit hypotheses.
 search: 133 primes from 251 through 1237 for the disjoint parent, and 129
 from 263 through 1301 for the one-overlap parent. Lean checks their
 cardinality, primality, lower bound, and the remaining-set arithmetic.
-There are now **seven disjoint certificates** at 251, 257, 277, 311, 347,
-353, 359, and **five one-overlap certificates** at 263, 307, 347, 353, 383.
-`TwoTriadCandidatePrimes.lean` inserts all twelve, leaving exactly **126
-and 124 covers** as explicit hypotheses. The native record's 335 checks
+There are now **eleven disjoint certificates** at 251, 257, 277, 311, 347,
+353, 359, 367, 379, 383, 389, and **nine one-overlap certificates** at 263,
+307, 347, 353, 383, 389, 401, 431, 433. `TwoTriadCandidatePrimes.lean`
+inserts all twenty, leaving exactly **122 and 120 covers** as explicit
+hypotheses. The native record's 335 checks
 only select candidates; they do not discharge any of these hypotheses.
 
 ### Symmetries and grouped root masks
@@ -595,8 +596,8 @@ form may exclude a whole row only after its congruence is checked.
 
 `TwoTriadGroupedDisjointSearch.lean` and
 `TwoTriadGroupedOverlapSearch.lean` connect these masks to the full parent
-cover. The new certificates at disjoint 353/359 and overlap 353/383 use
-this format. The generator emits 89 new source modules; every time mask,
+cover. Twelve certificates in the lists above use this format. The grouped
+generator emits 284 source modules; every time mask,
 root identity, catalogue membership, cached mask, representative list,
 and finite block is checked by the ordinary kernel. No certificate assumes
 its native candidate search succeeded. Heavy arithmetic modules compile
@@ -615,9 +616,12 @@ module also proves a real-time lower witness of `1/5` at time `9/20`
 for that tuple, above the near-tight threshold.
 
 The largest supplied primes give unconditional additional integer
-relations for `L≤1/6` and `3*sum(v_i^2)<359^2` (disjoint) or `<383^2`
+relations for `L≤1/6` and `3*sum(v_i^2)<389^2` (disjoint) or `<433^2`
 (one overlap). These finite norm applications are not the complete parent
-classification.
+classification. The [three-triad structural theorem](THREE_TRIADS.md) now
+turns every extra independent row into a signed presentation by one of six
+integer families. Its coverage and integer parameter recovery are proved
+without a speed bound. Classification within these families is still needed.
 
 ```bash
 python3 -O scripts/generate_two_triad_lean.py --check
@@ -628,7 +632,7 @@ lake build LonelyRunner.TwoTriadCandidatePrimes LonelyRunner.TwoTriadGroupedCont
 ```
 
 The committed [native search proposals](certificates/two-triad-parents/README.md)
-remain feasibility records; the twelve covers above have separate kernel
+remain feasibility records; the twenty covers above have separate kernel
 certificates. For the two-overlap parent,
 searches at 1009, 1013, and 1019 succeed outside six proposed rational ratio
 orbits; these searches remain unformalized and do not give an integer

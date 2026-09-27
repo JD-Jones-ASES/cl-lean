@@ -719,14 +719,21 @@ The unrestricted bound still requires additional work:
    An alternative modular route is now formalized for the first two parents:
    removing common factors leaves 66 and 64 primitive projected forms,
    making 133 and 129 prime covers sufficient, respectively, at the proved
-   norm cutoff. Seven disjoint-parent covers (251, 257, 277, 311, 347, 353,
-   359) and five one-overlap covers (263, 307, 347, 353, 383) are now
-   kernel-checked, leaving 126 and 124 fixed-prime cover hypotheses. Proved
-   symmetries and grouped root masks reduce the certificate work. The
-   supplied certificates force a new integer relation when respectively
-   $3\sum_i v_i^2<359^2$ or $<383^2$ and $L(v)\le1/6$. A
-   kernel-checked sporadic obstruction shows why the third parent needs
-   exceptions.
+   norm cutoff. Eleven disjoint-parent covers through 389 and nine
+   one-overlap covers through 433 are now kernel-checked, leaving 122 and
+   120 fixed-prime cover hypotheses. Proved symmetries and grouped root
+   masks reduce the certificate work. The supplied certificates force a
+   new integer relation when respectively $3\sum_i v_i^2<389^2$ or
+   $<433^2$ and $L(v)\le1/6$. A kernel-checked sporadic obstruction shows
+   why the third parent needs exceptions.
+   The [three-triad structural theorem](THREE_TRIADS.md) now proves that
+   every proper integer sextuple with three independent short relations
+   lies in a signed permutation of six integer three-parameter families,
+   with unchanged loneliness. The 348 normalized third-row cases and
+   their transport identities are kernel-checked. The integer parameters
+   recover every solution and have exactly the same gcd as the speeds.
+   This supplies global structural coverage; classification of near-tight
+   parameters in these six families remains unfinished.
 3. Connect the resulting exhaustive critical-or-sporadic classification to
    the critical-family bounds above and the existing nine exact values.
 
