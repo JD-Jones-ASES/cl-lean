@@ -42,3 +42,5 @@ import LonelyRunner.SixBasisBounds
 import LonelyRunner.BasisPotential
 import LonelyRunner.MinimumBasis
 import LonelyRunner.SixSharpBounds
+import LonelyRunner.SixPrimeReduction
+import LonelyRunner.SixModularControls

@@ -45,6 +45,10 @@ The development proves the following results.
   The proof constructs a reduced projected integer basis, proves all four
   Gram–Schmidt prefix bounds, and checks an exact 85-term product certificate.
   Neither reduced-basis existence nor the scalar estimate is assumed.
+  The [six-speed modular reduction](SIX_MODULAR.md) now connects this bound
+  to a specific 233-prime cover obligation, with normalization, sorting,
+  sign invariance, and integer lifting proved. The covers themselves and
+  the classification of tuples with triads remain unformalized.
 - **The three critical families.** For primitive nonzero integer speeds in
   any signed coordinate permutation of
   $(A,2A,3A,4A,5A,B)$, $(A,3A,4A,5A,9A,B)$, or
