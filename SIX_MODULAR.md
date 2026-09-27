@@ -107,6 +107,9 @@ is one exactly when that candidate is bad at that time. Adding the rows for
 the remaining times computes all candidate counts together. Digit extraction
 is proved to give the reference bit count when `w < 2^slot`, which prevents
 carries. The generated rows are checked independently of the generator.
+`FastPackedRows.lean` supplies an equivalent row checker whose encoder advances
+an explicit index through a fixed lookup function, avoiding a chain of shifted
+functions. Its equivalence proof preserves the same row-check proposition.
 
 `PackedModularSearch.lean` proves that these counts give exactly the same
 search result as the reference implementation for any supplied pivot. It
