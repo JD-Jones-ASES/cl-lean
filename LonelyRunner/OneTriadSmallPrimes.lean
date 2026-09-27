@@ -54,15 +54,15 @@ theorem certifiedOneTriadPrimes_subset_small :
     certifiedOneTriadPrimes ⊆ smallOneTriadPrimes := by
   decide +kernel
 
-/-- These covers remain assumptions, unlike the thirty-two supplied covers. -/
+/-- These covers remain assumptions, unlike the forty supplied covers. -/
 def remainingSmallOneTriadPrimes : Finset ℕ :=
   smallOneTriadPrimes \ certifiedOneTriadPrimes
 
-theorem remainingSmallOneTriadPrimes_card : remainingSmallOneTriadPrimes.card=199 := by
+theorem remainingSmallOneTriadPrimes_card : remainingSmallOneTriadPrimes.card=191 := by
   decide +kernel
 
 /-- The finite cover obligation for a second independent integer relation
-now has a fixed prime set. All 199 remaining covers are still hypotheses;
+now has a fixed prime set. All 191 remaining covers are still hypotheses;
 the multiple-triad classification and Question 6.6 are not asserted here. -/
 theorem question66_violation_has_independent_relations_of_remaining_oneTriad_covers
     (hcover : ∀ p∈remainingSmallOneTriadPrimes, OneTriadModularCover p)

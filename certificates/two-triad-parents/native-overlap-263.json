@@ -1,0 +1,18 @@
+{
+  "scope": "Native finite-field feasibility evidence only; not a Lean proof",
+  "ratio_exception_seeds": [],
+  "records": [
+    {
+      "p": 263,
+      "parent": 1,
+      "nonzero_projected_forms": 69,
+      "survivors": 0,
+      "outside_known_sporadic": 0,
+      "outside_classes": 0,
+      "surviving_ratios": [],
+      "class_representatives": [],
+      "examples": [],
+      "omitted_ratios": []
+    }
+  ]
+}

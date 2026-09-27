@@ -1,0 +1,142 @@
+{
+  "scope": "Native finite-field feasibility evidence only; not a Lean proof",
+  "ratio_exception_seeds": [
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      1,
+      10
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      2,
+      9
+    ]
+  ],
+  "records": [
+    {
+      "p": 1009,
+      "parent": 2,
+      "nonzero_projected_forms": 74,
+      "survivors": 0,
+      "outside_known_sporadic": 0,
+      "outside_classes": 0,
+      "surviving_ratios": [],
+      "class_representatives": [],
+      "examples": [],
+      "omitted_ratios": [
+        3,
+        4,
+        7,
+        10,
+        101,
+        144,
+        224,
+        252,
+        336,
+        338,
+        403,
+        500,
+        509,
+        606,
+        671,
+        673,
+        757,
+        785,
+        865,
+        908,
+        999,
+        1002,
+        1005,
+        1006
+      ]
+    },
+    {
+      "p": 1013,
+      "parent": 2,
+      "nonzero_projected_forms": 74,
+      "survivors": 0,
+      "outside_known_sporadic": 0,
+      "outside_classes": 0,
+      "surviving_ratios": [],
+      "class_representatives": [],
+      "examples": [],
+      "omitted_ratios": [
+        3,
+        4,
+        7,
+        10,
+        202,
+        253,
+        304,
+        336,
+        338,
+        434,
+        450,
+        502,
+        511,
+        563,
+        579,
+        675,
+        677,
+        709,
+        760,
+        811,
+        1003,
+        1006,
+        1009,
+        1010
+      ]
+    },
+    {
+      "p": 1019,
+      "parent": 2,
+      "nonzero_projected_forms": 74,
+      "survivors": 0,
+      "outside_known_sporadic": 0,
+      "outside_classes": 0,
+      "surviving_ratios": [],
+      "class_representatives": [],
+      "examples": [],
+      "omitted_ratios": [
+        3,
+        4,
+        7,
+        10,
+        102,
+        113,
+        255,
+        291,
+        338,
+        340,
+        407,
+        505,
+        514,
+        612,
+        679,
+        681,
+        728,
+        764,
+        906,
+        917,
+        1009,
+        1012,
+        1015,
+        1016
+      ]
+    }
+  ]
+}

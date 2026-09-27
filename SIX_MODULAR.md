@@ -3,9 +3,9 @@
 The unrestricted Question 6.6 theorem remains unfinished. This development
 proves the normalization and integer lifting needed to use finite six-speed
 modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223,
-227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, and 313** in the
+227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, and 331** in the
 ordinary Lean kernel.
-The other 210 selected covers and the sharp bound for tuples with triads
+The other 208 selected covers and the sharp bound for tuples with triads
 remain unproved in Lean. These are internal development results, not new
 selected Palomar claims.
 
@@ -62,7 +62,7 @@ successive lowest set bits and stopping size checks early gives exactly the
 same Boolean result as the reference search. Neither optimization introduces
 an assumption or uses native evaluation as proof.
 
-The twenty-three aggregate modules prove `SixModularCover p` for these primes:
+The twenty-five aggregate modules prove `SixModularCover p` for these primes:
 
 | Prime | Normalized cases | Stored pair masks |
 |---|---:|---|
@@ -89,6 +89,8 @@ The twenty-three aggregate modules prove `SixModularCover p` for these primes:
 | 307 | 76 | Two initial rows |
 | 311 | 77 | Two initial rows |
 | 313 | 78 | Two initial rows |
+| 317 | 79 | Two initial rows |
+| 331 | 82 | Two initial rows |
 
 The generator emits untrusted tables; generation alone does not prove anything.
 Root modules form a sequential import chain within and across primes so that
@@ -219,7 +221,7 @@ finite norm range, not the global triad theorem required below.
 
 ## Shared tables and cached six-speed roots
 
-At primes 293, 307, 311, and 313, the triad-free certificates reuse the already-checked
+At primes 293, 307, 311, 313, 317, and 331, the triad-free certificates reuse the already-checked
 one-triad arithmetic tables, matrices, and compression programs. The reused
 objects describe modular arithmetic alone; their proofs assume no triad.
 The six-speed inverse and pair checks remain separate.
@@ -264,13 +266,13 @@ The norm hypothesis is discharged by the sharp norm theorem for off-critical
 tuples, or by the proved norm bound on any potential violation of Question
 6.6. The theorem `question66_of_sorted_covers_and_triad_bound` states precisely
 the two remaining obligations: certify all 233 sorted covers, and prove the
-sharp denominator bound for tuples possessing an additive triad. Twenty-three
+sharp denominator bound for tuples possessing an additive triad. Twenty-five
 covers are now supplied; the remaining covers and the triad bound remain
 explicit hypotheses. The latter includes the one-triad exclusion and the
 multiple-triad classification; it is not a finite-prime counting corollary.
 
 `SixCertifiedCovers.lean` assembles the proved covers and verifies that the
-remaining subset of `sixTriadPrimes` has 210 members. Its theorem
+remaining subset of `sixTriadPrimes` has 208 members. Its theorem
 `question66_of_remaining_covers_and_triad_bound` inserts the certificates
 into the global reduction, leaving exactly that remaining cover set and the
 triad bound as hypotheses. It does not assert the full Question 6.6 theorem.
@@ -372,7 +374,7 @@ This route avoids assuming the earlier Fourier rank classification. All
 116 original larger-prime covers and the subsequent multiple-triad classification
 remain unproved. It adds no selected Palomar claim.
 
-`OneTriadCapacityReduction.lean` also proves a route using smaller primes.
+`OneTriadCapacityReduction.lean` gives an earlier route using smaller primes.
 The sharp norm bound makes every short-form value smaller than `179³`.
 After removing the prescribed relation, the other 115 nonzero values can
 each contain at most two distinct prime divisors at least 179. Therefore
@@ -380,33 +382,51 @@ each contain at most two distinct prime divisors at least 179. Therefore
 force a second independent integer relation. The theorem accepts an explicit
 prime set and a cover at every member.
 It does not claim that all primes above 179 work, and the multiple-triad
-classification remains a separate obligation. This alternative may reduce
-verification cost without changing the global Question 6.6 target.
+classification remains a separate obligation. The projected-form reduction below now lowers this requirement from 231
+to 189 without changing the kind of cover certificate.
 
 ### Complete smaller-prime covers
 
 Lean now proves `OneTriadModularCover p` at **223, 227, 233, 239, 251,
-269, 277, 281, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, and 443**. These certificates
+269, 277, 281, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, and 491**. These certificates
 check all proper minimum ratios,
 all three remaining coordinates, the arithmetic tables and their symmetry,
-and the complete assembly. The thirty-two covers contain **1,804** roots in total.
+and the complete assembly. The forty covers contain **2,425** roots in total.
 Each prime's remaining-ratio set is proved empty.
 The generator bundles eight roots per module and serializes the heavy
 root modules across primes to bound concurrent compiler memory use. The
 existing partial certificate at 2333 is unchanged.
 
-`OneTriadCertifiedCovers.lean` assembles the thirty-two covers, checks the
+`OneTriadCertifiedCovers.lean` assembles the forty covers, checks the
 cardinality, primality, and lower bound of this certified set, and inserts
 them into the smaller-prime reduction. Its remaining covers are explicit
-hypotheses. Thirty-two covers alone do not supply the required set of 231.
+hypotheses. The improved assembly below reuses the same forty certificates.
 
-`OneTriadSmallPrimes.lean` fixes **231 distinct primes from 223 through
+`OneTriadSmallPrimes.lean` retains the earlier **231 distinct primes from 223 through
 1867**, selected by a complete native feasibility search. Lean independently
 checks the list's cardinality, primality, lower bound, and inclusion of the
-thirty-two certified primes. It proves that **199** cover obligations remain
-and inserts the certified subset into the second-relation reduction. The
+forty certified primes. It proves that **191** cover obligations remain in that earlier route
+and inserts the certified subset into its second-relation reduction. The
 native search is a candidate-selection tool; it does not discharge any of
-those 199 Lean cover hypotheses.
+those 191 Lean cover hypotheses.
+
+`OneTriadForms.lean` makes a further exact reduction. Once the known
+triad is normalized, the tuple has the form `(A,B,-A-B,C,D,E)`. Restricting
+all short forms to these five integer parameters, removing the zero
+restriction, and identifying opposite signs leaves **94** distinct forms.
+Lean proves this count, their value bounds, and that every existing
+`OneTriadModularCover` supplies divisibility of one of these forms. Thus
+**189 covers** suffice at the proved norm cutoff, since `2*94<189`.
+
+`OneTriadProjectedReduction.lean` transports that argument back to arbitrary
+integer speeds. It preserves the actual norm, loneliness, and uniqueness
+of the original short relation under signed permutation. This proves the
+stronger global second-relation implication with the same cover type.
+`OneTriadReducedPrimes.lean` chooses the first **189** primes of the earlier
+list, from **223 through 1543**, checks inclusion of all forty certified
+primes, and proves that **149** cover hypotheses remain. This removes 42
+prime obligations from the active route; it does not treat any unchecked
+cover as proved. The older 231-prime assembly remains available.
 
 `OneTriadApplications.lean` supplies a concrete integer consequence with
 no assumed modular cover. Any integer six-tuple with `L≤1/6` and a prescribed
@@ -418,7 +438,7 @@ Replay the complete covers and their integer application locally with:
 
 ```bash
 python3 -O scripts/generate_one_triad_lean.py --check
-lake build LonelyRunner.OneTriadSmallPrimes LonelyRunner.OneTriadApplications
+lake build LonelyRunner.OneTriadReducedPrimes LonelyRunner.OneTriadApplications
 ```
 
 The remaining modular certificates and the multiple-triad classification
@@ -466,10 +486,41 @@ are integers without any assumed divisibility or saturation condition.
 
 `TwoTriadPrimeReduction.lean` connects this classification to the fixed
 remaining-cover theorem. A positive distinct counterexample to `3q` with a
-triad, **assuming all 199 remaining one-triad covers**, yields two independent
+triad, **assuming all 149 remaining one-triad covers**, yields two independent
 triad rows and their normalization to these three parents. The much larger
 Fourier and finite-direction classification inside the parents is not yet
 formalized. This parent theorem does not prove Question 6.6.
+
+## Projected forms and the next modular obligations
+
+`TwoTriadForms.lean` restricts the 116 canonical short forms to the four
+parameters of each parent. After removing zero restrictions and identifying
+opposite signs, Lean checks that there are exactly **72, 69, and 74**
+distinct forms. A nonzero projected row is proved to lie outside the
+rational span of the two parent rows. The original Cauchy--Schwarz bound
+still applies to each value, and a proved prime-capacity theorem forces an
+additional integer short relation from sufficiently many modular covers.
+
+`TwoTriadModularReduction.lean` defines the finite cover obligation and
+proves its integer lift. For the first two parents, the existing sharp
+norm cutoff makes **145 and 139** supplied covers at distinct primes at
+least 179 sufficient, respectively. These covers are still hypotheses;
+none is asserted by the definition or the capacity theorem.
+`TwoTriadModularNormalization.lean` proves reduction to the three free
+field parameters `(1,r,x,y)`, including the zero-first-coordinate case.
+
+`TwoTriadModularControls.lean` proves that the two-overlap parent needs
+exceptions: `(1,4,-5,3,18,46)` has loneliness `4/25`, but none of its 74
+nonzero projected forms vanishes modulo 223. Thus the corresponding
+exception-free modular cover at 223 is false.
+
+The committed [native search proposals](certificates/two-triad-parents/README.md)
+find candidate covers at 251 for the disjoint parent and 263 for the
+one-overlap parent. For the two-overlap parent, searches at 1009, 1013,
+and 1019 succeed outside six proposed rational ratio orbits. These are
+feasibility results, not kernel certificates or an integer classification.
+The next step on this route is a proved finite checker with actual covers;
+the global Question 6.6 remains unfinished.
 
 ## Negative controls
 

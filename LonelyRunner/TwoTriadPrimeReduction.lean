@@ -1,5 +1,5 @@
 import LonelyRunner.TwoTriadNormalization
-import LonelyRunner.OneTriadSmallPrimes
+import LonelyRunner.OneTriadReducedPrimes
 
 namespace LonelyRunner
 
@@ -45,7 +45,7 @@ distinct counterexample to `3q` that has a triad yields two independent
 triad rows and their three-parent normalization. The later exclusion inside
 these parents is still a separate obligation. -/
 theorem question66_violation_has_two_triad_parent_of_remaining_covers
-    (hcover : ∀ p∈remainingSmallOneTriadPrimes, OneTriadModularCover p)
+    (hcover : ∀ p∈remainingReducedOneTriadPrimes, OneTriadModularCover p)
     (v : Fin 6 → ℤ) (hv : ∀ i, 0<v i) (hinj : Function.Injective v)
     (hprim : PrimitiveSpeeds v) (htriad : HasTriad v)
     (a q : ℕ) (hq : 0<q)
@@ -61,7 +61,7 @@ theorem question66_violation_has_two_triad_parent_of_remaining_covers
         (signedCoeffs s (fun i => shortCoeff c (e i))=twoTriadParent k ∨
           signedCoeffs s (fun i => shortCoeff c (e i))= -twoTriadParent k) := by
   obtain ⟨c₀,hc₀,c,hc,hli,hz₀,hz⟩ :=
-    question66_violation_has_independent_relations_of_remaining_oneTriad_covers
+    question66_violation_has_independent_relations_of_remaining_reduced_oneTriad_covers
       hcover v hv hprim htriad a q hq hval hnear hbad
   refine ⟨c₀,hc₀,c,hc,hli,hz₀,hz,?_⟩
   apply independent_short_relations_parent v (fun i => (hv i).ne') _ c₀ c hc₀ hc hli hz₀ hz

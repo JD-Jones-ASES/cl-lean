@@ -114,9 +114,9 @@ that cutoff remains unverified; this does not complete the exhaustive
 six-speed classification.
 No new editorial approval or resubmission is claimed.
 
-The continuing six-speed work supplies 23 complete triad-free modular covers
-and 32 complete one-triad covers in the ordinary Lean kernel. Their fixed
-prime sets still have 210 and 199 cover obligations, respectively. The
+The continuing six-speed work supplies 25 complete triad-free modular covers
+and 40 complete one-triad covers in the ordinary Lean kernel. Their fixed
+prime sets still have 208 and 149 cover obligations, respectively. The
 two-triad support-intersection classification from the Lab's RT-015 proof is
 now formalized: arbitrary independent triad rows on a proper integer tuple
 normalize to three parent pairs. The parent kernels have explicit integer
@@ -125,6 +125,16 @@ coverage, all signed permutations, and the normalization are proved locally;
 the subsequent Fourier and finite-direction classification inside the
 parents is not yet formalized. These supporting additions do not change the
 67 selected claims or assert full Question 6.6.
+
+The 94 projected one-triad forms lower its cover requirement to 189; all
+forty supplied covers are reused. The projected two-triad form counts,
+their prime-capacity reduction, and the
+three-parameter modular normalization are now proved too. Native searches
+propose covers for the first two parents and a ratio exception set for the
+third; none of that search output is a Lean certificate. A separate kernel
+proof uses the known `4/25` sporadic to refute the third parent's cover at
+223 when no exceptions are permitted. The precise hypotheses and candidate
+search records are described in [the modular development](SIX_MODULAR.md).
 
 Exploratory exact arithmetic and numerical linear programming helped identify
 the six good points and eighteen directions. Every point, endpoint, residue

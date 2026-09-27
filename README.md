@@ -49,9 +49,9 @@ The development proves the following results.
   to a specific 233-prime cover obligation, with normalization, sorting,
   sign invariance, and integer lifting proved. A proved recursive checker
   certifies covers at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241,
-  251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, and 313 in the Lean kernel.
-  There are 210 covers left in this set. A separate one-triad reduction has
-  32 complete covers and 199 left. Two independent triad relations are now
+  251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, and 331 in the Lean kernel.
+  There are 208 covers left in this set. A separate one-triad reduction has
+  40 complete covers and 149 left. Two independent triad relations are now
   proved to reduce to three parent configurations; the subsequent classification
   inside those parents remains unformalized.
 - **The three critical families.** For primitive nonzero integer speeds in
@@ -166,9 +166,9 @@ For six speeds, the selected off-critical cutoff is now $21870175/7$.
 It is larger than the research cutoff $1{,}803{,}850$ but small enough for a
 233-prime obstruction using primes at least 179. The six-speed modular covers
 at 179, 191, 193, 197, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269,
-271, 277, 281, 283, 293, 307, 311, and 313 are proved in Lean; the other 210 covers
+271, 277, 281, 283, 293, 307, 311, 313, 317, and 331 are proved in Lean; the other 208 covers
 and the remaining finite classifications are not yet proved. The one-triad
-route has 32 of its 231 covers, with the reduction of two independent triads
+route has 40 of its 189 covers, with the reduction of two independent triads
 to three parent configurations now proved.
 The general box constant $K(6)=37{,}791{,}360{,}000$ remains available, along
 with the coarse all-tuples denominator bound.

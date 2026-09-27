@@ -69,3 +69,5 @@ import LonelyRunner.OneTriadCertifiedCovers
 import LonelyRunner.OneTriadSmallPrimes
 import LonelyRunner.TwoTriadPrimeReduction
 import LonelyRunner.TwoTriadParametrization
+import LonelyRunner.TwoTriadModularControls
+import LonelyRunner.TwoTriadModularNormalization
