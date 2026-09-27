@@ -732,8 +732,12 @@ The unrestricted bound still requires additional work:
    with unchanged loneliness. The 348 normalized third-row cases and
    their transport identities are kernel-checked. The integer parameters
    recover every solution and have exactly the same gcd as the speeds.
-   This supplies global structural coverage; classification of near-tight
-   parameters in these six families remains unfinished.
+   This supplies global structural coverage. The sharp bound is now proved
+   for the entire model-3 family $(A,A-B,A-C,B,C,-B-C)$, with no speed cutoff.
+   Its [complete proof](MODEL3.md) uses 75 actual modular covers, exhaustive
+   integer kernels for 37 parameter planes, and exact geometric and finite
+   checks on every plane, then joins the global large-speed theorem. The
+   other five families and the exceptional rank-two parent remain unfinished.
 3. Connect the resulting exhaustive critical-or-sporadic classification to
    the critical-family bounds above and the existing nine exact values.
 

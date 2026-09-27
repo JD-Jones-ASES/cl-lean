@@ -79,3 +79,5 @@ import LonelyRunner.TwoTriadGroupedControls
 import LonelyRunner.TwoTriadCandidatePrimes
 import LonelyRunner.ThreeTriadControls
 import LonelyRunner.ThreeTriadApplications
+import LonelyRunner.ThreeTriadModel3Controls
+import LonelyRunner.ThreeTriadModel3Applications

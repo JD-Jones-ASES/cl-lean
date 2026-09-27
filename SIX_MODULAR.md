@@ -5,9 +5,10 @@ proves the normalization and integer lifting needed to use finite six-speed
 modular covers, and proves the selected covers at **179, 191, 193, 197, 211, 223,
 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, and 331** in the
 ordinary Lean kernel.
-The other 208 selected covers and the sharp bound for tuples with triads
-remain unproved in Lean. These are internal development results, not new
-selected Palomar claims.
+The other 208 selected covers and the sharp bound for arbitrary tuples with
+triads remain unproved in Lean. The sharp bound is now proved for the entire
+[model-3 three-parameter family](MODEL3.md), using 75 separate plane covers.
+These are internal development results, not new selected Palomar claims.
 
 For a tuple over `ZMod p`, `HasShortRelation` means that one of the 116
 canonical signed forms on one, two, or three distinct coordinates vanishes.
@@ -621,7 +622,9 @@ relations for `L≤1/6` and `3*sum(v_i^2)<389^2` (disjoint) or `<433^2`
 classification. The [three-triad structural theorem](THREE_TRIADS.md) now
 turns every extra independent row into a signed presentation by one of six
 integer families. Its coverage and integer parameter recovery are proved
-without a speed bound. Classification within these families is still needed.
+without a speed bound. The [model-3 application](MODEL3.md) now proves the
+sharp denominator bound throughout one of these six families. The other
+five families and the exceptional rank-two parent remain unfinished.
 
 ```bash
 python3 -O scripts/generate_two_triad_lean.py --check

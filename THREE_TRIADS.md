@@ -27,9 +27,10 @@ The six parent representatives come from the Lab's RT-015 three-triad
 classification (`probes/P0181_lonely_runner_effective/THREE_TRIADS.md`).
 This formal reduction supplies their coverage directly. It does not import
 the Lab's Fourier census or its later near-tight classification as proof.
-The new theorem leaves classification of the near-tight parameter values
-inside these six families unfinished. The unrestricted Question 6.6 remains
-unfinished too.
+Question 6.6 is now proved for the entire unbounded **model 3** family;
+see [its complete modular and geometric proof](MODEL3.md). The other five
+families and the exceptional rank-two parent still need treatment. The
+unrestricted Question 6.6 remains unfinished.
 
 ## Checked finite coverage
 
@@ -95,8 +96,9 @@ There is also a direct finite-norm application with no modular-cover input:
 the one-overlap parent, force a six-family presentation. The eight new
 ordinary-kernel covers supporting the updated assembly are disjoint
 **367,379,383,389** and one-overlap **389,401,431,433**. These join the twelve
-earlier covers; the remaining covers and subsequent classification are
-still explicit unfinished work.
+earlier covers. The remaining parent covers are still explicit unfinished
+work; the model-3 theorem discharges the sharp bound for one of the six
+possible resulting presentations.
 
 Replay locally:
 
